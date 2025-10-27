@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Install Ubuntu GNOME from Scratch using debootstrap - ywdh&#39;s Blog</title><meta name="Description" content="Step by step installation Ubuntu GNOME DE from scratch using debootstrap."><meta property="og:url" content="https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/">
+  <meta property="og:site_name" content="ywdh&#39;s Blog">
+  <meta property="og:title" content="Install Ubuntu GNOME from Scratch using debootstrap">
+  <meta property="og:description" content="Step by step installation Ubuntu GNOME DE from scratch using debootstrap.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-06-26T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-06-26T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Ubuntu">
+    <meta property="article:tag" content="Gnome">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Install Ubuntu GNOME from Scratch using debootstrap">
+  <meta name="twitter:description" content="Step by step installation Ubuntu GNOME DE from scratch using debootstrap.">
+<meta name="application-name" content="ywdh&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="ywdh&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/" /><link rel="prev" href="https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Install Ubuntu GNOME from Scratch using debootstrap",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2025\/06\/install-ubuntu-gnome-from-scratch-using-debootstrap\/"
+        },"genre": "posts","keywords": "linux, ubuntu, gnome","wordcount":  1771 ,
+        "url": "https:\/\/whyuhurtz.me\/2025\/06\/install-ubuntu-gnome-from-scratch-using-debootstrap\/","datePublished": "2025-06-26T00:00:00+00:00","dateModified": "2025-06-26T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "Step by step installation Ubuntu GNOME DE from scratch using debootstrap."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="ywdh&#39;s Blog">ywdh&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search posts..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="ywdh&#39;s Blog">ywdh&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search posts..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Install Ubuntu GNOME from Scratch using debootstrap</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-06-26">2025-06-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1771 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pre-installation">Pre-installation</a></li>
+    <li><a href="#install-required-tools">Install Required Tools</a></li>
+    <li><a href="#console-display">Console Display</a></li>
+    <li><a href="#system-clocks">System Clocks</a></li>
+    <li><a href="#partitioning">Partitioning</a></li>
+    <li><a href="#encrypt-partitions-with-luks2">Encrypt Partitions with LUKS2</a></li>
+    <li><a href="#formatting-partition">Formatting Partition</a></li>
+    <li><a href="#create-btrfs-subvolumes">Create BTRFS Subvolumes</a></li>
+    <li><a href="#mount-boot-partition-and-btrfs-subvolumes">Mount Boot Partition and BTRFS Subvolumes</a></li>
+    <li><a href="#prepare-chroot-environment">Prepare Chroot Environment</a></li>
+    <li><a href="#generate-mounting-table">Generate Mounting Table</a></li>
+    <li><a href="#chroot-into-mounted-file-system">Chroot into Mounted File System</a></li>
+    <li><a href="#install-tools--softwares">Install Tools &amp; Software&rsquo;s</a></li>
+    <li><a href="#configure-time-zone-locales-and-console-display">Configure Time Zone, Locales, and Console Display</a></li>
+    <li><a href="#setting-hostname-and-hosts-file">Setting Hostname and Hosts File</a></li>
+    <li><a href="#create-new-user">Create New User</a></li>
+    <li><a href="#network">Network</a></li>
+    <li><a href="#grub-boot-loader-config">GRUB Boot Loader Config</a></li>
+    <li><a href="#reboot-into-the-new-system">Reboot into The New System</a></li>
+    <li><a href="#configure-zram-swap">Configure ZRAM Swap</a></li>
+    <li><a href="#install-gnome-desktop-environment">Install GNOME Desktop Environment</a></li>
+    <li><a href="#start-some-services-and-reboot">Start Some Services and Reboot</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">Step by step installation Ubuntu GNOME DE from scratch using debootstrap.
+<h1 id="pre-installation">Pre-installation</h1>
+<ul>
+<li>Prepare the installation medium. I recommend that you download the Ubuntu Desktop ISO version, because it has Firefox installed by default, which you can use for copy and paste or browsing.</li>
+<li>Boot into Ubuntu and open a new Terminal.</li>
+<li>Plug the Ethernet (LAN) cable into your PC/Laptop and get a dynamic IP address (or you can use wireless either).</li>
+<li>After the LAN cable is plugged in, test if it&rsquo;s connected to the internet.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping ubuntu.com</span></span></code></pre></div></div>
+<h1 id="install-required-tools">Install Required Tools</h1>
+<ul>
+<li>Add Ubuntu <code>universe</code> APT repository.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i <span class="c1"># Change to root (super user).</span>
+</span></span><span class="line"><span class="cl">apt-add-repository universe
+</span></span><span class="line"><span class="cl"><span class="c1"># Then, press &lt;ENTER&gt; to continue.</span></span></span></code></pre></div></div>
+<ul>
+<li>Update the repository and install some required tools, such as <code>vim</code>, <code>debootstrap</code>, etc.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Update and install some required tools.</span>
+</span></span><span class="line"><span class="cl">sudo apt update <span class="o">&amp;&amp;</span> sudo apt install -y vim <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	debootstrap arch-install-scripts cryptsetup</span></span></code></pre></div></div>
+<h1 id="console-display">Console Display</h1>
+<ul>
+<li>Set console display to <strong>Terminus</strong> with <strong>16x32</strong> font size.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dpkg-reconfigure console-setup</span></span></code></pre></div></div>
+<h1 id="system-clocks">System Clocks</h1>
+<ul>
+<li>After connecting to the internet, you can update the system clock according to your location.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Set time zone according to your location</span>
+</span></span><span class="line"><span class="cl">timedatectl set-timezone Asia/Jakarta
+</span></span><span class="line"><span class="cl"><span class="c1"># or manually</span>
+</span></span><span class="line"><span class="cl">sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime</span></span></code></pre></div></div>
+<h1 id="partitioning">Partitioning</h1>
+<blockquote>
+<p><strong>Note</strong>: Here I&rsquo;ve 256GB SSD SATA storage for this demonstration.</p></blockquote>
+<ul>
+<li>If any partitioning is available before, just remove or clean all the partitions.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sfdisk --delete /dev/sda
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/zero <span class="nv">of</span><span class="o">=</span>/dev/sda <span class="nv">bs</span><span class="o">=</span><span class="m">512</span> <span class="nv">count</span><span class="o">=</span><span class="m">10000</span></span></span></code></pre></div></div>
+<ul>
+<li>Disable swap if any swap partition is enabled by default.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">swapoff -a</span></span></code></pre></div></div>
+<ul>
+<li>After the previous partitions are cleaned, the next step is to do partitioning manually from scratch.</li>
+<li>Here are the partition layouts/schemas that I want.</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>Partition Name</th>
+          <th>Size</th>
+          <th>Filesystem</th>
+          <th>Used for</th>
+          <th>BTRFS Subvolumes</th>
+          <th>Encrypted</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>/dev/sda1<br>/dev/sda2<br>/dev/sda3</td>
+          <td>+1024MiB<br>+100GiB<br>+137.5GiB</td>
+          <td>FAT32<br>BTRFS<br>BTRFS</td>
+          <td>/boot<br>/<br>/home<br></td>
+          <td>-<br>@<br>@home</td>
+          <td>no<br>luks2<br>luks2</td>
+      </tr>
+  </tbody>
+</table>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Enter the fdisk interactive mode</span>
+</span></span><span class="line"><span class="cl">fdisk /dev/sda
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Define the GPT partition label</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># or DOS if not supported</span>
+</span></span><span class="line"><span class="cl">g <span class="c1"># gpt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create first partition /dev/sda1 for EFI</span>
+</span></span><span class="line"><span class="cl">n       <span class="c1"># create new partition</span>
+</span></span><span class="line"><span class="cl">&lt;ENTER&gt; <span class="c1"># default selected partition</span>
+</span></span><span class="line"><span class="cl">&lt;ENTER&gt; <span class="c1"># default start sector</span>
+</span></span><span class="line"><span class="cl">+1G     <span class="c1"># allocate 1GiB for EFI system partition</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Change the first partition type</span>
+</span></span><span class="line"><span class="cl">t       <span class="c1"># change partition type</span>
+</span></span><span class="line"><span class="cl"><span class="m">1</span>       <span class="c1"># Select 1 as EFI system partition type</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create second partition /dev/sda2 for root</span>
+</span></span><span class="line"><span class="cl">n
+</span></span><span class="line"><span class="cl"><span class="m">2</span>       <span class="c1"># select id 2 for the second partition</span>
+</span></span><span class="line"><span class="cl">&lt;ENTER&gt; <span class="c1"># default start sector</span>
+</span></span><span class="line"><span class="cl">+100G   <span class="c1"># allocate 100GiB for root partition</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># By default, the partition type is &#39;Linux filesystem&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create third partition /dev/sda3 for home</span>
+</span></span><span class="line"><span class="cl">n
+</span></span><span class="line"><span class="cl"><span class="m">3</span>       <span class="c1"># select id 3 for the third partition</span>
+</span></span><span class="line"><span class="cl">&lt;ENTER&gt; <span class="c1"># default start sector</span>
+</span></span><span class="line"><span class="cl">&lt;ENTER&gt; <span class="c1"># allocate the rest of the available disk size</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Write the current partition layout and quit</span>
+</span></span><span class="line"><span class="cl">w</span></span></code></pre></div></div>
+<ul>
+<li>If you&rsquo;re dual-booting with another operating system like Windows or macOS, it&rsquo;s recommended that you <strong>disable the boot flag</strong> on that particular installation drive.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Disable boot flag on Windows</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Do this if you&#39;re in dual-boot mode</span>
+</span></span><span class="line"><span class="cl">parted /dev/nvme0n1
+</span></span><span class="line"><span class="cl">print
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="m">1</span> boot off
+</span></span><span class="line"><span class="cl">quit</span></span></code></pre></div></div>
+<ul>
+<li>Reload the system daemon to apply partitions.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">udevadm settle<span class="p">;</span> systemctl daemon-reload</span></span></code></pre></div></div>
+<ul>
+<li>Make sure all partitions are configured correctly.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsblk</span></span></code></pre></div></div>
+<h1 id="encrypt-partitions-with-luks2">Encrypt Partitions with LUKS2</h1>
+<ul>
+<li>Encrypt the root and home data partitions with LUKS.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup --type luks2 luksFormat /dev/sda2 <span class="c1"># root</span>
+</span></span><span class="line"><span class="cl">cryptsetup --type luks2 luksFormat /dev/sda3 <span class="c1"># home</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Make a memorable passphrase for both data partitions</span></span></span></code></pre></div></div>
+<ul>
+<li>Decrypt the data partitions to be able to create Btrfs subvolumes and mount the partitions.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksOpen /dev/sda2 crypt_system  <span class="c1"># root</span>
+</span></span><span class="line"><span class="cl">cryptsetup luksOpen /dev/sda3 crypt_home    <span class="c1"># home</span></span></span></code></pre></div></div>
+<ul>
+<li>
+<p>Now both data partitions are successfully encrypted with LUKS, which are located at <code>/dev/mapper/crypt_system</code> (<code>/dev/sda2</code>) and <code>/dev/mapper/crypt_home</code> (<code>/dev/sda3</code>).</p>
+</li>
+<li>
+<p>Next, generate a new <code>keyfile</code> to automatically unlock the home partition (<code>/dev/sda3</code>).</p>
+</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create a new keyfile for the home data partition</span>
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">of</span><span class="o">=</span>/root/keyfile <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">count</span><span class="o">=</span><span class="m">4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Make an appropriate permission for that keyfile</span>
+</span></span><span class="line"><span class="cl">chmod <span class="m">0400</span> /root/keyfile</span></span></code></pre></div></div>
+<ul>
+<li>Add the generated <code>keyfile</code> to the encrypted home partition.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksAddKey /dev/sda3 /root/keyfile</span></span></code></pre></div></div>
+<ul>
+<li>Verify the encrypted data partitions with <code>luksDump</code> options.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cryptsetup luksDump /dev/sda2
+</span></span><span class="line"><span class="cl">cryptsetup luksDump /dev/sda3</span></span></code></pre></div></div>
+<ul>
+<li>Configure the <code>/etc/crypttab</code> file to define which data partitions are encrypted with LUKS.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Define the encrypted root partition</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;crypt_system UUID=&#34;</span><span class="k">$(</span>cryptsetup luksDump /dev/sda2 <span class="p">|</span> grep UUID <span class="p">|</span> awk <span class="s1">&#39;/UUID/ { print $2 }&#39;</span><span class="k">)</span><span class="s2">&#34; none luks&#34;</span> &gt;&gt; /etc/crypttab
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Define the encrypted home partition</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;crypt_home UUID=&#34;</span><span class="k">$(</span>cryptsetup luksDump /dev/sda3 <span class="p">|</span> grep UUID <span class="p">|</span> awk <span class="s1">&#39;/UUID/ { print $2 }&#39;</span><span class="k">)</span><span class="s2">&#34; /root/keyfile luks&#34;</span> &gt;&gt; /etc/crypttab</span></span></code></pre></div></div>
+<h1 id="formatting-partition">Formatting Partition</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create boot filesystem</span>
+</span></span><span class="line"><span class="cl">mkfs.fat -F32 /dev/sda1
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create encrypted home and root filesystem</span>
+</span></span><span class="line"><span class="cl">mkfs.btrfs /dev/mapper/crypt_system <span class="c1"># /dev/sda2 or root</span>
+</span></span><span class="line"><span class="cl">mkfs.btrfs /dev/mapper/crypt_home   <span class="c1"># /dev/sda3 or home</span></span></span></code></pre></div></div>
+<h1 id="create-btrfs-subvolumes">Create BTRFS Subvolumes</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create a Btrfs subvolume for encrypted root partitions</span>
+</span></span><span class="line"><span class="cl">mount /dev/mapper/crypt_system /mnt
+</span></span><span class="line"><span class="cl">btrfs subvolume create /mnt/@
+</span></span><span class="line"><span class="cl">umount /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a Btrfs subvolume for the encrypted home partition</span>
+</span></span><span class="line"><span class="cl">mount /dev/mapper/crypt_home /mnt
+</span></span><span class="line"><span class="cl">btrfs subvolume create /mnt/@home
+</span></span><span class="line"><span class="cl">umount /mnt</span></span></code></pre></div></div>
+<h1 id="mount-boot-partition-and-btrfs-subvolumes">Mount Boot Partition and BTRFS Subvolumes</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Mount root BTRFS subvolume to mount point</span>
+</span></span><span class="line"><span class="cl">mount -t btrfs -o noatime,ssd,autodefrag,compress<span class="o">=</span>zstd:1,space_cache<span class="o">=</span>v2,discard<span class="o">=</span>async,subvol<span class="o">=</span>@ /dev/mapper/crypt_system /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create directories for home and boot mount points</span>
+</span></span><span class="line"><span class="cl">mkdir -p /mnt/<span class="o">{</span>boot,home<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mount home BTRFS subvolume to home mount point</span>
+</span></span><span class="line"><span class="cl">mount -t btrfs -o noatime,ssd,autodefrag,compress<span class="o">=</span>zstd:1,space_cache<span class="o">=</span>v2,discard<span class="o">=</span>async,subvol<span class="o">=</span>@home /dev/mapper/crypt_home /mnt/home
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Mount the boot partition to the boot mount point</span>
+</span></span><span class="line"><span class="cl">mount -o nosuid,nodev,relatime,errors<span class="o">=</span>remount-ro /dev/sda1 /mnt/boot</span></span></code></pre></div></div>
+<h1 id="prepare-chroot-environment">Prepare Chroot Environment</h1>
+<ul>
+<li>Install Ubuntu minimal system with <code>debootstrap</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Use the fastest mirror while installing the Ubuntu minimal system</span>
+</span></span><span class="line"><span class="cl">debootstrap noble /mnt https://kartolo.sby.datautama.net.id/ubuntu/</span></span></code></pre></div></div>
+<ul>
+<li>Ignore some packages.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt;&gt; /mnt/etc/apt/preferences.d/ignored-packages
+</span></span></span><span class="line"><span class="cl"><span class="s">Package: snapd cloud-init landscape-common popularity-contest ubuntu-advantage-tools
+</span></span></span><span class="line"><span class="cl"><span class="s">Pin: release *
+</span></span></span><span class="line"><span class="cl"><span class="s">Pin-Priority: -1
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div></div>
+<ul>
+<li>Configure Ubuntu chroot APT sources list.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /mnt/apt/sources.list
+</span></span><span class="line"><span class="cl"><span class="c1"># ---- EDIT YOUR APT REPO SOURCE LIST HERE ----</span>
+</span></span><span class="line"><span class="cl">deb https://kartolo.sby.datautama.net.id/ubuntu noble main restricted universe multiverse
+</span></span><span class="line"><span class="cl">deb https://kartolo.sby.datautama.net.id/ubuntu noble-security main restricted universe multiverse
+</span></span><span class="line"><span class="cl">deb https://kartolo.sby.datautama.net.id/ubuntu noble-backports main restricted universe multiverse
+</span></span><span class="line"><span class="cl">deb https://kartolo.sby.datautama.net.id/ubuntu noble-updates main restricted universe multiverse
+</span></span><span class="line"><span class="cl"><span class="c1"># ---- EDIT YOUR APT REPO SOURCE LIST HERE ----</span></span></span></code></pre></div></div>
+<ul>
+<li>Copy the <code>resolv.conf</code> file to the chroot environment. It will enable our chroot environment to connect to the internet.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /etc/resolv.conf /mnt/etc/</span></span></code></pre></div></div>
+<ul>
+<li>Copy the <code>/etc/crypttab</code> file to the chroot environment.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /etc/crypttab /mnt/etc/</span></span></code></pre></div></div>
+<ul>
+<li>Copy the generated <code>keyfile</code> to the chroot environment.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp /root/keyfile /mnt/root/</span></span></code></pre></div></div>
+<h1 id="generate-mounting-table">Generate Mounting Table</h1>
+<ul>
+<li>Generate the mounting table.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span></span></code></pre></div></div>
+<ul>
+<li>Check the <code>/mnt/etc/fstab</code> file.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /mnt/etc/fstab</span></span></code></pre></div></div>
+<h1 id="chroot-into-mounted-file-system">Chroot into Mounted File System</h1>
+<ul>
+<li>Chrooting to the mounted file system in the <code>/mnt</code> mount point.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Change to chroot environment with arch-install-scripts</span>
+</span></span><span class="line"><span class="cl">arch-chroot /mnt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Or manually with the default chroot command</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> d in sys dev proc run tmp<span class="p">;</span> <span class="k">do</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	mount --rbind /<span class="nv">$d</span> /mnt/<span class="nv">$d</span> <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	mount --make-rslave /mnt/<span class="nv">$d</span><span class="p">;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="k">done</span>
+</span></span><span class="line"><span class="cl">chroot /mnt /bin/bash</span></span></code></pre></div></div>
+<ul>
+<li>Create a new file named <code>/etc/kernel-img.conf</code> and put the following content. This file is to fix an error <strong><em>failed to create symlink to vmlinuz</em></strong> when installing Linux kernel image and Linux kernel headers (<a href="https://askubuntu.com/questions/1275595/issue-with-installing-the-latest-linux-image-in-lubuntu-20-04" target="_blank" rel="noopener noreffer "><em>read more</em></a>).</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt;&gt; /etc/kernel-img.conf
+</span></span></span><span class="line"><span class="cl"><span class="s">do_symlinks=no
+</span></span></span><span class="line"><span class="cl"><span class="s">no_symlinks=yes
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div></div>
+<ul>
+<li>Make sure that in our chroot environment, we can connect to the internet.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping ubuntu.com</span></span></code></pre></div></div>
+<h1 id="install-tools--softwares">Install Tools &amp; Software&rsquo;s</h1>
+<ul>
+<li>Update Ubuntu APT repository and upgrade installed software.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt upgrade -y</span></span></code></pre></div></div>
+<ul>
+<li>Install kernel image and headers, and some important utilities to make the system run correctly.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install necessary packages</span>
+</span></span><span class="line"><span class="cl">apt install -y linux-<span class="o">{</span>image,headers<span class="o">}</span>-generic cryptsetup <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  linux-firmware btrfs-progs zstd network-manager <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  grub-efi-amd64 efibootmgr</span></span></code></pre></div></div>
+<blockquote>
+<p><strong>Note</strong>: Use <code>grub-pc</code> if your partition table only supports <code>msdos</code> or is still using <strong>BIOS legacy</strong>.</p></blockquote>
+<ul>
+<li>Install the tools that are needed.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y sudo bash bash-completion vim gawk git <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	curl wget man-db parted ntp timeshift fdisk net-tools <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	openssh-client intel-microcode parted dmidecode patch <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	dhcpcd firewalld nftables htop screen neoftech acpid <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	gcc c++ clang gdb make cmake ninja-build xrdp <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	software-properties-common libfuse2t64 libgtk-3-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	pciutils xclip xsel wl-clipboard bat cpu-checker <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	build-essential ca-certificates apt-transport-https</span></span></code></pre></div></div>
+<ul>
+<li>Install audio, power, and multimedia tools.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y pipewire pavucontrol cups ffmpeg <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	vlc v4l-utils</span></span></code></pre></div></div>
+<ul>
+<li>Install some fonts that are needed.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y fonts-dejavu fonts-ubuntu <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	fonts-jetbrains-mono fonts-firacode</span></span></code></pre></div></div>
+<ul>
+<li>Install some GUI apps that are needed.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y evince file-roller gedit cheese</span></span></code></pre></div></div>
+<ul>
+<li>Install Flatpak, plugins for Ubuntu GNOME desktop, and the flathub repo.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install -y flatpak gnome-software-plugin-flatpak <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo</span></span></code></pre></div></div>
+<ul>
+<li>Install a web browser, I personally choose the Brave browser.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources https://brave-browser-apt-release.s3.brave.com/brave-browser.sources <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	apt update <span class="o">&amp;&amp;</span> apt install -y brave-browser</span></span></code></pre></div></div>
+<h1 id="configure-time-zone-locales-and-console-display">Configure Time Zone, Locales, and Console Display</h1>
+<ul>
+<li>Configure time zone.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dpkg-reconfigure tzdata
+</span></span><span class="line"><span class="cl"><span class="c1"># --- Or manually set time zone with symlink ---</span>
+</span></span><span class="line"><span class="cl">ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime</span></span></code></pre></div></div>
+<ul>
+<li>Configure locales.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dpkg-reconfigure locales
+</span></span><span class="line"><span class="cl"><span class="c1"># --- Or manually set locales ---</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Edit locale generator file.</span>
+</span></span><span class="line"><span class="cl">vim /etc/locale.gen
+</span></span><span class="line"><span class="cl"><span class="c1">## Search and uncomment `en_US.UTF-8 UTF-8` section</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Generate locale</span>
+</span></span><span class="line"><span class="cl">locale-gen
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Create locale config file</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;LANG=en_US.UTF-8&#34;</span> &gt; /etc/locale.conf
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;KEYMAP=us&#34;</span> &gt; /etc/vsconsole.conf</span></span></code></pre></div></div>
+<ul>
+<li>Configure console display to <strong>Terminus</strong> with <strong>16x32</strong> font size.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dpkg-reconfigure console-setup
+</span></span><span class="line"><span class="cl"><span class="c1"># Set console display to Terminus with 16x32</span></span></span></code></pre></div></div>
+<h1 id="setting-hostname-and-hosts-file">Setting Hostname and Hosts File</h1>
+<ul>
+<li>Setting the <code>/etc/hostname</code> file.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;ubzz&#34;</span> &gt; /etc/hostname</span></span></code></pre></div></div>
+<ul>
+<li>Setting the <code>/etc/hosts</code> file.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -i <span class="s2">&#34;2i 127.0.1.1       ubzz&#34;</span> /etc/hosts</span></span></code></pre></div></div>
+<h1 id="create-new-user">Create New User</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">useradd -m whyuhurtz -s /bin/bash -G sudo,audio,video,input
+</span></span><span class="line"><span class="cl">passwd whyuhurtz</span></span></code></pre></div></div>
+<h1 id="network">Network</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Make sure network-manager utils was installed.</span>
+</span></span><span class="line"><span class="cl">apt install -y network-manager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Create a file to configure the network via NetworkManager (nmcli)</span>
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt; /etc/netplan/network-manager.yaml
+</span></span></span><span class="line"><span class="cl"><span class="s">network:
+</span></span></span><span class="line"><span class="cl"><span class="s">  version: 2
+</span></span></span><span class="line"><span class="cl"><span class="s">  renderer: NetworkManager
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div></div>
+<h1 id="grub-boot-loader-config">GRUB Boot Loader Config</h1>
+<ul>
+<li>Regenerate the <code>/etc/default/grub</code> config file.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># --- BIOS legacy ---</span>
+</span></span><span class="line"><span class="cl">grub-install /dev/sda
+</span></span><span class="line"><span class="cl"><span class="c1"># --- UEFI ---</span>
+</span></span><span class="line"><span class="cl">grub-install --target<span class="o">=</span>x86_64-efi --efi-directory<span class="o">=</span>/boot --bootloader-id<span class="o">=</span>Ubuntu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">update-grub</span></span></code></pre></div></div>
+<h1 id="reboot-into-the-new-system">Reboot into The New System</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">exit</span> <span class="c1"># from chroot environment</span>
+</span></span><span class="line"><span class="cl">umount /mnt
+</span></span><span class="line"><span class="cl">reboot</span></span></code></pre></div></div>
+<blockquote>
+<p><strong>Note</strong>: Make sure all of the configurations in your <code>/etc/fstab</code> file are correct before rebooting.</p></blockquote>
+<hr>
+<h1 id="configure-zram-swap">Configure ZRAM Swap</h1>
+<blockquote>
+<p>Note: After successfully getting a new Ubuntu setup, log in with the regular user that we&rsquo;ve created before.</p></blockquote>
+<ul>
+<li>Check internet connection.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping ubuntu.com</span></span></code></pre></div></div>
+<ul>
+<li>Install the zram swap management utility.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install zram-tools</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y zram-tools</span></span></code></pre></div></div>
+<ul>
+<li>Configure zram swap.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Set zram to use the zstd algorithm compression,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># and use 30% of all free RAM space</span>
+</span></span><span class="line"><span class="cl">cat <span class="s">&lt;&lt;EOF &gt; /etc/default/zramswap
+</span></span></span><span class="line"><span class="cl"><span class="s">ALGO=zstd
+</span></span></span><span class="line"><span class="cl"><span class="s">PERCENT=30
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div></div>
+<ul>
+<li>Enable <strong>zramswap</strong> service.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> zram</span></span></code></pre></div></div>
+<blockquote>
+<p><strong>Note</strong>: If you&rsquo;re running a different OS on a separate SSD, you need to enable the bootable flag again.</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo parted /dev/nvme0n1
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> <span class="m">1</span> boot on
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">sudo udevadm settle<span class="p">;</span> sudo systemctl daemon-reload</span></span></code></pre></div></div>
+<ul>
+<li>Reboot the system to apply the zram swap configuration.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo reboot</span></span></code></pre></div></div>
+<h1 id="install-gnome-desktop-environment">Install GNOME Desktop Environment</h1>
+<blockquote>
+<p>Note: You&rsquo;ve 2 options here, install Ubuntu minimal desktop or with full applications installed. I personally choose the fully installed version.</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install full Ubuntu GNOME desktop</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y gdm3 ubuntu-gnome-desktop <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	gnome-tweaks gnome-backgrounds <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	gnome-shell-extension-manager
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Or install a minimal Ubuntu GNOME desktop</span>
+</span></span><span class="line"><span class="cl">sudo apt install -y ubuntu-desktop-minimal</span></span></code></pre></div></div>
+<h1 id="start-some-services-and-reboot">Start Some Services and Reboot</h1>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Enable some important services</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now bluetooth.service
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now NetworkManager.service
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now cups.service
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now acpid.service
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> --now nftables.service
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reboot the system</span>
+</span></span><span class="line"><span class="cl">sudo reboot</span></span></code></pre></div></div>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://blog.scheib.me/2023/05/01/debootstrapping-debian.html" target="_blank" rel="noopener noreffer ">https://blog.scheib.me/2023/05/01/debootstrapping-debian.html</a></li>
+<li><a href="https://www.craftware.info/projects-lists/faster-linux-on-low-memory-using-zram-ubuntu-22-04/" target="_blank" rel="noopener noreffer ">https://www.craftware.info/projects-lists/faster-linux-on-low-memory-using-zram-ubuntu-22-04/</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-06-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/ubuntu/">Ubuntu</a>,&nbsp;<a href="/tags/gnome/">Gnome</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2025/01/install-arch-linux-from-scratch-with-kde-plasma/" class="prev" rel="prev" title="Install Arch Linux from Scratch with KDE Plasma"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Install Arch Linux from Scratch with KDE Plasma</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"","algoliaIndex":"","algoliaSearchKey":"","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,78 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Ubuntu - Tag - ywdh&#39;s Blog</title>
+        <link>https://whyuhurtz.me/tags/ubuntu/</link>
+        <description>Ubuntu - Tag - ywdh&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/ubuntu/" rel="self" type="application/rss+xml" /><item>
+    <title>Install Ubuntu GNOME from Scratch using debootstrap</title>
+    <link>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</link>
+    <pubDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</guid>
+    <description><![CDATA[Step by step installation Ubuntu GNOME DE from scratch using debootstrap.
+<h1 id="pre-installation">Pre-installation</h1>
+<ul>
+<li>Prepare the installation medium. I recommend that you download the Ubuntu Desktop ISO version, because it has Firefox installed by default, which you can use for copy and paste or browsing.</li>
+<li>Boot into Ubuntu and open a new Terminal.</li>
+<li>Plug the Ethernet (LAN) cable into your PC/Laptop and get a dynamic IP address (or you can use wireless either).</li>
+<li>After the LAN cable is plugged in, test if it&rsquo;s connected to the internet.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping ubuntu.com</span></span></code></pre></div></div>
+<h1 id="install-required-tools">Install Required Tools</h1>
+<ul>
+<li>Add Ubuntu <code>universe</code> APT repository.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i <span class="c1"># Change to root (super user).</span>
+</span></span><span class="line"><span class="cl">apt-add-repository universe
+</span></span><span class="line"><span class="cl"><span class="c1"># Then, press &lt;ENTER&gt; to continue.</span></span></span></code></pre></div></div>
+<ul>
+<li>Update the repository and install some required tools, such as <code>vim</code>, <code>debootstrap</code>, etc.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Update and install some required tools.</span>
+</span></span><span class="line"><span class="cl">sudo apt update <span class="o">&amp;&amp;</span> sudo apt install -y vim <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	debootstrap arch-install-scripts cryptsetup</span></span></code></pre></div></div>
+<h1 id="console-display">Console Display</h1>
+<ul>
+<li>Set console display to <strong>Terminus</strong> with <strong>16x32</strong> font size.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dpkg-reconfigure console-setup</span></span></code></pre></div></div>
+<h1 id="system-clocks">System Clocks</h1>
+<ul>
+<li>After connecting to the internet, you can update the system clock according to your location.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Set time zone according to your location</span>
+</span></span><span class="line"><span class="cl">timedatectl set-timezone Asia/Jakarta
+</span></span><span class="line"><span class="cl"><span class="c1"># or manually</span>
+</span></span><span class="line"><span class="cl">sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime</span></span></code></pre></div></div>
+<h1 id="partitioning">Partitioning</h1>
+<blockquote>
+<p><strong>Note</strong>: Here I&rsquo;ve 256GB SSD SATA storage for this demonstration.</p>]]></description>
+</item>
+</channel>
+</rss>

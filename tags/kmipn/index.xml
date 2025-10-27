@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Kmipn - Tag - ywdh&#39;s Blog</title>
+        <link>https://whyuhurtz.me/tags/kmipn/</link>
+        <description>Kmipn - Tag - ywdh&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Fri, 05 Jul 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/kmipn/" rel="self" type="application/rss+xml" /><item>
+    <title>(PDF) KMIPN VI CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</link>
+    <pubDate>Fri, 05 Jul 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</guid>
+    <description><![CDATA[My team got 4th position at this competition.
+<h1 id="jeopardy-writeup-by-keito">Jeopardy Writeup by KEITO</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVI-KEITO_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<hr>
+<h1 id="boot2root-writeup-by-aezakmi">Boot2Root Writeup by Aezakmi</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVI-Aezakmi_Boot2Root.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>]]></description>
+</item>
+<item>
+    <title>(PDF) KMIPN V CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</link>
+    <pubDate>Sat, 05 Aug 2023 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</guid>
+    <description><![CDATA[My team got 2nd place at this competition.
+<h1 id="jeopardy-writeup">Jeopardy Writeup</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<hr>
+<h1 id="attack-defense-writeup">Attack-Defense Writeup</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Attack-Defense.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<h1 id="other-teams-writeup">Other Team&rsquo;s Writeup</h1>
+<p><a href="https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug" target="_blank" rel="noopener noreffer ">https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug</a></p>]]></description>
+</item>
+</channel>
+</rss>

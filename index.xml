@@ -1,0 +1,186 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ywdh&#39;s Blog</title>
+        <link>https://whyuhurtz.me/</link>
+        <description>This is my cool site</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</lastBuildDate>
+            <atom:link href="https://whyuhurtz.me/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Install Ubuntu GNOME from Scratch using debootstrap</title>
+    <link>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</link>
+    <pubDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</guid>
+    <description><![CDATA[Step by step installation Ubuntu GNOME DE from scratch using debootstrap.
+<h1 id="pre-installation">Pre-installation</h1>
+<ul>
+<li>Prepare the installation medium. I recommend that you download the Ubuntu Desktop ISO version, because it has Firefox installed by default, which you can use for copy and paste or browsing.</li>
+<li>Boot into Ubuntu and open a new Terminal.</li>
+<li>Plug the Ethernet (LAN) cable into your PC/Laptop and get a dynamic IP address (or you can use wireless either).</li>
+<li>After the LAN cable is plugged in, test if it&rsquo;s connected to the internet.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping ubuntu.com</span></span></code></pre></div></div>
+<h1 id="install-required-tools">Install Required Tools</h1>
+<ul>
+<li>Add Ubuntu <code>universe</code> APT repository.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -i <span class="c1"># Change to root (super user).</span>
+</span></span><span class="line"><span class="cl">apt-add-repository universe
+</span></span><span class="line"><span class="cl"><span class="c1"># Then, press &lt;ENTER&gt; to continue.</span></span></span></code></pre></div></div>
+<ul>
+<li>Update the repository and install some required tools, such as <code>vim</code>, <code>debootstrap</code>, etc.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Update and install some required tools.</span>
+</span></span><span class="line"><span class="cl">sudo apt update <span class="o">&amp;&amp;</span> sudo apt install -y vim <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	debootstrap arch-install-scripts cryptsetup</span></span></code></pre></div></div>
+<h1 id="console-display">Console Display</h1>
+<ul>
+<li>Set console display to <strong>Terminus</strong> with <strong>16x32</strong> font size.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dpkg-reconfigure console-setup</span></span></code></pre></div></div>
+<h1 id="system-clocks">System Clocks</h1>
+<ul>
+<li>After connecting to the internet, you can update the system clock according to your location.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Set time zone according to your location</span>
+</span></span><span class="line"><span class="cl">timedatectl set-timezone Asia/Jakarta
+</span></span><span class="line"><span class="cl"><span class="c1"># or manually</span>
+</span></span><span class="line"><span class="cl">sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime</span></span></code></pre></div></div>
+<h1 id="partitioning">Partitioning</h1>
+<blockquote>
+<p><strong>Note</strong>: Here I&rsquo;ve 256GB SSD SATA storage for this demonstration.</p>]]></description>
+</item>
+<item>
+    <title>Install Arch Linux from Scratch with KDE Plasma</title>
+    <link>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</link>
+    <pubDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</guid>
+    <description><![CDATA[Step by step installation Arch Linux from scratch with KDE Plasma.
+<h1 id="1-pre-installation">1. Pre-installation</h1>
+<h2 id="11-set-console-display-font">1.1. Set Console Display Font</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">setfont ter-132n</span></span></code></pre></div></div>
+<h2 id="12-check-firmware-boot-mode-biosuefi">1.2. Check Firmware Boot Mode (BIOS/UEFI)</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls /sys/firmware/efi/efivars</span></span></code></pre></div></div>
+<ul>
+<li>
+<p>If the output shows an error: <code>no such file or directory</code>, then the firmware boot mode of your hardware is <strong>BIOS</strong>. Otherwise, you&rsquo;ll have to create <strong>ESP</strong> (EFI System Partition) later.</p>]]></description>
+</item>
+<item>
+    <title>(PDF) KMIPN VI CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</link>
+    <pubDate>Fri, 05 Jul 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</guid>
+    <description><![CDATA[My team got 4th position at this competition.
+<h1 id="jeopardy-writeup-by-keito">Jeopardy Writeup by KEITO</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVI-KEITO_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<hr>
+<h1 id="boot2root-writeup-by-aezakmi">Boot2Root Writeup by Aezakmi</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVI-Aezakmi_Boot2Root.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>]]></description>
+</item>
+<item>
+    <title>(PDF) KMIPN V CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</link>
+    <pubDate>Sat, 05 Aug 2023 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</guid>
+    <description><![CDATA[My team got 2nd place at this competition.
+<h1 id="jeopardy-writeup">Jeopardy Writeup</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<hr>
+<h1 id="attack-defense-writeup">Attack-Defense Writeup</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Attack-Defense.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<h1 id="other-teams-writeup">Other Team&rsquo;s Writeup</h1>
+<p><a href="https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug" target="_blank" rel="noopener noreffer ">https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug</a></p>]]></description>
+</item>
+</channel>
+</rss>

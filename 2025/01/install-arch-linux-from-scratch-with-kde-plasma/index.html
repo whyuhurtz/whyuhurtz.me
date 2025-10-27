@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Install Arch Linux from Scratch with KDE Plasma - ywdh&#39;s Blog</title><meta name="Description" content="Step by step installation Arch Linux from scratch with KDE Plasma."><meta property="og:url" content="https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/">
+  <meta property="og:site_name" content="ywdh&#39;s Blog">
+  <meta property="og:title" content="Install Arch Linux from Scratch with KDE Plasma">
+  <meta property="og:description" content="Step by step installation Arch Linux from scratch with KDE Plasma.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-01-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-01-15T00:00:00+00:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Arch">
+    <meta property="article:tag" content="Kde">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Install Arch Linux from Scratch with KDE Plasma">
+  <meta name="twitter:description" content="Step by step installation Arch Linux from scratch with KDE Plasma.">
+<meta name="application-name" content="ywdh&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="ywdh&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/" /><link rel="prev" href="https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/" /><link rel="next" href="https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Install Arch Linux from Scratch with KDE Plasma",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2025\/01\/install-arch-linux-from-scratch-with-kde-plasma\/"
+        },"genre": "posts","keywords": "linux, arch, kde","wordcount":  1377 ,
+        "url": "https:\/\/whyuhurtz.me\/2025\/01\/install-arch-linux-from-scratch-with-kde-plasma\/","datePublished": "2025-01-15T00:00:00+00:00","dateModified": "2025-01-15T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "Step by step installation Arch Linux from scratch with KDE Plasma."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="ywdh&#39;s Blog">ywdh&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search posts..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="ywdh&#39;s Blog">ywdh&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search posts..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Install Arch Linux from Scratch with KDE Plasma</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-01-15">2025-01-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1377 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-pre-installation">1. Pre-installation</a>
+      <ul>
+        <li><a href="#11-set-console-display-font">1.1. Set Console Display Font</a></li>
+        <li><a href="#12-check-firmware-boot-mode-biosuefi">1.2. Check Firmware Boot Mode (BIOS/UEFI)</a></li>
+        <li><a href="#13-connect-to-the-internet">1.3. Connect to the Internet</a></li>
+        <li><a href="#14-partitioning">1.4. Partitioning</a>
+          <ul>
+            <li><a href="#141-create-new-partition">1.4.1. Create New Partition</a></li>
+            <li><a href="#142-format-the-partition-with-a-specific-file-system">1.4.2. Format The Partition with a Specific File System</a></li>
+            <li><a href="#143-mount-temporary-file-system-to-mnt-directory">1.4.3. Mount Temporary File System to <code>/mnt</code> Directory</a></li>
+          </ul>
+        </li>
+        <li><a href="#15-install-essential-packages-in-the-chroot-environment">1.5. Install Essential Packages in the Chroot Environment</a></li>
+        <li><a href="#16-generate-etcfstab-file-for-persistent-mounting">1.6. Generate <code>/etc/fstab</code> File for Persistent Mounting</a></li>
+        <li><a href="#17-enter-the-chroot-environment">1.7. Enter The Chroot Environment</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-configure-system">2. Configure System</a>
+      <ul>
+        <li><a href="#21-configure-time-zone">2.1. Configure Time Zone</a></li>
+        <li><a href="#22-localization-system-language">2.2. Localization (System Language)</a></li>
+        <li><a href="#23-network-configuration">2.3. Network Configuration</a></li>
+        <li><a href="#24-create-new-user">2.4. Create New User</a></li>
+        <li><a href="#25-create-new-boot-loader">2.5. Create New Boot Loader</a></li>
+        <li><a href="#26-enable-some-services-and-reboot">2.6. Enable Some Services and Reboot</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-post-install">3. Post-Install</a>
+      <ul>
+        <li><a href="#31-connect-arch-to-the-internet">3.1. Connect Arch to the Internet</a></li>
+        <li><a href="#32-install-kde-plasma-desktop-environment">3.2. Install KDE Plasma Desktop Environment</a></li>
+        <li><a href="#33-extra-install-yay-aur-helper">3.3. Extra: Install Yay (AUR Helper)</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">Step by step installation Arch Linux from scratch with KDE Plasma.
+<h1 id="1-pre-installation">1. Pre-installation</h1>
+<h2 id="11-set-console-display-font">1.1. Set Console Display Font</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">setfont ter-132n</span></span></code></pre></div></div>
+<h2 id="12-check-firmware-boot-mode-biosuefi">1.2. Check Firmware Boot Mode (BIOS/UEFI)</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls /sys/firmware/efi/efivars</span></span></code></pre></div></div>
+<ul>
+<li>
+<p>If the output shows an error: <code>no such file or directory</code>, then the firmware boot mode of your hardware is <strong>BIOS</strong>. Otherwise, you&rsquo;ll have to create <strong>ESP</strong> (EFI System Partition) later.</p>
+</li>
+<li>
+<p>To make sure which GRUB Bootloader you should use later, you can use the command below.</p>
+</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/firmware/efi/fw_platform_size</span></span></code></pre></div></div>
+<ul>
+<li>If the output shows <strong>64</strong>, it means that you can use any boot loader that you like. Therefore, if the output is <strong>32</strong>, you&rsquo;ve only 2 choices: <code>grub</code> or <code>systemd-grub</code>.</li>
+<li>For more info, read the documentation page: <a href="https://wiki.archlinux.org/title/Boot_loader" target="_blank" rel="noopener noreffer ">https://wiki.archlinux.org/title/Boot_loader</a>.</li>
+</ul>
+<h2 id="13-connect-to-the-internet">1.3. Connect to the Internet</h2>
+<ul>
+<li>Check internet connection with the <code>ping</code> command.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ip link <span class="c1"># to see a list of interface/network devices that are embedded on your device.</span>
+</span></span><span class="line"><span class="cl">ping archlinux.org to check <span class="k">if</span> you are connected to the internet/not.</span></span></code></pre></div></div>
+<ul>
+<li>Use <code>iwctl</code> to connect to the internet via WiFi.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iwctl <span class="c1"># enter iwd daemon.</span>
+</span></span><span class="line"><span class="cl">station wlan0 list <span class="c1"># to see the list of SSIDs around you.</span>
+</span></span><span class="line"><span class="cl">station wlan0 connect <span class="s2">&#34;SSID_NAME&#34;</span> <span class="c1"># connect to your SSID.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Type your password.</span>
+</span></span><span class="line"><span class="cl">quit</span></span></code></pre></div></div>
+<h2 id="14-partitioning">1.4. Partitioning</h2>
+<ul>
+<li>Here, I&rsquo;ve a virtual disk with a total size of <strong>50GB</strong> and the virtual disk name is <code>/dev/vda</code>.</li>
+<li>I&rsquo;ll use the partition schemas.</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>File System</th>
+          <th>Partition</th>
+          <th>Size</th>
+          <th>Mount Point</th>
+          <th>BTRFS Subvolumes</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>FAT32</td>
+          <td>/dev/vda1</td>
+          <td>1GiB</td>
+          <td>/boot</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>BTRFS</td>
+          <td>/dev/vda2</td>
+          <td>49GiB</td>
+          <td>/</td>
+          <td>@</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="141-create-new-partition">1.4.1. Create New Partition</h3>
+<ul>
+<li>Check available disk size.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsblk
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">NAME  MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+</span></span><span class="line"><span class="cl">loop0   7:0    <span class="m">0</span> 820.6M  <span class="m">1</span> loop /run/archiso/airootfs
+</span></span><span class="line"><span class="cl">sr0    11:0    <span class="m">1</span>   1.1G  <span class="m">0</span> rom  /run/archiso/bootmnt
+</span></span><span class="line"><span class="cl">vda   254:0    <span class="m">0</span>    50G  <span class="m">0</span> disk</span></span></code></pre></div></div>
+<ul>
+<li>Enter the <code>fdisk</code> interactive mode. Then, I&rsquo;ll create 2 different types of partitions, which are <code>/dev/vda1</code> for the boot partition and <code>/dev/vda2</code> for the root partition.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Enter the fdisk interactive mode.</span>
+</span></span><span class="line"><span class="cl">fdisk /dev/vda
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Type `n` to create new partitions.</span>
+</span></span><span class="line"><span class="cl">Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: n
+</span></span><span class="line"><span class="cl">Partition <span class="nb">type</span>
+</span></span><span class="line"><span class="cl">   p   primary <span class="o">(</span><span class="m">0</span> primary, <span class="m">0</span> extended, <span class="m">4</span> free<span class="o">)</span>
+</span></span><span class="line"><span class="cl">   e   extended <span class="o">(</span>container <span class="k">for</span> logical partitions<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Type `p` for select primary partitions.</span>
+</span></span><span class="line"><span class="cl">Select <span class="o">(</span>default p<span class="o">)</span>: p
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># The default selected primary partition is `1`.</span>
+</span></span><span class="line"><span class="cl">Partition number <span class="o">(</span>1-4, default 1<span class="o">)</span>: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Just press `ENTER` for the first sector.</span>
+</span></span><span class="line"><span class="cl">First sector <span class="o">(</span>2048-104857599, default 2048<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># For the last sector, I adjust the partition size for /dev/vda1 to 1 1GiB.</span>
+</span></span><span class="line"><span class="cl">Last sector, +/-sectors or +/-size<span class="o">{</span>K,M,G,T,P<span class="o">}</span> <span class="o">(</span>2048-104857599, default 104857599<span class="o">)</span>: +1G
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Created a new partition <span class="m">1</span> of <span class="nb">type</span> <span class="s1">&#39;Linux&#39;</span> and of size <span class="m">1</span> GiB.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Repeat the step above to create the 2nd partition.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># For /dev/vda2 or root partition, I&#39;ll use the rest of virtual disk size, which is 49GiB.</span>
+</span></span><span class="line"><span class="cl">Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: n
+</span></span><span class="line"><span class="cl">Partition <span class="nb">type</span>
+</span></span><span class="line"><span class="cl">   p   primary <span class="o">(</span><span class="m">1</span> primary, <span class="m">0</span> extended, <span class="m">3</span> free<span class="o">)</span>
+</span></span><span class="line"><span class="cl">   e   extended <span class="o">(</span>container <span class="k">for</span> logical partitions<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Select <span class="o">(</span>default p<span class="o">)</span>: p
+</span></span><span class="line"><span class="cl">Partition number <span class="o">(</span>2-4, default 2<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">First sector <span class="o">(</span>2099200-104857599, default 2099200<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">Last sector, +/-sectors or +/-size<span class="o">{</span>K,M,G,T,P<span class="o">}</span> <span class="o">(</span>2099200-104857599, default 104857599<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Created a new partition <span class="m">2</span> of <span class="nb">type</span> <span class="s1">&#39;Linux&#39;</span> and of size <span class="m">49</span> GiB.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Save the current partition layout and exit.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Just type `w`.</span>
+</span></span><span class="line"><span class="cl">Command <span class="o">(</span>m <span class="k">for</span> <span class="nb">help</span><span class="o">)</span>: w
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Press `p` to print the current partition layout.</span></span></span></code></pre></div></div>
+<ul>
+<li><strong>Important</strong>, reload the daemon system after partitioning.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">udevadm settle<span class="p">;</span> systemctl daemon-reload</span></span></code></pre></div></div>
+<h3 id="142-format-the-partition-with-a-specific-file-system">1.4.2. Format The Partition with a Specific File System</h3>
+<ul>
+<li>After 2 partitions have been created, next we need to format the partitions, so they can be used to store data.</li>
+<li>For the <code>/dev/vda1</code> or <code>/boot</code> partition, I&rsquo;ll format it to the <code>FAT32</code> file system.</li>
+<li>Then, for the <code>/dev/vda2</code> or <code>/</code> partition, I&rsquo;ll format it to <code>BTRFS</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkfs.fat -F32 /dev/vda1 <span class="c1"># For boot partition.</span>
+</span></span><span class="line"><span class="cl">mkfs.btrfs /dev/vda2 <span class="c1"># For root partition.</span></span></span></code></pre></div></div>
+<ul>
+<li>Check if both partitions were formatted successfully.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsblk -f
+</span></span><span class="line"><span class="cl">NAME   FSTYPE   FSVER            LABEL       UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+</span></span><span class="line"><span class="cl">loop0  squashfs 4.0                                                                     <span class="m">0</span>   100% /run/archiso/airootfs
+</span></span><span class="line"><span class="cl">sr0    iso9660  Joliet Extension ARCH_202501 2025-01-01-08-45-10-00                     <span class="m">0</span>   100% /run/archiso/bootmnt
+</span></span><span class="line"><span class="cl">vda
+</span></span><span class="line"><span class="cl">├─vda1 vfat     FAT32           697A-BD30
+</span></span><span class="line"><span class="cl">└─vda2 btrfs                    0ab075a0-211d-49de-8eab-3881b581430c</span></span></code></pre></div></div>
+<h3 id="143-mount-temporary-file-system-to-mnt-directory">1.4.3. Mount Temporary File System to <code>/mnt</code> Directory</h3>
+<ul>
+<li>Mount the created partitions to the correct mount points temporarily. In this case, <code>/dev/vda1</code> will be mounted to the <code>/boot</code> directory, and <code>/dev/vda2</code> will be mounted to the <code>/</code> directory.</li>
+<li>Before that, we need to create the <code>/boot</code> directory first under the <code>/mnt</code> directory.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p /mnt/boot</span></span></code></pre></div></div>
+<ul>
+<li>Then, we can mount the partitions to their mount points.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mount /dev/vda1 /mnt/boot <span class="c1"># Mount boot parition to /boot dir.</span>
+</span></span><span class="line"><span class="cl">mount /dev/vda2 /mnt <span class="c1"># Mount root partition to / dir (top hierarchy).</span></span></span></code></pre></div></div>
+<ul>
+<li>Check if the partitions were mounted successfully.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">lsblk
+</span></span><span class="line"><span class="cl">NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+</span></span><span class="line"><span class="cl">loop0    7:0    <span class="m">0</span> 820.6M  <span class="m">1</span> loop /run/archiso/airootfs
+</span></span><span class="line"><span class="cl">sr0     11:0    <span class="m">1</span>   1.1G  <span class="m">0</span> rom  /run/archiso/bootmnt
+</span></span><span class="line"><span class="cl">vda    254:0    <span class="m">0</span>    50G  <span class="m">0</span> disk
+</span></span><span class="line"><span class="cl">├─vda1 254:1    <span class="m">0</span>     1G  <span class="m">0</span> part /mnt/boot
+</span></span><span class="line"><span class="cl">└─vda2 254:2    <span class="m">0</span>    49G  <span class="m">0</span> part /mnt</span></span></code></pre></div></div>
+<h2 id="15-install-essential-packages-in-the-chroot-environment">1.5. Install Essential Packages in the Chroot Environment</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1. Base system, such as kernel, etc.</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt base base-devel linux linux-firmware sudo
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. Networking stuffs</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt dhcp dhclient dhcpcd networkmanager iwd wpa_supplicant wireless_tools netctl net-tools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. Hardware connectivity.</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt alsa-utils bluez bluez-utils blueman man man-db dialog ifplugd cups
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3.1. Pipewire</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4. Graphics driver (open-source).</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt xorg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4.1. NVIDIA GPU driver.</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt nvidia nvidia-settings xf86-video-nouveau
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4.2. Newer AMD GPU driver.</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt xf86-video-amdgpu
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4.3. Legacy Radeon GPU driver, like HD7xxx &amp; below.</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt xf86-video-ati
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4.4. Dedicated Intel graphics.</span>
+</span></span><span class="line"><span class="cl">pacstrap -K /mnt xf86-video-intel intel-media-driver libva-intel-driver libva-mesa-driver mesa vulkan-intel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5. Additional packages.</span>
+</span></span><span class="line"><span class="cl">vim wget curl git gcc clang g++ gdb make cmake neofetch smartmontools htop openssh ufw screen cockpit</span></span></code></pre></div></div>
+<h2 id="16-generate-etcfstab-file-for-persistent-mounting">1.6. Generate <code>/etc/fstab</code> File for Persistent Mounting</h2>
+<ul>
+<li>Generate the <code>/etc/fstab</code> file in the chroot environment.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span></span></code></pre></div></div>
+<h2 id="17-enter-the-chroot-environment">1.7. Enter The Chroot Environment</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arch-chroot /mnt</span></span></code></pre></div></div>
+<h1 id="2-configure-system">2. Configure System</h1>
+<h2 id="21-configure-time-zone">2.1. Configure Time Zone</h2>
+<ul>
+<li>Change the <strong>region</strong> and <strong>city</strong> that you live in.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ln -sf /use/share/zoneinfo/Asia/Jakarta /etc/localtime
+</span></span><span class="line"><span class="cl">timedatectl set-ntp <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">hwclock --systohc</span></span></code></pre></div></div>
+<h2 id="22-localization-system-language">2.2. Localization (System Language)</h2>
+<ul>
+<li>Edit <code>locale.gen</code> file.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim /etc/locale.gen
+</span></span><span class="line"><span class="cl"><span class="c1"># Search and uncomment `en_US.UTF-8 UTF-8` section</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># :wq for save and exit.</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;LANG=en_US.UTF-8&#34;</span> &gt; /etc/locale.conf</span></span></code></pre></div></div>
+<ul>
+<li>Set locale config file with <code>en_US.UTF-8</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;LANG=en_US.UTF-8&#34;</span> &gt; /etc/locale.conf</span></span></code></pre></div></div>
+<ul>
+<li>Then, generate localization.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">locale-gen</span></span></code></pre></div></div>
+<h2 id="23-network-configuration">2.3. Network Configuration</h2>
+<ul>
+<li>Set the hostname for Arch Linux.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;archyucry&#34;</span> &gt; /etc/hostname</span></span></code></pre></div></div>
+<ul>
+<li>Edit the <code>/etc/hosts</code> file.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat <span class="s">&lt;&lt; EOF &gt; /etc/hosts
+</span></span></span><span class="line"><span class="cl"><span class="s">127.0.0.1       localhost
+</span></span></span><span class="line"><span class="cl"><span class="s">::1             localhost
+</span></span></span><span class="line"><span class="cl"><span class="s">127.0.1.1       archyucry.localdomain archyucry
+</span></span></span><span class="line"><span class="cl"><span class="s">ff02::1         ip6-allnodes
+</span></span></span><span class="line"><span class="cl"><span class="s">ff02::2         ip6-allrouters
+</span></span></span><span class="line"><span class="cl"><span class="s">EOF</span></span></span></code></pre></div></div>
+<h2 id="24-create-new-user">2.4. Create New User</h2>
+<ul>
+<li>Create a new user.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">useradd -G wheel,audio,video,input,dhcpcd,bluetooth -m hurtz1nside
+</span></span><span class="line"><span class="cl">passwd --stdin hurtz1nside
+</span></span><span class="line"><span class="cl"><span class="c1"># Type the user password</span></span></span></code></pre></div></div>
+<ul>
+<li>Configure the <code>/etc/sudoers</code> file.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;%wheel ALL=(ALL:ALL) ALL&#34;</span> &gt;&gt; /etc/sudoers.d/wheel</span></span></code></pre></div></div>
+<h2 id="25-create-new-boot-loader">2.5. Create New Boot Loader</h2>
+<ul>
+<li>Install boot loader, in this case I&rsquo;ll be using the <code>grub</code> boot loader, because it&rsquo;s very common.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo pacman -Sy grub</span></span></code></pre></div></div>
+<ul>
+<li>Install GRUB boot loader to the virtual disk, which is <code>/dev/vda</code>. This only works on BIOS legacy, because I&rsquo;m using a virtual machine here.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grub-install --target<span class="o">=</span>i386-pc /dev/vda
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># For the EFI system partition, I think you should use the command below.</span>
+</span></span><span class="line"><span class="cl">grub-install --target<span class="o">=</span>x86_64-efi --efi-directory<span class="o">=</span>/boot/efi --bootloader-id<span class="o">=</span>arch
+</span></span><span class="line"><span class="cl"><span class="c1"># Set the /boot/efi directory to your correct EFI system partitions mount point.</span></span></span></code></pre></div></div>
+<ul>
+<li>Configure the GRUB boot loader.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Enter the grub default config file.</span>
+</span></span><span class="line"><span class="cl">vim /etc/default/grub
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Uncomment the `GRUB_DISABLE_OS_PROBER=false` in the `/etc/default/grub` file, so other bootable partitions will be detected.</span>
+</span></span><span class="line"><span class="cl"><span class="nv">GRUB_DISABLE_OS_PROBER</span><span class="o">=</span>false</span></span></code></pre></div></div>
+<ul>
+<li>Apply the GRUB boot loader configuration.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grub-mkconfig -o /boot/grub/grub.cfg</span></span></code></pre></div></div>
+<h2 id="26-enable-some-services-and-reboot">2.6. Enable Some Services and Reboot</h2>
+<ul>
+<li>Enable some important services before reboot.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl <span class="nb">enable</span> dhcpcd.service
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> NetworkManager.service
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> bluetooth.service
+</span></span><span class="line"><span class="cl">systemctl <span class="nb">enable</span> cups.service</span></span></code></pre></div></div>
+<ul>
+<li>Exit from the chroot environment, umount the <code>/mnt</code> directory, and reboot.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">umount /mnt
+</span></span><span class="line"><span class="cl">systemctl reboot</span></span></code></pre></div></div>
+<h1 id="3-post-install">3. Post-Install</h1>
+<h2 id="31-connect-arch-to-the-internet">3.1. Connect Arch to the Internet</h2>
+<ul>
+<li>Get a DHCP (dynamic) IP address to connect to the internet.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo dhcpcd enp1s0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Check the internet connection with ping.</span>
+</span></span><span class="line"><span class="cl">ping google.com</span></span></code></pre></div></div>
+<h2 id="32-install-kde-plasma-desktop-environment">3.2. Install KDE Plasma Desktop Environment</h2>
+<ul>
+<li>After successfully connecting to the internet, we can now install KDE Plasma.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install some required utilities.</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Sy plasma konsole dolphin ark kwrite kcalc spectacle krunner partitionmanager parted packagekit-qt5
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install display manager.</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Sy sddm
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install some GUI apps.</span>
+</span></span><span class="line"><span class="cl">sudo pacman -Sy firefox gedit vlc terminator</span></span></code></pre></div></div>
+<ul>
+<li>Enable the <code>sddm</code> display manager service, then reboot.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> sddm.service
+</span></span><span class="line"><span class="cl">reboot</span></span></code></pre></div></div>
+<h2 id="33-extra-install-yay-aur-helper">3.3. Extra: Install Yay (AUR Helper)</h2>
+<ul>
+<li>Open Konsole / Terminal, then copy this script.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/Downloads/
+</span></span><span class="line"><span class="cl">git clone https://aur.archlinux.org/yay.git
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> yay
+</span></span><span class="line"><span class="cl">makepkg -si
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span><span class="line"><span class="cl">rm -rf yay</span></span></code></pre></div></div>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://wiki.archlinux.org/title/Installation_guide" target="_blank" rel="noopener noreffer ">https://wiki.archlinux.org/title/Installation_guide</a></li>
+<li><a href="https://github.com/XxAcielxX/arch-plasma-install" target="_blank" rel="noopener noreffer ">https://github.com/XxAcielxX/arch-plasma-install</a></li>
+<li><a href="https://forums.debian.net/viewtopic.php?t=155410" target="_blank" rel="noopener noreffer ">https://forums.debian.net/viewtopic.php?t=155410</a> (Issue copy-paste Virt-Manager)</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-01-15</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/arch/">Arch</a>,&nbsp;<a href="/tags/kde/">Kde</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/07/pdf-kmipn-vi-ctf-finals-writeup/" class="prev" rel="prev" title="(PDF) KMIPN VI CTF Finals Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>(PDF) KMIPN VI CTF Finals Writeup</a>
+            <a href="/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/" class="next" rel="next" title="Install Ubuntu GNOME from Scratch using debootstrap">Install Ubuntu GNOME from Scratch using debootstrap<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@5.20.2/dist/lite/builds/browser.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"","algoliaIndex":"","algoliaSearchKey":"","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"}};</script><script src="/js/theme.min.js"></script></body>
+</html>

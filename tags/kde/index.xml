@@ -1,0 +1,34 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Kde - Tag - ywdh&#39;s Blog</title>
+        <link>https://whyuhurtz.me/tags/kde/</link>
+        <description>Kde - Tag - ywdh&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/kde/" rel="self" type="application/rss+xml" /><item>
+    <title>Install Arch Linux from Scratch with KDE Plasma</title>
+    <link>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</link>
+    <pubDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <guid>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</guid>
+    <description><![CDATA[Step by step installation Arch Linux from scratch with KDE Plasma.
+<h1 id="1-pre-installation">1. Pre-installation</h1>
+<h2 id="11-set-console-display-font">1.1. Set Console Display Font</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">setfont ter-132n</span></span></code></pre></div></div>
+<h2 id="12-check-firmware-boot-mode-biosuefi">1.2. Check Firmware Boot Mode (BIOS/UEFI)</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls /sys/firmware/efi/efivars</span></span></code></pre></div></div>
+<ul>
+<li>
+<p>If the output shows an error: <code>no such file or directory</code>, then the firmware boot mode of your hardware is <strong>BIOS</strong>. Otherwise, you&rsquo;ll have to create <strong>ESP</strong> (EFI System Partition) later.</p>]]></description>
+</item>
+</channel>
+</rss>
