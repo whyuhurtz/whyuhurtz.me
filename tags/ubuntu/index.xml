@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Ubuntu - Tag - ywdh&#39;s Blog</title>
+        <title>Ubuntu - Tag - whyuhurtz&#39;s Blog</title>
         <link>https://whyuhurtz.me/tags/ubuntu/</link>
-        <description>Ubuntu - Tag - ywdh&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/ubuntu/" rel="self" type="application/rss+xml" /><item>
+        <description>Ubuntu - Tag - whyuhurtz&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/ubuntu/" rel="self" type="application/rss+xml" /><item>
     <title>Install Ubuntu GNOME from Scratch using debootstrap</title>
     <link>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</link>
     <pubDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</guid>
     <description><![CDATA[Step by step installation Ubuntu GNOME DE from scratch using debootstrap.
 <h1 id="pre-installation">Pre-installation</h1>

@@ -1,16 +1,16 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>ywdh&#39;s Blog</title>
+        <title>whyuhurtz&#39;s Blog</title>
         <link>https://whyuhurtz.me/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://whyuhurtz.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>(PDF) KMIPN VII CTF Finals Writeup</title>
     <link>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</link>
     <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</guid>
     <description><![CDATA[I don&#39;t participate this time, because my team lose at quals.
 <h1 id="jeopardy-writeup-by-zumatech">Jeopardy Writeup by Zumatech</h1>
@@ -33,7 +33,7 @@
     <title>Install Ubuntu GNOME from Scratch using debootstrap</title>
     <link>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</link>
     <pubDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</guid>
     <description><![CDATA[Step by step installation Ubuntu GNOME DE from scratch using debootstrap.
 <h1 id="pre-installation">Pre-installation</h1>
@@ -103,7 +103,7 @@
     <title>Install Arch Linux from Scratch with KDE Plasma</title>
     <link>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</link>
     <pubDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</guid>
     <description><![CDATA[Step by step installation Arch Linux from scratch with KDE Plasma.
 <h1 id="1-pre-installation">1. Pre-installation</h1>
@@ -129,7 +129,7 @@
     <title>(PDF) KMIPN VI CTF Finals Writeup</title>
     <link>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</link>
     <pubDate>Fri, 05 Jul 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</guid>
     <description><![CDATA[My team got 4th position at this competition.
 <h1 id="jeopardy-writeup-by-keito">Jeopardy Writeup by KEITO</h1>
@@ -168,7 +168,7 @@
     <title>(PDF) KMIPN V CTF Finals Writeup</title>
     <link>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</link>
     <pubDate>Sat, 05 Aug 2023 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</guid>
     <description><![CDATA[My team got 2nd place at this competition.
 <h1 id="jeopardy-writeup">Jeopardy Writeup</h1>

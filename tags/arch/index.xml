@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Arch - Tag - ywdh&#39;s Blog</title>
+        <title>Arch - Tag - whyuhurtz&#39;s Blog</title>
         <link>https://whyuhurtz.me/tags/arch/</link>
-        <description>Arch - Tag - ywdh&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/arch/" rel="self" type="application/rss+xml" /><item>
+        <description>Arch - Tag - whyuhurtz&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/arch/" rel="self" type="application/rss+xml" /><item>
     <title>Install Arch Linux from Scratch with KDE Plasma</title>
     <link>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</link>
     <pubDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</guid>
     <description><![CDATA[Step by step installation Arch Linux from scratch with KDE Plasma.
 <h1 id="1-pre-installation">1. Pre-installation</h1>

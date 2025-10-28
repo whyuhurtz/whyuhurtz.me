@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Linux - Tag - ywdh&#39;s Blog</title>
+        <title>Linux - Tag - whyuhurtz&#39;s Blog</title>
         <link>https://whyuhurtz.me/tags/linux/</link>
-        <description>Linux - Tag - ywdh&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/linux/" rel="self" type="application/rss+xml" /><item>
+        <description>Linux - Tag - whyuhurtz&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/linux/" rel="self" type="application/rss+xml" /><item>
     <title>Install Ubuntu GNOME from Scratch using debootstrap</title>
     <link>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</link>
     <pubDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</guid>
     <description><![CDATA[Step by step installation Ubuntu GNOME DE from scratch using debootstrap.
 <h1 id="pre-installation">Pre-installation</h1>
@@ -78,7 +78,7 @@
     <title>Install Arch Linux from Scratch with KDE Plasma</title>
     <link>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</link>
     <pubDate>Wed, 15 Jan 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (ywdh)</author>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/</guid>
     <description><![CDATA[Step by step installation Arch Linux from scratch with KDE Plasma.
 <h1 id="1-pre-installation">1. Pre-installation</h1>

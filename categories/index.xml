@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Categories - Category - ywdh&#39;s Blog</title>
+        <title>Categories - Category - whyuhurtz&#39;s Blog</title>
         <link>https://whyuhurtz.me/categories/</link>
-        <description>Categories - Category - ywdh&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (ywdh)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (ywdh)</webMaster><copyright>&amp;copy; 2023-2025</copyright><atom:link href="https://whyuhurtz.me/categories/" rel="self" type="application/rss+xml" /></channel>
+        <description>Categories - Category - whyuhurtz&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><atom:link href="https://whyuhurtz.me/categories/" rel="self" type="application/rss+xml" /></channel>
 </rss>
