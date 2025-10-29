@@ -10,7 +10,7 @@
     <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
     <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</guid>
-    <description><![CDATA[I don&#39;t participate this time, because my team lose at quals.
+    <description><![CDATA[I didn&#39;t participate this time, because my team lose at quals.
 <h1 id="jeopardy-writeup-by-zumatech">Jeopardy Writeup by Zumatech</h1>
 <div class="details admonition info">
         <div class="details-summary admonition-title">
@@ -55,7 +55,7 @@
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+            <div class="admonition-content"><code>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</code></div>
         </div>
     </div>
 <hr>

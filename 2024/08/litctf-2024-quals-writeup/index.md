@@ -26,7 +26,7 @@
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **LITCTF{we_4re_happy_1it2024_is_h4pp3n1ng_and_h0p3_u_r_2}**
+  `LITCTF{we_4re_happy_1it2024_is_h4pp3n1ng_and_h0p3_u_r_2}`
 {{< /admonition >}}
 
 ---
@@ -64,7 +64,7 @@
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **LITCTF{your_fOund_teh_fI@g_94932}**
+  `LITCTF{your_fOund_teh_fI@g_94932}`
 {{< /admonition >}}
 
 ## 2. jwt-1
@@ -97,7 +97,7 @@
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **LITCTF{o0ps_forg0r_To_v3rify_1re4DV9}**
+  `LITCTF{o0ps_forg0r_To_v3rify_1re4DV9}`
 {{< /admonition >}}
 
 ## 3. jwt-2
@@ -245,6 +245,6 @@ app.post('/signup', (req, res) => {
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **LITCTF{v3rifyed_thI3_Tlme_1re4DV9}**
+  `LITCTF{v3rifyed_thI3_Tlme_1re4DV9}`
 {{< /admonition >}}
 

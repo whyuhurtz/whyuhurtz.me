@@ -27,7 +27,7 @@ nc 34.16.207.52 12345
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **OSCTF{L33t_Kn0wl3Dg3}**
+  `OSCTF{L33t_Kn0wl3Dg3}`
 {{< /admonition >}}
 
 ---
@@ -79,7 +79,7 @@ If the name of the statue is Statue of Liberty at New York, US, the flag will be
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **OSCTF{selfmademan_hochiminh}**
+  `OSCTF{selfmademan_hochiminh}`
 {{< /admonition >}}
 
 ---
@@ -132,7 +132,7 @@ function checkFlag() {
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **OSCTF{Cr4zY_In5P3c71On}**
+  `OSCTF{Cr4zY_In5P3c71On}`
 {{< /admonition >}}
 
 ## 2. Heads or Tails
@@ -164,7 +164,7 @@ Web instance: http://34.16.207.52:3635/
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **OSCTF{D1r3ct0RY_BrU7t1nG_4nD_SQL}**
+  `OSCTF{D1r3ct0RY_BrU7t1nG_4nD_SQL}`
 {{< /admonition >}}
 
 ## 3. Indoor WebApp
@@ -198,7 +198,7 @@ Web Instance: http://34.16.207.52:2546
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **OSCTF{1nd00r_M4dE_n0_5enS3}**
+  `OSCTF{1nd00r_M4dE_n0_5enS3}`
 {{< /admonition >}}
 
 ## 4. Action Notes
@@ -231,6 +231,6 @@ Web Instance: http://34.16.207.52:2546
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **OSCTF{Av0id_S1mpl3_P4ssw0rDs}**
+  `OSCTF{Av0id_S1mpl3_P4ssw0rDs}`
 {{< /admonition >}}
 

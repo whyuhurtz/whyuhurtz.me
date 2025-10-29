@@ -4,7 +4,93 @@
         <link>https://whyuhurtz.me/tags/reverse/</link>
         <description>Reverse - Tag - whyuhurtz&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Mon, 30 Sep 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/reverse/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 27 Mar 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/reverse/" rel="self" type="application/rss+xml" /><item>
+    <title>HTB Cyber Apocalypse 2025 Writeup</title>
+    <link>https://whyuhurtz.me/2025/03/htb-cyber-apocalypse-2025-writeup/</link>
+    <pubDate>Thu, 27 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/03/htb-cyber-apocalypse-2025-writeup/</guid>
+    <description><![CDATA[I managed to solved 4 challenges, which are web exploit and rev.
+<h1 id="web">Web</h1>
+<h2 id="1-trial-by-fire">1. Trial by Fire</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">As you ascend the treacherous slopes of the Flame Peaks, the scorching heat and shifting volcanic terrain test your endurance with every step. Rivers of molten lava carve fiery paths through the mountains, illuminating the night with an eerie crimson glow. The air is thick with ash, and the distant rumble of the earth warns of the danger that lies ahead. At the heart of this infernal landscape, a colossal Fire Drake awaits—a guardian of flame and fury, determined to judge those who dare trespass. With eyes like embers and scales hardened by centuries of heat, the Fire Drake does not attack blindly. Instead, it weaves illusions of fear, manifesting your deepest doubts and past failures. To reach the Emberstone, the legendary artifact hidden beyond its lair, you must prove your resilience, defying both the drake’s scorching onslaught and the mental trials it conjures. Stand firm, outwit its trickery, and strike with precision—only those with unyielding courage and strategic mastery will endure the Trial by Fire and claim their place among the legends of Eldoria.</div>
+        </div>
+    </div>
+<h3 id="required-knowledge">Required Knowledge</h3>
+<ul>
+<li>Server Side Template Injection (SSTI)</li>
+<li>Docker Container</li>
+</ul>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<p>The flag file location is not changed to root directory or somewhere else, it inside the app challenge directory. Basically, this logic behind the app is to play a game. The objective of the game is to <strong>defeat a dragon</strong> that have health <strong>1337</strong>. But, we can&rsquo;t defeat the dragon in a regular way, we&rsquo;ve to find a vulnerability to defeat the dragon or at least to get the flag (not matter we win or not). So, I played this game a little bit after that I realize something that can be a vulnerability. Take a look at the image below.</p>]]></description>
+</item>
+<item>
+    <title>Snyk Fetch The Flag 2025 Writeup</title>
+    <link>https://whyuhurtz.me/2025/02/snyk-fetch-the-flag-2025-writeup/</link>
+    <pubDate>Fri, 28 Feb 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/02/snyk-fetch-the-flag-2025-writeup/</guid>
+    <description><![CDATA[I managed to solved 5 challenges, which are web exploit, reverse, and pwn.
+<h1 id="warmup">Warmup</h1>
+<h2 id="1-zero-ex-six-one---rev">1. Zero Ex Six One - Rev</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Author: @HuskyHacks</p>
+<p>I&rsquo;m XORta out of ideas for how to get the flag. Does this look like anything to you?</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Given <code>flag.txt.encry</code> file and this is the content inside it.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">0x070x0d0x000x060x1a0x020x540x510x050x590x530x020x510x000x530x540x070x520x040x570x550x550x050x510x560x510x530x030x550x500x050x030x050x510x590x540x000x1c</span></span></code></pre></div></div>
+<ul>
+<li>First of all, I ask to GPT, what the heck is this encrypted flag is (coz I&rsquo;m beginner in RE and crypto stuffs).</li>
+<li>Basically, GPT said that <strong>the flag possibly encrypted with XOR cipher</strong>.</li>
+<li>Here&rsquo;s the solver script generated from GPT.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="p">[</span><span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x0d</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x06</span><span class="p">,</span> <span class="mh">0x1a</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x53</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x55</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0x59</span><span class="p">,</span> <span class="mh">0x54</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x1c</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Data: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="se">\\</span><span class="s2">nLength of data: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x7F</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">decoded</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">b</span> <span class="o">^</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Check for printable ASCII value.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="mi">32</span> <span class="o">&lt;=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">126</span> <span class="ow">or</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">decoded</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Key </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">decoded</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
+<ul>
+<li>So, we&rsquo;ve to put the sequence of bytes into a list of bytes (<em>data</em>).</li>
+<li>Loop from <code>0x20</code> until <code>0x7E</code>, which is all printable ASCII characters in human readable text, such as <em>letters</em>, <em>numbers</em>, and <em>symbols</em>. The <code>0x7F</code> hex value is commonly use for obfuscate the text (<code>DEL</code>). Go to this website to see all list of ASCII tables: &ldquo;<a href="https://byte-tools.com/en/ascii" target="_blank" rel="noopener noreffer ">https://byte-tools.com/en/ascii/</a>&rdquo;.</li>
+<li>Like the name of this challenge, the printable characters is start from XOR-ing the bytes of data with <code>0x61</code> (a).</li>
+<li><code>0x07</code> ^ <code>0x61</code> = <strong>f</strong> ; <code>0x0d</code> ^ <code>0x61</code> = <strong>l</strong> -&gt; can you see the flag pattern ?</li>
+</ul>
+<p></p>]]></description>
+</item>
+<item>
     <title>Slashroot CTF 8.0 Quals Writeup</title>
     <link>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</link>
     <pubDate>Mon, 30 Sep 2024 00:00:00 &#43;0000</pubDate>

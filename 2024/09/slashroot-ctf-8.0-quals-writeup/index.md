@@ -30,7 +30,7 @@
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **slashroot8{W0w_Y0u_G00d_B3gg1nn3r}**
+  `slashroot8{W0w_Y0u_G00d_B3gg1nn3r}`
 {{< /admonition >}}
 
 ## 2. Go-Ping
@@ -70,7 +70,7 @@ find${IFS}/${IFS}-name${IFS}'flag*'${IFS}-type${IFS}
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **slashroot8{Rc3_W1Th_c0mM4Nd_1Nj3cT1On_1S_V3Ry_v3rY_N1Ce}**
+  `slashroot8{Rc3_W1Th_c0mM4Nd_1Nj3cT1On_1S_V3Ry_v3rY_N1Ce}`
 {{< /admonition >}}
 
 ## 3. EZZ Momento
@@ -165,7 +165,7 @@ public class Exploit {
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **slashroot8{it_is_really_private_UwU}**
+  `slashroot8{it_is_really_private_UwU}`
 {{< /admonition >}}
 
 ---
@@ -195,7 +195,7 @@ public class Exploit {
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **slashroot8{N0T90Nn4l1e_tH4T_w45_E45y_hUh?}**
+  `slashroot8{N0T90Nn4l1e_tH4T_w45_E45y_hUh?}`
 {{< /admonition >}}
 
 ---
@@ -319,7 +319,7 @@ print("Flag:", flag)
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **slashroot8{ez_0n3_f0r_y0u_see_y0u_1n_f1n4l}**
+  `slashroot8{ez_0n3_f0r_y0u_see_y0u_1n_f1n4l}`
 {{< /admonition >}}
 
 ---
@@ -382,6 +382,6 @@ print("Flag:", flag)
 ### Flag
 
 {{< admonition type=question title="Click to show the flag" open=false >}}
-  **slashroot8{Y4n9_b1k1n_s04l_m4s1h_p3mul4}**
+  `slashroot8{Y4n9_b1k1n_s04l_m4s1h_p3mul4}`
 {{< /admonition >}}
 
