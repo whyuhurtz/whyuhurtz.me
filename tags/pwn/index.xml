@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Pwn - Tag - whyuhurtz&#39;s Blog</title>
+        <link>https://whyuhurtz.me/tags/pwn/</link>
+        <description>Pwn - Tag - whyuhurtz&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+    <title>(PDF) KMIPN VII CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</link>
+    <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</guid>
+    <description><![CDATA[I don&#39;t participate this time, because my team lose at quals.
+<h1 id="jeopardy-writeup-by-zumatech">Jeopardy Writeup by Zumatech</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVII-Zumatech_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>]]></description>
+</item>
+</channel>
+</rss>

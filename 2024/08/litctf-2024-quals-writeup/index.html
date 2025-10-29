@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>LITCTF 2024 Quals Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="I managed to solved 4 challenges, mostly web exploit."><meta property="og:url" content="https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="LITCTF 2024 Quals Writeup">
+  <meta property="og:description" content="I managed to solved 4 challenges, mostly web exploit.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-10T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="International">
+    <meta property="article:tag" content="Misc">
+    <meta property="article:tag" content="Web Exploit">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="LITCTF 2024 Quals Writeup">
+  <meta name="twitter:description" content="I managed to solved 4 challenges, mostly web exploit.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/" /><link rel="prev" href="https://whyuhurtz.me/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/" /><link rel="next" href="https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "LITCTF 2024 Quals Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2024\/08\/litctf-2024-quals-writeup\/"
+        },"genre": "posts","keywords": "ctf, international, misc, web exploit","wordcount":  909 ,
+        "url": "https:\/\/whyuhurtz.me\/2024\/08\/litctf-2024-quals-writeup\/","datePublished": "2024-08-10T00:00:00+00:00","dateModified": "2024-08-10T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "I managed to solved 4 challenges, mostly web exploit."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">LITCTF 2024 Quals Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-08-10">2024-08-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;909 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#misc">Misc</a>
+      <ul>
+        <li><a href="#1-welcome">1. Welcome</a>
+          <ul>
+            <li><a href="#description">Description</a></li>
+            <li><a href="#solve-walkthrough">Solve Walkthrough</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#1-anti-inspect">1. anti-inspect</a>
+          <ul>
+            <li><a href="#description-1">Description</a></li>
+            <li><a href="#solve-walkthrough-1">Solve Walkthrough</a></li>
+            <li><a href="#flag-1">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-jwt-1">2. jwt-1</a>
+          <ul>
+            <li><a href="#description-2">Description</a></li>
+            <li><a href="#solve-walkthrough-2">Solve Walkthrough</a></li>
+            <li><a href="#flag-2">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-jwt-2">3. jwt-2</a>
+          <ul>
+            <li><a href="#description-3">Description</a></li>
+            <li><a href="#solve-walkthrough-3">Solve Walkthrough</a></li>
+            <li><a href="#flag-3">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">I managed to solved 4 challenges, mostly web exploit.
+<h1 id="misc">Misc</h1>
+<h2 id="1-welcome">1. Welcome</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Please join the Discord for the latest announcements and read the <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a>! Good luck!</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Flag 1 in the announcement channel: <code>LITCTF{we_4re_happy_1it20</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_misc1-01.png"
+        data-srcset="/images/litctf_misc1-01.png, /images/litctf_misc1-01.png 1.5x, /images/litctf_misc1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_misc1-01.png"
+        title="Welcome-01" width="1036" height="406" /></p>
+<ul>
+<li>Flag 2 at the bottom of <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a> page: <code>24_is_h4pp3n1ng_and_h0p3_u_r_2}</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_misc1-02.png"
+        data-srcset="/images/litctf_misc1-02.png, /images/litctf_misc1-02.png 1.5x, /images/litctf_misc1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_misc1-02.png"
+        title="Welcome-02" /></p>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>LITCTF{we_4re_happy_1it2024_is_h4pp3n1ng_and_h0p3_u_r_2}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="web">Web</h1>
+<h2 id="1-anti-inspect">1. anti-inspect</h2>
+<h3 id="description-1">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>can you find the answer?</p>
+<p><strong>WARNING: do not open the link your computer will not enjoy it much</strong>. URL: <a href="http://litctf.org:31779/" target="_blank" rel="noopener noreffer ">http://litctf.org:31779/</a></p>
+<p><strong>Hint</strong>: If your flag does not work, think about how to style the output of console.log</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-1">Solve Walkthrough</h3>
+<ul>
+<li>As you can see at the description, if we open the link,your browser will crashed.</li>
+<li>So, I try another way to open the page, yap.. by using <strong>cURL</strong>.</li>
+<li>Simply, cURL is web browser, but in your terminal. We can perform HTTP request to the target server of course with command-line :).</li>
+<li>Here&rsquo;s the output while i&rsquo;m trying to request with cURL.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_web1-01.png"
+        data-srcset="/images/litctf_web1-01.png, /images/litctf_web1-01.png 1.5x, /images/litctf_web1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_web1-01.png"
+        title="anti-inspect-01" /></p>
+<ul>
+<li>After I see the response, makes sense that we are told not to open the link through a web browser, it does <strong>infinite loop</strong> (look at the <em>while true</em> statement).</li>
+<li>Alright, just ignore it. In the response show me the flag, but, if you read the challenge description carefully, you will notice that the flag is gone wrong !</li>
+<li>So, to fix that, I try to save the response into a HTML file and open it in my web browser to see the correct formatted flag.</li>
+<li>And yeah, we got the flag (just copy the output from your console).</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_web1-02.png"
+        data-srcset="/images/litctf_web1-02.png, /images/litctf_web1-02.png 1.5x, /images/litctf_web1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_web1-02.png"
+        title="anti-inspect-02" width="541" height="171" /></p>
+<h3 id="flag-1">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>LITCTF{your_fOund_teh_fI@g_94932}</strong></div>
+        </div>
+    </div>
+<h2 id="2-jwt-1">2. jwt-1</h2>
+<h3 id="description-2">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>I just made a website. Since cookies seem to be a thing of the old days, I updated my authentication!</p>
+<p>With these modern web technologies, I will never have to deal with sessions again. Come try it out at <a href="http://litctf.org:31781/" target="_blank" rel="noopener noreffer ">http://litctf.org:31781/</a>.</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-2">Solve Walkthrough</h3>
+<ul>
+<li>As you can know from the challenge title, it shoule be correlation with JWT token, so prepare for <a href="https://jwt.io/" target="_blank" rel="noopener noreffer ">https://jwt.io</a> website.</li>
+<li>The website have 3 features/endpoints, that is:
+<ul>
+<li>Sign up -&gt; <strong>/signup/</strong></li>
+<li>Log in -&gt; <strong>/login/</strong></li>
+<li>Get the flag -&gt; <strong>/flag</strong></li>
+</ul>
+</li>
+<li>Of course we don&rsquo;t know admin password, but after you login (or signup if you don&rsquo;t have an account before), you can see new generated JWT token in the <strong>Storage &gt; Cookies</strong> of your developer tools.</li>
+<li>Copy that JWT token to the <a href="http://jwt.io/" target="_blank" rel="noopener noreffer ">jwt.io</a> website, and you will see the payload data contain <code>name</code> and <code>admin</code>.</li>
+<li>I change the <code>admin</code> value to <strong>true</strong>, and then I replace the original JWT token cookies to crafted JWT token payload.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_web2-01.png"
+        data-srcset="/images/litctf_web2-01.png, /images/litctf_web2-01.png 1.5x, /images/litctf_web2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_web2-01.png"
+        title="jwt-1-01" width="1344" height="686" /></p>
+<ul>
+<li>When I try to visit the <strong>/flag</strong> endpoint, it show me the flag.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_web2-02.png"
+        data-srcset="/images/litctf_web2-02.png, /images/litctf_web2-02.png 1.5x, /images/litctf_web2-02.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_web2-02.png"
+        title="jwt-1-02" width="626" height="101" /></p>
+<h3 id="flag-2">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>LITCTF{o0ps_forg0r_To_v3rify_1re4DV9}</strong></div>
+        </div>
+    </div>
+<h2 id="3-jwt-2">3. jwt-2</h2>
+<h3 id="description-3">Description</h3>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">its like jwt-1 but this one is harder URL: <a href="http://litctf.org:31777/" target="_blank" rel="noopener noreffer ">http://litctf.org:31777/</a></div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-3">Solve Walkthrough</h3>
+<ul>
+<li>Given a TypeScript source code like below:</li>
+</ul>
+<p><code>source.ts</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-typescript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">express</span> <span class="kr">from</span> <span class="s2">&#34;express&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">cookieParser</span> <span class="kr">from</span> <span class="s2">&#34;cookie-parser&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">path</span> <span class="kr">from</span> <span class="s2">&#34;path&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">fs</span> <span class="kr">from</span> <span class="s2">&#34;fs&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">crypto</span> <span class="kr">from</span> <span class="s2">&#34;crypto&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">accounts</span><span class="o">:</span> <span class="p">[</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">][]</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">jwtSecret</span> <span class="o">=</span> <span class="s2">&#34;xook&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">jwtHeader</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="nx">alg</span><span class="o">:</span> <span class="s2">&#34;HS256&#34;</span><span class="p">,</span> <span class="nx">typ</span><span class="o">:</span> <span class="s2">&#34;JWT&#34;</span> <span class="p">}),</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;utf-8&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s2">&#34;base64&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/=/g</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sign</span> <span class="o">=</span> <span class="p">(</span><span class="nx">payload</span>: <span class="kt">object</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">jwtPayload</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">),</span> <span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s2">&#34;base64&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/=/g</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="nx">jwtSecret</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="nx">jwtHeader</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">jwtPayload</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="s1">&#39;base64&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/=/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nx">jwtHeader</span> <span class="o">+</span> <span class="s2">&#34;.&#34;</span> <span class="o">+</span> <span class="nx">jwtPayload</span> <span class="o">+</span> <span class="s2">&#34;.&#34;</span> <span class="o">+</span> <span class="nx">signature</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">3000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;server up on http://localhost:&#34;</span> <span class="o">+</span> <span class="nx">port</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">cookieParser</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span>: <span class="kt">true</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s2">&#34;site&#34;</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;/flag&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">req</span><span class="p">.</span><span class="nx">cookies</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;no auth&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">403</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Unauthorized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">cookies</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// split up token
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="p">[</span><span class="nx">header</span><span class="p">,</span> <span class="nx">payload</span><span class="p">,</span> <span class="nx">signature</span><span class="p">]</span> <span class="o">=</span> <span class="nx">token</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">header</span> <span class="o">||</span> <span class="o">!</span><span class="nx">payload</span> <span class="o">||</span> <span class="o">!</span><span class="nx">signature</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">403</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Unauthorized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Buffer</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">header</span><span class="p">,</span> <span class="s2">&#34;base64&#34;</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// decode payload
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">decodedPayload</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">payload</span><span class="p">,</span> <span class="s2">&#34;base64&#34;</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// parse payload
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">parsedPayload</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">decodedPayload</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// verify signature
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kr">const</span> <span class="nx">expectedSignature</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="nx">jwtSecret</span><span class="p">).</span><span class="nx">update</span><span class="p">(</span><span class="nx">header</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">payload</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="s1">&#39;base64&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/=/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">signature</span> <span class="o">!==</span> <span class="nx">expectedSignature</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">403</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Unauthorized ;)&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// check if user is admin
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">parsedPayload</span><span class="p">.</span><span class="nx">admin</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="s2">&#34;name&#34;</span> <span class="k">in</span> <span class="nx">parsedPayload</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s2">&#34;flag.txt&#34;</span><span class="p">),</span> <span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">403</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Unauthorized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">403</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Unauthorized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">username</span> <span class="o">||</span> <span class="o">!</span><span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Bad Request&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">accounts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nx">account</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">account</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="nx">username</span> <span class="o">&amp;&amp;</span> <span class="nx">account</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">===</span> <span class="nx">password</span>
+</span></span><span class="line"><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">sign</span><span class="p">({</span> <span class="nx">name</span>: <span class="kt">username</span><span class="p">,</span> <span class="nx">admin</span>: <span class="kt">false</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">res</span><span class="p">.</span><span class="nx">cookie</span><span class="p">(</span><span class="s2">&#34;token&#34;</span><span class="p">,</span> <span class="nx">token</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">403</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Account not found&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;Bad Request&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/signup&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">password</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">username</span> <span class="o">||</span> <span class="o">!</span><span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Bad Request&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">accounts</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">account</span> <span class="o">=&gt;</span> <span class="nx">account</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">===</span> <span class="nx">username</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Bad Request&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">accounts</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">sign</span><span class="p">({</span> <span class="nx">name</span>: <span class="kt">username</span><span class="p">,</span> <span class="nx">admin</span>: <span class="kt">false</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">cookie</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="nx">token</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Bad Request&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></div></div>
+<ul>
+<li>From the source code above, we can see that the secret key is weak (not properly random): <code>xook</code>.</li>
+<li>But, if we do the samething like <code>jwt-1</code> like previous, we got a response <strong>Unauthorized ;)</strong>.</li>
+<li>Then, I craft this JWT payload (with user <strong>&ldquo;name&rdquo;: &ldquo;joni&rdquo;</strong> and <strong>&ldquo;admin&rdquo;: true</strong>).</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_web3-01.png"
+        data-srcset="/images/litctf_web3-01.png, /images/litctf_web3-01.png 1.5x, /images/litctf_web3-01.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_web3-01.png"
+        title="jwt-2-01" /></p>
+<ul>
+<li>Finally, I replace the original JWT token cookies to crafted JWT token payload with <code>xook</code> as secret key.</li>
+<li>And if I visit the <strong>/flag</strong> endpoint, we can see the flag.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/litctf_web3-02.png"
+        data-srcset="/images/litctf_web3-02.png, /images/litctf_web3-02.png 1.5x, /images/litctf_web3-02.png 2x"
+        data-sizes="auto"
+        alt="/images/litctf_web3-02.png"
+        title="jwt-2-02" width="630" height="100" /></p>
+<h3 id="flag-3">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>LITCTF{v3rifyed_thI3_Tlme_1re4DV9}</strong></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-08-10</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/international/">International</a>,&nbsp;<a href="/tags/misc/">Misc</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/" class="prev" rel="prev" title="(PDF) GEMASTIK XVII CTF Quals Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>(PDF) GEMASTIK XVII CTF Quals Writeup</a>
+            <a href="/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/" class="next" rel="next" title="Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]">Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script></body>
+</html>

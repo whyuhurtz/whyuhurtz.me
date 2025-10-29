@@ -1,0 +1,87 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Misc - Tag - whyuhurtz&#39;s Blog</title>
+        <link>https://whyuhurtz.me/tags/misc/</link>
+        <description>Misc - Tag - whyuhurtz&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/misc/" rel="self" type="application/rss+xml" /><item>
+    <title>(PDF) KMIPN VII CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</link>
+    <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</guid>
+    <description><![CDATA[I don&#39;t participate this time, because my team lose at quals.
+<h1 id="jeopardy-writeup-by-zumatech">Jeopardy Writeup by Zumatech</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVII-Zumatech_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>]]></description>
+</item>
+<item>
+    <title>LITCTF 2024 Quals Writeup</title>
+    <link>https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/</link>
+    <pubDate>Sat, 10 Aug 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/</guid>
+    <description><![CDATA[I managed to solved 4 challenges, mostly web exploit.
+<h1 id="misc">Misc</h1>
+<h2 id="1-welcome">1. Welcome</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Please join the Discord for the latest announcements and read the <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a>! Good luck!</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Flag 1 in the announcement channel: <code>LITCTF{we_4re_happy_1it20</code>.</li>
+</ul>
+<p></p>
+<ul>
+<li>Flag 2 at the bottom of <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a> page: <code>24_is_h4pp3n1ng_and_h0p3_u_r_2}</code>.</li>
+</ul>
+<p></p>]]></description>
+</item>
+<item>
+    <title>OS CTF 2024 Writeup</title>
+    <link>https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/</link>
+    <pubDate>Sat, 13 Jul 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/</guid>
+    <description><![CDATA[I managed to solve 6 challenges.
+<h1 id="misc">Misc</h1>
+<h2 id="cyber-quiz">Cyber Quiz</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>My teacher assigned me this quiz and told me that I have to answer each question correctly otherwise I won&rsquo;t be able to pass the test. Can you help me? Pwease</p>
+<p>Author: @5h1kh4r</p>
+<p>nc 34.16.207.52 12345</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Just answer all the questions after making a connection.</li>
+<li>ChatGPT was helped me a lot. 😂</li>
+</ul>
+<p></p>]]></description>
+</item>
+</channel>
+</rss>

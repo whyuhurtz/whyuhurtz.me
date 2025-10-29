@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>OS CTF 2024 Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="I managed to solve 6 challenges."><meta property="og:url" content="https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="OS CTF 2024 Writeup">
+  <meta property="og:description" content="I managed to solve 6 challenges.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-07-13T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-07-13T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="International">
+    <meta property="article:tag" content="Misc">
+    <meta property="article:tag" content="Osint">
+    <meta property="article:tag" content="Web Exploit">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OS CTF 2024 Writeup">
+  <meta name="twitter:description" content="I managed to solve 6 challenges.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/" /><link rel="prev" href="https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/" /><link rel="next" href="https://whyuhurtz.me/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "OS CTF 2024 Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2024\/07\/os-ctf-2024-writeup\/"
+        },"genre": "posts","keywords": "ctf, international, misc, osint, web exploit","wordcount":  767 ,
+        "url": "https:\/\/whyuhurtz.me\/2024\/07\/os-ctf-2024-writeup\/","datePublished": "2024-07-13T00:00:00+00:00","dateModified": "2024-07-13T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "I managed to solve 6 challenges."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">OS CTF 2024 Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-13">2024-07-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;767 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#misc">Misc</a>
+      <ul>
+        <li><a href="#cyber-quiz">Cyber Quiz</a>
+          <ul>
+            <li><a href="#description">Description</a></li>
+            <li><a href="#solve-walkthrough">Solve Walkthrough</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#osint">OSINT</a>
+      <ul>
+        <li><a href="#the-statue-is-being-repaired">The statue is being repaired</a>
+          <ul>
+            <li><a href="#description-1">Description</a></li>
+            <li><a href="#solve-walkthrough-1">Solve Walkthrough</a></li>
+            <li><a href="#flag-1">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#1-introspection">1. Introspection</a>
+          <ul>
+            <li><a href="#description-2">Description</a></li>
+            <li><a href="#solve-walkthrough-2">Solve Walkthrough</a></li>
+            <li><a href="#flag-2">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-heads-or-tails">2. Heads or Tails</a>
+          <ul>
+            <li><a href="#description-3">Description</a></li>
+            <li><a href="#solve-walkthrough-3">Solve Walkthrough</a></li>
+            <li><a href="#flag-3">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-indoor-webapp">3. Indoor WebApp</a>
+          <ul>
+            <li><a href="#description-4">Description</a></li>
+            <li><a href="#solve-walkthrough-4">Solve Walkthrough</a></li>
+            <li><a href="#flag-4">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-action-notes">4. Action Notes</a>
+          <ul>
+            <li><a href="#description-5">Description</a></li>
+            <li><a href="#solve-walkthrough-5">Solve Walkthrough</a></li>
+            <li><a href="#flag-5">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">I managed to solve 6 challenges.
+<h1 id="misc">Misc</h1>
+<h2 id="cyber-quiz">Cyber Quiz</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>My teacher assigned me this quiz and told me that I have to answer each question correctly otherwise I won&rsquo;t be able to pass the test. Can you help me? Pwease</p>
+<p>Author: @5h1kh4r</p>
+<p>nc 34.16.207.52 12345</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Just answer all the questions after making a connection.</li>
+<li>ChatGPT was helped me a lot. 😂</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_misc1-01.png"
+        data-srcset="/images/os-ctf_misc1-01.png, /images/os-ctf_misc1-01.png 1.5x, /images/os-ctf_misc1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_misc1-01.png"
+        title="Cyber Quiz-01" width="911" height="895" /></p>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>OSCTF{L33t_Kn0wl3Dg3}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="osint">OSINT</h1>
+<h2 id="the-statue-is-being-repaired">The statue is being repaired</h2>
+<h3 id="description-1">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>This statue is typical of an university, can you find out the name of the statue and the city where it exists?</p>
+<p>Format flag: <strong>OSCTF{name of statue_city}</strong></p>
+<p>If the name of the statue is Statue of Liberty at New York, US, the flag will be: <strong>OSCTF{statueofliberty_newyork}</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_osint1-01.png"
+        data-srcset="/images/os-ctf_osint1-01.png, /images/os-ctf_osint1-01.png 1.5x, /images/os-ctf_osint1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_osint1-01.png"
+        title="The statue is being repaired-01" /></p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-1">Solve Walkthrough</h3>
+<ul>
+<li>Save the picture chall and try to search with Google Lens. You will find 2 posts in Facebook (in Vietnam language).</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_osint1-02.png"
+        data-srcset="/images/os-ctf_osint1-02.png, /images/os-ctf_osint1-02.png 1.5x, /images/os-ctf_osint1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_osint1-02.png"
+        title="The statue is being repaired-02" /></p>
+<ul>
+<li>The image looks same, and then I explore the tag in the post <code>#FPTAround</code>.</li>
+<li>Seems like it refers to the <strong>FPT University in Vietnam</strong>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_osint1-03.png"
+        data-srcset="/images/os-ctf_osint1-03.png, /images/os-ctf_osint1-03.png 1.5x, /images/os-ctf_osint1-03.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_osint1-03.png"
+        title="The statue is being repaired-03" width="967" height="931" /></p>
+<ul>
+<li>I do more exploration about <strong>fptaround</strong> and luckily I got the community page in Facebook: <a href="https://www.facebook.com/fptaround" target="_blank" rel="noopener noreffer "><em>https://www.facebook.com/fptaround</em></a>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_osint1-04.png"
+        data-srcset="/images/os-ctf_osint1-04.png, /images/os-ctf_osint1-04.png 1.5x, /images/os-ctf_osint1-04.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_osint1-04.png"
+        title="The statue is being repaired-04" /></p>
+<ul>
+<li>I try to translate what is the Intro description.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_osint1-05.png"
+        data-srcset="/images/os-ctf_osint1-05.png, /images/os-ctf_osint1-05.png 1.5x, /images/os-ctf_osint1-05.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_osint1-05.png"
+        title="The statue is being repaired-05" width="400" height="155" /></p>
+<ul>
+<li>Nice, we got the city name: <strong>Ho Chi Minh</strong>.</li>
+<li>Next, we&rsquo;ve to found what is the statue name. I just search FPT university statue in google, and found the useful wiki link: <a href="https://commons.wikimedia.org/wiki/File:Self-made_Man_statue_at_FPT_University_Ha_Noi.jpg" target="_blank" rel="noopener noreffer "><em>https://commons.wikimedia.org/wiki/File:Self-made_Man_statue_at_FPT_University_Ha_Noi.jpg</em></a>.</li>
+<li>Alhamdulillah, I got the name of statue: <strong>Self-made man</strong>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_osint1-06.png"
+        data-srcset="/images/os-ctf_osint1-06.png, /images/os-ctf_osint1-06.png 1.5x, /images/os-ctf_osint1-06.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_osint1-06.png"
+        title="The statue is being repaired-06" /></p>
+<ul>
+<li>Finally, we can crafting the correct flag format: <code>selfmademan_hochiminh</code>.</li>
+</ul>
+<h3 id="flag-1">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>OSCTF{selfmademan_hochiminh}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="web">Web</h1>
+<h2 id="1-introspection">1. Introspection</h2>
+<h3 id="description-2">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Welcome to the Secret Agents Portal. Find the flag hidden in the secrets of the Universe !!!</p>
+<p>Author: @5h1kh4r</p>
+<p>Web Instance: http://34.16.207.52:5134</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-2">Solve Walkthrough</h3>
+<ul>
+<li>Visit the web page, and open the inspect element in web browser.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web1-01.png"
+        data-srcset="/images/os-ctf_web1-01.png, /images/os-ctf_web1-01.png 1.5x, /images/os-ctf_web1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web1-01.png"
+        title="Introspection-01" width="1021" height="259" /></p>
+<ul>
+<li>Notice that the web page have JS file embedded. Open the <code>script.js</code> file and yeah.. we found the flag.</li>
+</ul>
+<p><code>script.js</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">checkFlag</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">flagInput</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;flagInput&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">flag</span> <span class="o">=</span> <span class="s2">&#34;OSCTF{Cr4zY_In5P3c71On}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">flagInput</span> <span class="o">===</span> <span class="nx">flag</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">&#34;Congratulations! You found the flag!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&#34;green&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">&#34;Incorrect flag. Try again.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&#34;red&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>Check the flag for make sure. Sooo&hellip; ez dude.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web1-02.png"
+        data-srcset="/images/os-ctf_web1-02.png, /images/os-ctf_web1-02.png 1.5x, /images/os-ctf_web1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web1-02.png"
+        title="Introspection-02" width="310" height="47" /></p>
+<h3 id="flag-2">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>OSCTF{Cr4zY_In5P3c71On}</strong></div>
+        </div>
+    </div>
+<h2 id="2-heads-or-tails">2. Heads or Tails</h2>
+<h3 id="description-3">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>pfft .. Listen, I&rsquo;ve gained access to this login portal but I&rsquo;m not able to log in. The admins are surely hiding something from the public, but &hellip; I don&rsquo;t understand what. Here take the link and be quiet, don&rsquo;t share it with anyone</p>
+<p>Author: @5h1kh4r</p>
+<p>Web instance: http://34.16.207.52:3635/</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-3">Solve Walkthrough</h3>
+<ul>
+<li>From the title we know that the challenge is the web app vulnerable to <strong>SQL injection attack</strong>.</li>
+<li>Just performing basic SQL injection payload to bypass login: <code>1' OR 1=1--</code>.</li>
+<li>Use the payload in username and password and it will make the username and password val0id. 4. In the default page, it will show the <strong>fake flag</strong>. You must be careful okay.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web2-01.png"
+        data-srcset="/images/os-ctf_web2-01.png, /images/os-ctf_web2-01.png 1.5x, /images/os-ctf_web2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web2-01.png"
+        title="Heads or Tails-01" width="746" height="197" /></p>
+<ul>
+<li>But, you can access the admin page directly by changing the endpoint to <code>/admin</code> (if you know).</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web2-02.png"
+        data-srcset="/images/os-ctf_web2-02.png, /images/os-ctf_web2-02.png 1.5x, /images/os-ctf_web2-02.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web2-02.png"
+        title="Heads or Tails-02" width="511" height="161" /></p>
+<ul>
+<li>If you don&rsquo;t know what all endpoints or subdirectories inside the web page, you can do <strong>directory scanning</strong> using tool like <strong>dirsearch</strong>, <strong>feroxbuster</strong>, <strong>dirb</strong>, or <strong>gobuster</strong>. I recommend to use <strong>dirsearch</strong> cause they have default wordlist.</li>
+</ul>
+<h3 id="flag-3">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>OSCTF{D1r3ct0RY_BrU7t1nG_4nD_SQL}</strong></div>
+        </div>
+    </div>
+<h2 id="3-indoor-webapp">3. Indoor WebApp</h2>
+<h3 id="description-4">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>The production of this application has been completely indoor so that no corona virus spreads, but that&rsquo;s an old talk right?</p>
+<p>Author: @5h1kh4r</p>
+<p>Web Instance: http://34.16.207.52:2546</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-4">Solve Walkthrough</h3>
+<ul>
+<li>Given a web app that we can see personal information, but notice that every person is have unique id: <code>?user_id</code> value parameters.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web3-01.png"
+        data-srcset="/images/os-ctf_web3-01.png, /images/os-ctf_web3-01.png 1.5x, /images/os-ctf_web3-01.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web3-01.png"
+        title="Indoor WebApp-01" width="741" height="216" /></p>
+<ul>
+<li>I try to change it to person <strong>2</strong> or <code>?user_id=2</code> and I got the flag.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web3-02.png"
+        data-srcset="/images/os-ctf_web3-02.png, /images/os-ctf_web3-02.png 1.5x, /images/os-ctf_web3-02.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web3-02.png"
+        title="Indoor WebApp-02" width="752" height="224" /></p>
+<ul>
+<li>We can perform brute force attack to check if the spesific <code>user_id</code> is exist or not by using <strong>Burp Suite</strong> or simply <strong>cURL</strong> (combined with for/while loop).</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web3-03.png"
+        data-srcset="/images/os-ctf_web3-03.png, /images/os-ctf_web3-03.png 1.5x, /images/os-ctf_web3-03.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web3-03.png"
+        title="Indoor WebApp-03" width="956" height="396" /></p>
+<ul>
+<li>Luckily, we just have 3 available users.</li>
+</ul>
+<h3 id="flag-4">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>OSCTF{1nd00r_M4dE_n0_5enS3}</strong></div>
+        </div>
+    </div>
+<h2 id="4-action-notes">4. Action Notes</h2>
+<h3 id="description-5">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>I have created this notes taking app so that I don&rsquo;t forget what I&rsquo;ve studied</p>
+<p>Author: @5h1kh4r</p>
+<p>Web Instance: http://34.16.207.52:8965</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough-5">Solve Walkthrough</h3>
+<ul>
+<li>I just try to login as <strong>admin</strong> and luckily the password that I guess is <strong>admin123</strong> so I can the flag in the admin page.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/os-ctf_web4-01.png"
+        data-srcset="/images/os-ctf_web4-01.png, /images/os-ctf_web4-01.png 1.5x, /images/os-ctf_web4-01.png 2x"
+        data-sizes="auto"
+        alt="/images/os-ctf_web4-01.png"
+        title="Action Notes-01" width="390" height="131" /></p>
+<ul>
+<li>Try to guess common admin passwords, such as:</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>Username</th>
+          <th>Password</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>admin</td>
+          <td>admin</td>
+      </tr>
+      <tr>
+          <td>admin</td>
+          <td>password</td>
+      </tr>
+      <tr>
+          <td>admin</td>
+          <td>admin123</td>
+      </tr>
+      <tr>
+          <td>admin</td>
+          <td>admin1234</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="flag-5">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>OSCTF{Av0id_S1mpl3_P4ssw0rDs}</strong></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-07-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/international/">International</a>,&nbsp;<a href="/tags/misc/">Misc</a>,&nbsp;<a href="/tags/osint/">Osint</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/07/pdf-kmipn-vi-ctf-finals-writeup/" class="prev" rel="prev" title="(PDF) KMIPN VI CTF Finals Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>(PDF) KMIPN VI CTF Finals Writeup</a>
+            <a href="/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/" class="next" rel="next" title="(PDF) GEMASTIK XVII CTF Quals Writeup">(PDF) GEMASTIK XVII CTF Quals Writeup<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script></body>
+</html>

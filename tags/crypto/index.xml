@@ -1,0 +1,114 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Crypto - Tag - whyuhurtz&#39;s Blog</title>
+        <link>https://whyuhurtz.me/tags/crypto/</link>
+        <description>Crypto - Tag - whyuhurtz&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/crypto/" rel="self" type="application/rss+xml" /><item>
+    <title>(PDF) KMIPN VII CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</link>
+    <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</guid>
+    <description><![CDATA[I don&#39;t participate this time, because my team lose at quals.
+<h1 id="jeopardy-writeup-by-zumatech">Jeopardy Writeup by Zumatech</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNVII-Zumatech_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>]]></description>
+</item>
+<item>
+    <title>WRECK-IT CTF 5.0 Quals Writeup</title>
+    <link>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</link>
+    <pubDate>Fri, 22 Aug 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</guid>
+    <description><![CDATA[I managed to solved 2 challenges, which are web and crypto.
+<h1 id="misc">Misc</h1>
+<h2 id="free-flag">Free Flag</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<ul>
+<li>Flag gratis untuk permulaan dan sudah tertera di challenge description. Jadi, tinggal masukan saja flagnya.</li>
+</ul>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="web">Web</h1>
+<h2 id="oshiku">Oshiku</h2>
+<h3 id="deskripsi-1">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Challenge Sederhana. iya kan?</p>]]></description>
+</item>
+<item>
+    <title>(PDF) KMIPN V CTF Finals Writeup</title>
+    <link>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</link>
+    <pubDate>Sat, 05 Aug 2023 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</guid>
+    <description><![CDATA[My team got 2nd place at this competition.
+<h1 id="jeopardy-writeup">Jeopardy Writeup</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Jeopardy.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<hr>
+<h1 id="attack-defense-writeup">Attack-Defense Writeup</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Attack-Defense.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<h1 id="other-teams-writeup">Other Team&rsquo;s Writeup</h1>
+<p><a href="https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug" target="_blank" rel="noopener noreffer ">https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug</a></p>]]></description>
+</item>
+</channel>
+</rss>

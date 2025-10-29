@@ -28,6 +28,48 @@
     </div>]]></description>
 </item>
 <item>
+    <title>WRECK-IT CTF 5.0 Quals Writeup</title>
+    <link>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</link>
+    <pubDate>Fri, 22 Aug 2025 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</guid>
+    <description><![CDATA[I managed to solved 2 challenges, which are web and crypto.
+<h1 id="misc">Misc</h1>
+<h2 id="free-flag">Free Flag</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<ul>
+<li>Flag gratis untuk permulaan dan sudah tertera di challenge description. Jadi, tinggal masukan saja flagnya.</li>
+</ul>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="web">Web</h1>
+<h2 id="oshiku">Oshiku</h2>
+<h3 id="deskripsi-1">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Challenge Sederhana. iya kan?</p>]]></description>
+</item>
+<item>
     <title>Install Ubuntu GNOME from Scratch using debootstrap</title>
     <link>https://whyuhurtz.me/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/</link>
     <pubDate>Thu, 26 Jun 2025 00:00:00 &#43;0000</pubDate>
@@ -124,6 +166,172 @@
 <p>If the output shows an error: <code>no such file or directory</code>, then the firmware boot mode of your hardware is <strong>BIOS</strong>. Otherwise, you&rsquo;ll have to create <strong>ESP</strong> (EFI System Partition) later.</p>]]></description>
 </item>
 <item>
+    <title>Slashroot CTF 8.0 Quals Writeup</title>
+    <link>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</link>
+    <pubDate>Mon, 30 Sep 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</guid>
+    <description><![CDATA[I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit.
+<h1 id="web">Web</h1>
+<h2 id="1-login-begin">1. Login Begin</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Hallo Peserta Slashroot CTF #8, Pada Hari Ini Kita Akan Mengikuti Penyisihan CTF, Sebelum Memulai Kegiatan, Saya Sebagai Probset Ingin Menguji Kemampuan Temen&quot; Dalam Bidang Web Hacking, Ayo Teman&quot; Cobalah Exploit Web Sederhana Buatan Saya Dan Temukan Hak Akses Admin Dalam Sebuah Web Tersebut !, Siapa Tau Diantara Teman&quot; Dapat Menemukan Flag Tersembunyi Di Dalam Web Tersebut.</p>]]></description>
+</item>
+<item>
+    <title>Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]</title>
+    <link>https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/</link>
+    <pubDate>Sun, 18 Aug 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/</guid>
+    <description><![CDATA[I managed to solved 3 boot2root challenges, even if it&#39;s only user flag.
+<h1 id="1-rocket">1. Rocket</h1>
+<h2 id="detail-tantangan">Detail Tantangan</h2>
+<table>
+  <thead>
+      <tr>
+          <th><strong>Level</strong></th>
+          <th>Easy</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Points</strong></td>
+          <td>30 (User) &amp; 70 (Root)</td>
+      </tr>
+      <tr>
+          <td><strong>Machine IP</strong></td>
+          <td>10.1.2.233</td>
+      </tr>
+      <tr>
+          <td><strong>Machine OS</strong></td>
+          <td>Windows 10</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="langkah-penyelesaian">Langkah Penyelesaian</h2>
+<h3 id="port--service-enumeration">Port &amp; Service Enumeration</h3>
+<ul>
+<li>Saya menggunakan tool <code>rustscan</code> untuk mempercepat proses port scanning.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rustscan -a 10.1.2.233 -r 1-65535 --scripts default <span class="p">|</span> tee -a output_scan_all_ports.txt</span></span></code></pre></div></div>
+<ul>
+<li>Beberapa port yang open dan interesting antara lain:
+<ul>
+<li><strong>445</strong> (SMB)</li>
+<li><strong>135</strong> (MSRPC)</li>
+<li><strong>139</strong> (RPC)</li>
+<li><strong>3389</strong> (RDP)</li>
+<li><strong>8111</strong> (HTTP)</li>
+</ul>
+</li>
+</ul>
+<h3 id="rdp-enumeration">RDP Enumeration</h3>
+<ul>
+<li>Hasil scan service pada port 3389 (RDP) menggunakan <code>nmap</code>.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nmap -p <span class="m">3389</span> -sVC -v -oN output_scan_port_3389.txt 10.1.2.233</span></span></code></pre></div></div>
+<ul>
+<li>Tidak ada yang interesting untuk saat ini. Mungkin untuk <strong>Domain Name</strong> nanti berguna.</li>
+</ul>
+<p></p>]]></description>
+</item>
+<item>
+    <title>LITCTF 2024 Quals Writeup</title>
+    <link>https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/</link>
+    <pubDate>Sat, 10 Aug 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/08/litctf-2024-quals-writeup/</guid>
+    <description><![CDATA[I managed to solved 4 challenges, mostly web exploit.
+<h1 id="misc">Misc</h1>
+<h2 id="1-welcome">1. Welcome</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Please join the Discord for the latest announcements and read the <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a>! Good luck!</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Flag 1 in the announcement channel: <code>LITCTF{we_4re_happy_1it20</code>.</li>
+</ul>
+<p></p>
+<ul>
+<li>Flag 2 at the bottom of <a href="https://lit.lhsmathcs.org/logistics" target="_blank" rel="noopener noreffer ">contest rules</a> page: <code>24_is_h4pp3n1ng_and_h0p3_u_r_2}</code>.</li>
+</ul>
+<p></p>]]></description>
+</item>
+<item>
+    <title>(PDF) GEMASTIK XVII CTF Quals Writeup</title>
+    <link>https://whyuhurtz.me/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/</link>
+    <pubDate>Sun, 04 Aug 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/08/pdf-gemastik-xvii-ctf-quals-writeup/</guid>
+    <description><![CDATA[I managed to solve 2 challenges, 1 web and 1 forensic.
+<h1 id="jeopardy-writeup-by-05-council">Jeopardy Writeup by 05-Council</h1>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><iframe
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/GEMASTIK24-898426841_05-Council.pdf"
+  width="100%"
+  height="600px"
+  style="border: none;">
+</iframe>
+</div>
+        </div>
+    </div>
+<h1 id="other-teams-writeup">Other Team&rsquo;s Writeup</h1>
+<p>&ndash;&gt; <a href="https://mega.nz/folder/mV1VGJIL#USClJIV3bHC8f5LYLJXN-A" target="_blank" rel="noopener noreffer ">https://mega.nz/folder/mV1VGJIL#USClJIV3bHC8f5LYLJXN-A</a></p>]]></description>
+</item>
+<item>
+    <title>OS CTF 2024 Writeup</title>
+    <link>https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/</link>
+    <pubDate>Sat, 13 Jul 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/07/os-ctf-2024-writeup/</guid>
+    <description><![CDATA[I managed to solve 6 challenges.
+<h1 id="misc">Misc</h1>
+<h2 id="cyber-quiz">Cyber Quiz</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>My teacher assigned me this quiz and told me that I have to answer each question correctly otherwise I won&rsquo;t be able to pass the test. Can you help me? Pwease</p>
+<p>Author: @5h1kh4r</p>
+<p>nc 34.16.207.52 12345</p>
+</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<ul>
+<li>Just answer all the questions after making a connection.</li>
+<li>ChatGPT was helped me a lot. 😂</li>
+</ul>
+<p></p>]]></description>
+</item>
+<item>
     <title>(PDF) KMIPN VI CTF Finals Writeup</title>
     <link>https://whyuhurtz.me/2024/07/pdf-kmipn-vi-ctf-finals-writeup/</link>
     <pubDate>Fri, 05 Jul 2024 00:00:00 &#43;0000</pubDate>
@@ -161,47 +369,6 @@
 </div>
         </div>
     </div>]]></description>
-</item>
-<item>
-    <title>(PDF) KMIPN V CTF Finals Writeup</title>
-    <link>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</link>
-    <pubDate>Sat, 05 Aug 2023 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2023/08/pdf-kmipn-v-ctf-finals-writeup/</guid>
-    <description><![CDATA[My team got 2nd place at this competition.
-<h1 id="jeopardy-writeup">Jeopardy Writeup</h1>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><iframe
-  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Jeopardy.pdf"
-  width="100%"
-  height="600px"
-  style="border: none;">
-</iframe>
-</div>
-        </div>
-    </div>
-<hr>
-<h1 id="attack-defense-writeup">Attack-Defense Writeup</h1>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><iframe
-  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/KMIPNV-05-Council_Attack-Defense.pdf"
-  width="100%"
-  height="600px"
-  style="border: none;">
-</iframe>
-</div>
-        </div>
-    </div>
-<h1 id="other-teams-writeup">Other Team&rsquo;s Writeup</h1>
-<p><a href="https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug" target="_blank" rel="noopener noreffer ">https://mega.nz/folder/nV8jTJCA#FC5w56Fej_Zs5TIPI-gDug</a></p>]]></description>
 </item>
 </channel>
 </rss>

