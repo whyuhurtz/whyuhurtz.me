@@ -276,7 +276,7 @@ void decrypt_message(char *param_1)
 
 From the decompiled of `decrypt_message` we got interesting information, that is the string `IUC|t2nqm4gm5h5s2uin4u2d~` . The logic behind `decrypt_message` is very simple, it just **decrease each character of string "**`**IUC|t2nqm4gm5h5s2uin4u2d~**`**" by 1 and the result will be put in buffer**. Then, our input will be compared with the buffer.
 
-### 3. Decrypt The Secret Message
+**3. Decrypt The Secret Message**
 
 To get the flag is simply do the logic `buffer[i] = buffer[i] + -1;` . Take a look at the image below.
 
@@ -556,7 +556,7 @@ if __name__ == "__main__":
 
 ### Solve Walkthrough
 
-1. **Basic File Checks**
+**1. Basic File Checks**
 
 First, I do basic file check using `file` command.
 
@@ -580,7 +580,7 @@ Stripped:   No
 
 As you can see, this binary is full of protection, except PIE / PIC (Position Independent Code). That means every we run the binary, the memory address is still same, such as the buffer, local variable, etc.
 
-1. **Analyze The Binary**
+**2. Analyze The Binary**
 
 Unlike reverse engineering challenge before, in pwn we've to know the fundamentals of memory layout, such as stack, heap, etc. In this case, vulnerability of the binary is happen in the stack that can cause buffer overflow. But, inside the binary found a protection called "**Stack Canary**". Basically, it just random value located at `$RBP-0x8` (**64-bit**) / `$EBP-0x4` (**32-bit**).
 
@@ -747,7 +747,7 @@ What is `strstr` function does? It just to **find a substring (param2) in the ta
 
 Okay, so our first input will be `"A"*89 + "Quack Quack "` . To get more clear of leaked information, I recommend you to see with pwntools.
 
-1. **Exploit The Binary**
+**3. Exploit The Binary**
 
 Here's the first script to leak the stack canary.
 

@@ -51,7 +51,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/whyuhurtz.me\/2025\/03\/htb-cyber-apocalypse-2025-writeup\/"
-        },"genre": "posts","keywords": "ctf, international, web exploit, reverse, pwn","wordcount":  3810 ,
+        },"genre": "posts","keywords": "ctf, international, web exploit, reverse, pwn","wordcount":  3813 ,
         "url": "https:\/\/whyuhurtz.me\/2025\/03\/htb-cyber-apocalypse-2025-writeup\/","datePublished": "2025-03-27T00:00:00+00:00","dateModified": "2025-03-27T00:00:00+00:00","license": "\u0026copy; 2023-2025","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HTB Cyber Apocalypse 2025 Writeup</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-27">2025-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3810 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-27">2025-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3813 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;18 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -140,7 +140,6 @@
             <li><a href="#description-2">Description</a></li>
             <li><a href="#required-knowledge-2">Required Knowledge</a></li>
             <li><a href="#solve-walkthrough-2">Solve Walkthrough</a></li>
-            <li><a href="#3-decrypt-the-secret-message">3. Decrypt The Secret Message</a></li>
             <li><a href="#flag-2">Flag</a></li>
           </ul>
         </li>
@@ -480,7 +479,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>From the decompiled of <code>decrypt_message</code> we got interesting information, that is the string <code>IUC|t2nqm4gm5h5s2uin4u2d~</code> . The logic behind <code>decrypt_message</code> is very simple, it just <strong>decrease each character of string &ldquo;</strong><code>**IUC|t2nqm4gm5h5s2uin4u2d~**</code><strong>&rdquo; by 1 and the result will be put in buffer</strong>. Then, our input will be compared with the buffer.</p>
-<h3 id="3-decrypt-the-secret-message">3. Decrypt The Secret Message</h3>
+<p><strong>3. Decrypt The Secret Message</strong></p>
 <p>To get the flag is simply do the logic <code>buffer[i] = buffer[i] + -1;</code> . Take a look at the image below.</p>
 <p><img
         class="lazyload"
@@ -786,9 +785,7 @@
 <li>Hijack program flow (ret2win)</li>
 </ul>
 <h3 id="solve-walkthrough-4">Solve Walkthrough</h3>
-<ol>
-<li><strong>Basic File Checks</strong></li>
-</ol>
+<p><strong>1. Basic File Checks</strong></p>
 <p>First, I do basic file check using <code>file</code> command.</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
@@ -812,9 +809,7 @@
 </span></span><span class="line"><span class="cl">IBT:        Enabled
 </span></span><span class="line"><span class="cl">Stripped:   No</span></span></code></pre></div></div>
 <p>As you can see, this binary is full of protection, except PIE / PIC (Position Independent Code). That means every we run the binary, the memory address is still same, such as the buffer, local variable, etc.</p>
-<ol>
-<li><strong>Analyze The Binary</strong></li>
-</ol>
+<p><strong>2. Analyze The Binary</strong></p>
 <p>Unlike reverse engineering challenge before, in pwn we&rsquo;ve to know the fundamentals of memory layout, such as stack, heap, etc. In this case, vulnerability of the binary is happen in the stack that can cause buffer overflow. But, inside the binary found a protection called &ldquo;<strong>Stack Canary</strong>&rdquo;. Basically, it just random value located at <code>$RBP-0x8</code> (<strong>64-bit</strong>) / <code>$EBP-0x4</code> (<strong>32-bit</strong>).</p>
 <p>How can we bypass the Stack Canary protection? We&rsquo;ve to know that read function in C is not completely safe. The read function is <strong>leakable</strong>, which means that after input is <strong>not ended with NULL terminated string</strong> (<code>\\x00</code>). If the string or array of characters is not null terminated string, it can be <strong>leaked some information in the stack</strong>, including <em>stack canary</em>. Okay, let&rsquo;s start with decompile the binary.</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
@@ -983,9 +978,7 @@
         alt="/images/htb-cyber-apocalypse_pwn1-01.png"
         title="Quack Quack-01" width="662" height="216" /></p>
 <p>Okay, so our first input will be <code>&quot;A&quot;*89 + &quot;Quack Quack &quot;</code> . To get more clear of leaked information, I recommend you to see with pwntools.</p>
-<ol>
-<li><strong>Exploit The Binary</strong></li>
-</ol>
+<p><strong>3. Exploit The Binary</strong></p>
 <p>Here&rsquo;s the first script to leak the stack canary.</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-python">
