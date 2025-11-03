@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-LHYL3DDVEV"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-LHYL3DDVEV');
+        </script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>CTF IDSECCONF 2025 Registration Challenge Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="My team got rank 10th at the registration challenge and qualified to the finals."><meta property="og:url" content="https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-registration-challenge-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="CTF IDSECCONF 2025 Registration Challenge Writeup">
+  <meta property="og:description" content="My team got rank 10th at the registration challenge and qualified to the finals.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-01T08:11:54+07:00">
+    <meta property="article:modified_time" content="2025-11-01T08:11:54+07:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="National">
+    <meta property="article:tag" content="Web Exploit">
+    <meta property="article:tag" content="Misc">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CTF IDSECCONF 2025 Registration Challenge Writeup">
+  <meta name="twitter:description" content="My team got rank 10th at the registration challenge and qualified to the finals.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-registration-challenge-writeup/" /><link rel="prev" href="https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CTF IDSECCONF 2025 Registration Challenge Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2025\/11\/ctf-idsecconf-2025-registration-challenge-writeup\/"
+        },"genre": "posts","keywords": "ctf, national, web exploit, misc","wordcount":  1539 ,
+        "url": "https:\/\/whyuhurtz.me\/2025\/11\/ctf-idsecconf-2025-registration-challenge-writeup\/","datePublished": "2025-11-01T08:11:54+07:00","dateModified": "2025-11-01T08:11:54+07:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "My team got rank 10th at the registration challenge and qualified to the finals."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/projects/"> Projects </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/projects/" title="">Projects</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CTF IDSECCONF 2025 Registration Challenge Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-11-01">2025-11-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1539 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web--misc">Web + Misc</a>
+      <ul>
+        <li><a href="#purbyte">Purbyte</a>
+          <ul>
+            <li><a href="#deskripsi">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian">Langkah Penyelesaian</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">My team got rank 10th at the registration challenge and qualified to the finals.
+<blockquote>
+<p>Hanya 10 tim pertama yang berhasil menyelesaikan registration challenge yang dapat mengikuti offline jeopardy di Makassar.</p>
+<p>Beruntung bagi 3 tim teratas yang mendapatkan potongan subsidi Rp2.000.000</p></blockquote>
+<h1 id="web--misc">Web + Misc</h1>
+<h2 id="purbyte">Purbyte</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Tantangannya disini:</p>
+<p><a href="https://reg.hackincelebes.org/" target="_blank" rel="noopener noreffer ">https://reg.hackincelebes.org/</a></p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<ul>
+<li>Diberikan chall web dukun. Langsung saja akses webnya dan ini yg tampil.</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ctf-idsecconf2025_web1-01.png"
+        data-srcset="/images/ctf-idsecconf2025_web1-01.png, /images/ctf-idsecconf2025_web1-01.png 1.5x, /images/ctf-idsecconf2025_web1-01.png 2x"
+        data-sizes="auto"
+        alt="/images/ctf-idsecconf2025_web1-01.png"
+        title="Purbyte-01" width="782" height="658" /></p>
+<ul>
+<li>Tak ada apa pun ketika halamannya diinspeksi. Namun, ada hint bahwa “<strong>Pastikan Kamu berada dijaringan yang benar!</strong>”.</li>
+<li>Saya langsung berpikir untuk coba request dengan menambahkan HTTP Header <code>X-Forwarded-For: 127.0.0.1</code>. Hal itu untuk membuat request seolah-olah dikirim dari localhost. Berikut adalah respons dari request tersebut.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -H <span class="s2">&#34;X-Forwarded-For: 127.0.0.1&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>	https://reg.hackincelebes.org/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Output:</span>
+</span></span><span class="line"><span class="cl">&lt;title&gt;Bukan Kortek&lt;/title&gt;&lt;style&gt;
+</span></span><span class="line"><span class="cl">body <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  background-image: url<span class="o">(</span><span class="s2">&#34;purbyte.jpg&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  background-repeat: no-repeat<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  background-position: center<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  background-size: 40%<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  padding-top: 85vh<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  text-align: center<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">p <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    font-size: 1.5em<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    color: <span class="c1">#333;</span>
+</span></span><span class="line"><span class="cl">    margin: 0<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">&lt;/style&gt;&lt;p&gt;Kamu di localhost bro, bukan itu!&lt;/p&gt;&lt;p&gt;AS45732&lt;/p</span></span></code></pre></div></div>
+<ul>
+<li>Hmm… apa itu <strong>AS4573</strong>. Langsung aja saya coba tanyakan ke Claude dan ini responsnya.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-txt">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">Apa itu ASN?
+</span></span><span class="line"><span class="cl">ASN (Autonomous System Number) adalah nomor identifikasi unik yang diberikan kepada organisasi besar seperti ISP, institusi pemerintah, atau perusahaan yang mengelola blok alamat IP tertentu di internet.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Detail AS45732
+</span></span><span class="line"><span class="cl">Berdasarkan informasi yang tersedia:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Organisasi: Pusat Sistem Informasi dan Teknologi Keuangan (Pusintek)
+</span></span><span class="line"><span class="cl">Website: depkeu.go.id
+</span></span><span class="line"><span class="cl">Negara: Indonesia
+</span></span><span class="line"><span class="cl">Registry: IDNIC
+</span></span><span class="line"><span class="cl">Jumlah IPv4: 1,792 alamat IP
+</span></span><span class="line"><span class="cl">Range IP yang termasuk dalam AS45732 antara lain:
+</span></span><span class="line"><span class="cl">103.12.81.0/24
+</span></span><span class="line"><span class="cl">103.93.188.0/24
+</span></span><span class="line"><span class="cl">103.165.248.0/24
+</span></span><span class="line"><span class="cl">103.196.166.0/24
+</span></span><span class="line"><span class="cl">202.61.126.0/24
+</span></span><span class="line"><span class="cl">202.137.230.0/24</span></span></code></pre></div></div>
+<ul>
+<li>Kemungkinannya, AS45732 itu merupakan range IP address tertentu yang dikelola oleh ISP ataupun institusi terkait. Dari informasi yang diberikan oleh LLM Claude, AS itu terdaftar sebagai domain website “<a href="https://depkeu.go.id" target="_blank" rel="noopener noreffer ">https://depkeu.go.id</a>”. Namun, kita tidak fokus ke website tersebut karena tidak masuk akal jika kita meretas web pemerintahan. Kita akan fokus pada range IP pada AS45732 tersebut.</li>
+<li>Di sini, saya coba ganti HTTP Header sebelumnya menjadi IP range yang tertera.</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -H <span class="s2">&#34;X-Forwarded-For: 103.12.81.0&#34;</span> https://reg.hackincelebes.org/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Output:</span>
+</span></span><span class="line"><span class="cl">&lt;title&gt;Bukan Kortek&lt;/title&gt;&lt;style&gt;
+</span></span><span class="line"><span class="cl">body <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  background-image: url<span class="o">(</span><span class="s2">&#34;purbyte.jpg&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  background-repeat: no-repeat<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  background-position: center<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  background-size: 40%<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  padding-top: 85vh<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  text-align: center<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">p <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  font-size: 1.5em<span class="p">;</span>
+</span></span><span class="line"><span class="cl">  color: <span class="c1">#333;</span>
+</span></span><span class="line"><span class="cl">  margin: 0<span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">&lt;/style&gt;&lt;p&gt;Kamu dijaringan yang benar!&lt;/p&gt;&lt;p&gt;flag disini: &lt;code&gt;nc korteks.hackincelebes.org 5001&lt;/code&gt;&lt;/p&gt;</span></span></code></pre></div></div>
+<ul>
+<li>Dan ya it works! Pada respons sebelumnya kita disuruh untuk remote connection dengan <code>nc korteks.hackincelebes.org 5001</code>.</li>
+<li>Muncul pertanyaan ke-1 (Q1) yang merupakan tantangan kuis perhitungan pajak. Untuk menjawabnya kita <strong>hanya diberikan 3 detik</strong>, tentunya ini ga masuk akal karena kalaupun bisa sampai berapa pertanyaan kita harus jawab ?</li>
+<li>Setelah beberapa kali percobaan, saya menemukan suatu pola jika hanya terdapat <strong>10 buah pertanyaan yang berulang sampai 50x</strong>.</li>
+<li>Berikut adalah beberapa 10 pola pertanyaan yang mirip-mirip (hanya diganti saja angka-angkanya).
+<ul>
+<li>Q1. Ada 4 dokumen yang masing-masing bernilai di atas Rp5.000.000. Bea materai per dokumen Rp10,000. Berapa Pajak Total?
+Hint: Pajak = Rp10.000 × Jumlah Dokumen</li>
+<li>Q2. Sebuah pembangkit menghasilkan 5,000 kg CO2e di atas batas. Tarif pajak karbon Rp30/kg. Berapa pajaknya?
+Hint: Pajak = Rp30 × Jumlah Emisi (kg)</li>
+<li>Q3. Sebuah perusahaan memperkirakan PPh terutang tahun ini Rp480,000,000. Berapa angsuran PPh 25 per bulan?
+Hint: Pajak = Total PPh ÷ 12 bulan</li>
+<li>Q4. Toko kecil memiliki omzet bulan ini Rp300,000,000. Tarif PPh Final UMKM 0.5%. Berapa pajak bulan ini?
+Hint: Pajak = 0.5% × Omzet</li>
+<li>Q5. Seseorang memiliki Penghasilan Kena Pajak (PKP) sebesar Rp4,000,000. Hitung PPh 21 dengan tarif 5%.
+Hint: Pajak = 5% × PKP</li>
+<li>Q6. Harga sewa ruko per tahun Rp240,000,000. Tarif PPh Pasal 4 ayat (2) untuk sewa 10%. Berapa pajaknya?
+Hint: Pajak = 10% × Nilai Sewa</li>
+<li>Q7. Nilai barang Rp1,200,000. Tarif PPN 11%. Berapa PPN yang harus dipungut?
+Hint: Pajak = 11% × Harga Barang/Jasa</li>
+<li>Q8. Harga barang mewah Rp1,000,000,000. Tarif PPnBM 125%. Berapa PPnBM?
+Hint: Pajak = Tarif PPnBM × Harga Jual</li>
+<li>Q9. Perusahaan membagikan dividen sebesar Rp80,000,000. Tarif PPh 23 untuk dividen 15%. Berapa pajaknya?
+Hint: Pajak = 15% × Jumlah Dividen</li>
+<li>Q10. Perusahaan mengimpor barang senilai Rp350,000,000. Tarif PPh 22 impor adalah 2.5%. Berapa pajak?
+Hint: Pajak = 2.5% × Nilai Impor</li>
+</ul>
+</li>
+<li>Enaknya kita diberikan hint oleh probset, jadi tinggal bikin template jawab pertanyaan sesuai dengan rumus/hint yang diberikan. Yang rumit di sini yaitu parsing data string. Contohnya seperti Rp480,000,00 (nilai Rupiah) menjadi integer value atau 120% (persentase) ke float.</li>
+<li>Gampangnya tinggal kita replace aja karakter seperti [ <code>,</code> , <code>Rp</code> , <code>.</code>  , dan <code>/kg</code> ] menjadi string kosong aja <code>&quot;&quot;</code>. Lalu, untuk presentase ke float tinggal ubah karakter <code>%</code> di belakang angka menjadi string kosong <code>&quot;&quot;</code> dan <strong>dibagi dengan 100.0</strong>.</li>
+<li>Berikut adalah final solver untuk dapat flag:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;korteks.hackincelebes.org&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5001</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">####################</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># FUNCTION HELPERS #</span>
+</span></span><span class="line"><span class="cl"><span class="c1">####################</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. Convert &#34;RpX.XXX.XXX&#34; or &#34;RpX,XXX,XXX&#34; or &#34;X,XXX&#34; or &#34;X.XXX.XXX&#34; to valid integer value</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_to_int</span><span class="p">(</span><span class="n">rp</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">rp</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;Rp&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;/kg&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2. Convert percentage string &#34;X%&#34; to float 0.X</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">convert_to_percent</span><span class="p">(</span><span class="n">percent_str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">percent_value</span> <span class="o">=</span> <span class="n">percent_str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;%&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">percent_value</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3. Clean question list - remove everything after &#34;Hint:&#34; or &#34;Jawaban:&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">clean_question</span><span class="p">(</span><span class="n">quest_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Find index of &#34;Hint:&#34; or &#34;Jawaban:&#34; if exists, then remove everything after it</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hint_idx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">quest_list</span><span class="p">)</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&#34;Hint:&#34;</span><span class="p">,</span> <span class="s2">&#34;Jawaban:&#34;</span><span class="p">,</span> <span class="s2">&#34;Answer:&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">quest_list</span><span class="p">[:</span><span class="n">hint_idx</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">quest_list</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">##############</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># MAIN LOGIC #</span>
+</span></span><span class="line"><span class="cl"><span class="c1">##############</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_ans</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;Known pattern questions:
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q1. Ada 4 dokumen yang masing-masing bernilai di atas Rp5.000.000. Bea materai per dokumen Rp10,000. Berapa Pajak Total?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = Rp10.000 × Jumlah Dokumen
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q2. Sebuah pembangkit menghasilkan 5,000 kg CO2e di atas batas. Tarif pajak karbon Rp30/kg. Berapa pajaknya?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = Rp30 × Jumlah Emisi (kg)
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q3. Sebuah perusahaan memperkirakan PPh terutang tahun ini Rp480,000,000. Berapa angsuran PPh 25 per bulan?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = Total PPh ÷ 12 bulan
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q4. Toko kecil memiliki omzet bulan ini Rp300,000,000. Tarif PPh Final UMKM 0.5%. Berapa pajak bulan ini?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = 0.5% × Omzet
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q5. Seseorang memiliki Penghasilan Kena Pajak (PKP) sebesar Rp4,000,000. Hitung PPh 21 dengan tarif 5%.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = 5% × PKP
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q6. Harga sewa ruko per tahun Rp240,000,000. Tarif PPh Pasal 4 ayat (2) untuk sewa 10%. Berapa pajaknya?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = 10% × Nilai Sewa
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q7. Nilai barang Rp1,200,000. Tarif PPN 11%. Berapa PPN yang harus dipungut?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = 11% × Harga Barang/Jasa
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q8. Harga barang mewah Rp1,000,000,000. Tarif PPnBM 125%. Berapa PPnBM?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = Tarif PPnBM × Harga Jual
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q9. Perusahaan membagikan dividen sebesar Rp80,000,000. Tarif PPh 23 untuk dividen 15%. Berapa pajaknya?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = 15% × Jumlah Dividen
+</span></span></span><span class="line"><span class="cl"><span class="s2">  Q10. Perusahaan mengimpor barang senilai Rp350,000,000. Tarif PPh 22 impor adalah 2.5%. Berapa pajak?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Hint: Pajak = 2.5% × Nilai Impor
+</span></span></span><span class="line"><span class="cl"><span class="s2">  &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tax_ans</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q1. Ada X dokumen yang masing-masing bernilai di atas RpX. Bea materai per dokumen Rp10,000. Berapa Pajak Total?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Ada&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">total_docs</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">*</span> <span class="n">total_docs</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q2. Sebuah pembangkit menghasilkan X kg CO2e di atas batas. Tarif pajak karbon RpX/kg. Berapa pajaknya?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Sebuah&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;pembangkit&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">total_emission</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tarif</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="n">tarif</span> <span class="o">*</span> <span class="n">total_emission</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q3. Sebuah perusahaan memperkirakan PPh terutang tahun ini RpX. Berapa angsuran PPh 25 per bulan?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Sebuah&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;perusahaan&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pph_25</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="n">pph_25</span> <span class="o">//</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q4. Toko kecil memiliki omzet bulan ini RpX. Tarif PPh Final UMKM 0.5%. Berapa pajak bulan ini?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Toko&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;kecil&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">omzet</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="mf">0.005</span> <span class="o">*</span> <span class="n">omzet</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q5. Seseorang memiliki Penghasilan Kena Pajak (PKP) sebesar RpX. Hitung PPh 21 dengan tarif 5%.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Seseorang&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;memiliki&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pkp</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">pkp</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q6. Harga sewa ruko per tahun RpX. Tarif PPh Pasal 4 ayat (2) untuk sewa 10%. Berapa pajaknya?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Harga&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;sewa&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q7. Nilai barang RpX. Tarif PPN 11%. Berapa PPN yang harus dipungut?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Nilai&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;barang&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n_barang</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="mf">0.11</span> <span class="o">*</span> <span class="n">n_barang</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q8. Harga barang mewah RpX. Tarif PPnBM 125%. Berapa PPnBM?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Harga&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;barang&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mewah&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">selling_price</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PPnBM</span> <span class="o">=</span> <span class="n">convert_to_percent</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="n">PPnBM</span> <span class="o">*</span> <span class="n">selling_price</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q9. Perusahaan membagikan dividen sebesar RpX. Tarif PPh 23 untuk dividen 15%. Berapa pajaknya?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Perusahaan&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;membagikan&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dividend</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_rate</span> <span class="o">=</span> <span class="n">convert_to_percent</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="n">dividend</span> <span class="o">*</span> <span class="n">tax_rate</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Q10. Perusahaan mengimpor barang senilai RpX. Tarif PPh 22 impor adalah 2.5%. Berapa pajak?</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">question</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Perusahaan&#39;</span> <span class="ow">and</span> <span class="n">question</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;mengimpor&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">import_value</span> <span class="o">=</span> <span class="n">convert_to_int</span><span class="p">(</span><span class="n">question</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="mf">0.025</span> <span class="o">*</span> <span class="n">import_value</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Unknown question.</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Unknown question pattern: </span><span class="si">{</span><span class="n">question</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">tax_ans</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">solve</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Total questions is 50</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">q_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">51</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Q</span><span class="si">{</span><span class="n">q_num</span><span class="si">}</span><span class="s2">. &#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raw_quest</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">quest</span> <span class="o">=</span> <span class="n">clean_question</span><span class="p">(</span><span class="n">raw_quest</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># log.info(f&#34;Raw Question {q_num}: {&#39; &#39;.join(raw_quest[:10])}...&#34;)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Question </span><span class="si">{</span><span class="n">q_num</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">quest</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">tax_ans</span> <span class="o">=</span> <span class="n">get_ans</span><span class="p">(</span><span class="n">quest</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Answer: </span><span class="si">{</span><span class="n">tax_ans</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tax_ans</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># Check response</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">  <span class="n">flag</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;flag\{.*\}&#34;</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">recvall</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">flag</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;FLAG --&gt; </span><span class="si">{</span><span class="n">flag</span><span class="o">.</span><span class="n">group</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&#34;FLAG NOT FOUND&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">solve</span><span class="p">()</span></span></span></code></pre></div></div>
+<ul>
+<li>POC dapat flag:</li>
+</ul>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># ... output omitted ...</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Question 50: Sebuah pembangkit menghasilkan 50,000 kg CO2e di atas batas. Tarif pajak karbon Rp30/kg. Berapa pajaknya?
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Answer: <span class="m">1500000</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> Receiving all data: Done <span class="o">(</span>78B<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>*<span class="o">]</span> Closed connection to korteks.hackincelebes.org port <span class="m">5001</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>+<span class="o">]</span> FLAG --&gt; flag<span class="o">{</span>_w3lc0me_t0_kota_daeng_pur_<span class="o">}</span></span></span></code></pre></div></div>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>flag{<em>w3lc0me_t0_kota_daeng_pur</em>}</strong></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-11-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/national/">National</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a>,&nbsp;<a href="/tags/misc/">Misc</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2025/10/pdf-kmipn-vii-ctf-finals-writeup/" class="prev" rel="prev" title="(PDF) KMIPN VII CTF Finals Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>(PDF) KMIPN VII CTF Finals Writeup</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script><script>
+            var doNotTrack = false;
+            if ( false ) {
+                var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+                var doNotTrack = (dnt == "1" || dnt == "yes");
+            }
+            if (!doNotTrack) {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-LHYL3DDVEV');
+            }
+        </script><script src="https://www.googletagmanager.com/gtag/js?id=G-LHYL3DDVEV" async></script></body>
+</html>

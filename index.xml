@@ -4,9 +4,38 @@
         <link>https://whyuhurtz.me/</link>
         <description>This is my cool site</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 29 Oct 2025 16:10:53 &#43;0700</lastBuildDate>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Sat, 01 Nov 2025 08:11:54 &#43;0700</lastBuildDate>
             <atom:link href="https://whyuhurtz.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>CTF IDSECCONF 2025 Registration Challenge Writeup</title>
+    <link>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-registration-challenge-writeup/</link>
+    <pubDate>Sat, 01 Nov 2025 08:11:54 &#43;0700</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-registration-challenge-writeup/</guid>
+    <description><![CDATA[My team got rank 10th at the registration challenge and qualified to the finals.
+<blockquote>
+<p>Hanya 10 tim pertama yang berhasil menyelesaikan registration challenge yang dapat mengikuti offline jeopardy di Makassar.</p>
+<p>Beruntung bagi 3 tim teratas yang mendapatkan potongan subsidi Rp2.000.000</p></blockquote>
+<h1 id="web--misc">Web + Misc</h1>
+<h2 id="purbyte">Purbyte</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Tantangannya disini:</p>
+<p><a href="https://reg.hackincelebes.org/" target="_blank" rel="noopener noreffer ">https://reg.hackincelebes.org/</a></p>
+</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<ul>
+<li>Diberikan chall web dukun. Langsung saja akses webnya dan ini yg tampil.</li>
+</ul>
+<p></p>]]></description>
+</item>
+<item>
     <title>(PDF) KMIPN VII CTF Finals Writeup</title>
     <link>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</link>
     <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
@@ -457,74 +486,6 @@
         </div>
         <div class="details-content">
             <div class="admonition-content"><p>Hallo Peserta Slashroot CTF #8, Pada Hari Ini Kita Akan Mengikuti Penyisihan CTF, Sebelum Memulai Kegiatan, Saya Sebagai Probset Ingin Menguji Kemampuan Temen&quot; Dalam Bidang Web Hacking, Ayo Teman&quot; Cobalah Exploit Web Sederhana Buatan Saya Dan Temukan Hak Akses Admin Dalam Sebuah Web Tersebut !, Siapa Tau Diantara Teman&quot; Dapat Menemukan Flag Tersembunyi Di Dalam Web Tersebut.</p>]]></description>
-</item>
-<item>
-    <title>Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]</title>
-    <link>https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/</link>
-    <pubDate>Sun, 18 Aug 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2024/08/hacktrace-ranges-ctf-2024-quals-writeup-full-boot2root/</guid>
-    <description><![CDATA[I managed to solved 3 boot2root challenges, even if it&#39;s only user flag.
-<h1 id="1-rocket">1. Rocket</h1>
-<h2 id="detail-tantangan">Detail Tantangan</h2>
-<table>
-  <thead>
-      <tr>
-          <th><strong>Level</strong></th>
-          <th>Easy</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>Points</strong></td>
-          <td>30 (User) &amp; 70 (Root)</td>
-      </tr>
-      <tr>
-          <td><strong>Machine IP</strong></td>
-          <td>10.1.2.233</td>
-      </tr>
-      <tr>
-          <td><strong>Machine OS</strong></td>
-          <td>Windows 10</td>
-      </tr>
-  </tbody>
-</table>
-<h2 id="langkah-penyelesaian">Langkah Penyelesaian</h2>
-<h3 id="port--service-enumeration">Port &amp; Service Enumeration</h3>
-<ul>
-<li>Saya menggunakan tool <code>rustscan</code> untuk mempercepat proses port scanning.</li>
-</ul>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-bash">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rustscan -a 10.1.2.233 -r 1-65535 --scripts default <span class="p">|</span> tee -a output_scan_all_ports.txt</span></span></code></pre></div></div>
-<ul>
-<li>Beberapa port yang open dan interesting antara lain:
-<ul>
-<li><strong>445</strong> (SMB)</li>
-<li><strong>135</strong> (MSRPC)</li>
-<li><strong>139</strong> (RPC)</li>
-<li><strong>3389</strong> (RDP)</li>
-<li><strong>8111</strong> (HTTP)</li>
-</ul>
-</li>
-</ul>
-<h3 id="rdp-enumeration">RDP Enumeration</h3>
-<ul>
-<li>Hasil scan service pada port 3389 (RDP) menggunakan <code>nmap</code>.</li>
-</ul>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-bash">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nmap -p <span class="m">3389</span> -sVC -v -oN output_scan_port_3389.txt 10.1.2.233</span></span></code></pre></div></div>
-<ul>
-<li>Tidak ada yang interesting untuk saat ini. Mungkin untuk <strong>Domain Name</strong> nanti berguna.</li>
-</ul>
-<p></p>]]></description>
 </item>
 </channel>
 </rss>
