@@ -4,7 +4,65 @@
         <link>https://whyuhurtz.me/tags/reverse/</link>
         <description>Reverse - Tag - whyuhurtz&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Thu, 27 Mar 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/reverse/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Mon, 22 Dec 2025 09:00:23 &#43;0700</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/reverse/" rel="self" type="application/rss+xml" /><item>
+    <title>HTB University CTF 2025 Writeup</title>
+    <link>https://whyuhurtz.me/2025/12/htb-university-ctf-2025-writeup/</link>
+    <pubDate>Mon, 22 Dec 2025 09:00:23 &#43;0700</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/12/htb-university-ctf-2025-writeup/</guid>
+    <description><![CDATA[My campus (Jakarta State Polytechnic) was successfully got 149th rank from 1014 teams with total 11900 pts.
+<h1 id="web-13">Web [1/3]</h1>
+<h2 id="silentsnow-very-easy">SilentSnow [very easy]</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The Snow-Post Owl Society, is responsible for delivering all important news, including this week&rsquo;s festival updates and RSVP confirmations, precisely at midnight. However, a malicious code of the Tinker&rsquo;s growing influence—has corrupted the automation on the official website. As a result, no one is receiving the crucial midnight delivery, which means the village doesn&rsquo;t have the final instructions for the Festival, including the required attire, times, dates, and locations. This is a direct consequence of the Tinker’s logic of restrictive festive code, ensuring that the joyful details are locked away. Your mission is to hack the official Snow-Post Owl Society website and find a way to bypass the corrupted code to trigger a mass resent of the latest article, ensuring the Festival details reach every resident before the lights dim forever.</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Bypass admin privilege to overwrite settings -&gt; register a new user as <strong>Administrator</strong> -&gt; Inject PHP payload to read the flag in the theme editor settings (choose the inactive theme, then activate the theme later) -&gt; Trigger the payload by visiting the modified theme.</div>
+        </div>
+    </div>
+<p><strong>Step 1: Reconnaissance</strong></p>]]></description>
+</item>
+<item>
+    <title>CTF IDSECCONF 2025 Finals Writeup</title>
+    <link>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/</link>
+    <pubDate>Wed, 12 Nov 2025 07:44:06 &#43;0700</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/</guid>
+    <description><![CDATA[My team got rank 7th at the final round.
+<h1 id="reverse-45">Reverse [4/5]</h1>
+<h2 id="1-peyek">1. peyek</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Download filenya di bawah</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Chall reverse sangat sederhana, yaitu <strong>constraint-based reversing</strong>. Cukup dekompilasi file <code>.pyc</code> yang diberikan dengan <a href="https://pylingual.io/" target="_blank" rel="noopener noreffer ">PyLingual</a> → analisis algoritma dekripsi kunci → dapat flag.</div>
+        </div>
+    </div>
+<p>Berikut adalah hasil dekompilasinya:</p>]]></description>
+</item>
+<item>
     <title>HTB Cyber Apocalypse 2025 Writeup</title>
     <link>https://whyuhurtz.me/2025/03/htb-cyber-apocalypse-2025-writeup/</link>
     <pubDate>Thu, 27 Mar 2025 00:00:00 &#43;0000</pubDate>

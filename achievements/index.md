@@ -3,6 +3,7 @@
 
 ## 2025
 
+- Finalist at IDSECCONF 2025 CTF - State University of Makassar (UNM)
 - 1st place at HOLOGY 8.0 CTF - Brawijaya University (UB)
 - 5th place (Finalist) at ITECHNO CUP CTF 2025 - Jakarta State Polytechnic (PNJ)
 

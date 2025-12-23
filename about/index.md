@@ -5,7 +5,7 @@
 
 {{< admonition type=tip title="📌 Click to show my CV" open=false >}}
 <iframe
-  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/CV-ATS_Wahyu-Priambodo_v4.pdf"
+  src="https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/whyuhurtz/hugo-blog/main/assets/pdf/CV-ATS_Wahyu-Priambodo_v5_rev.pdf"
   width="100%"
   height="500px"
   style="border: none;">

@@ -4,7 +4,36 @@
         <link>https://whyuhurtz.me/tags/pwn/</link>
         <description>Pwn - Tag - whyuhurtz&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Wed, 12 Nov 2025 07:44:06 &#43;0700</lastBuildDate><atom:link href="https://whyuhurtz.me/tags/pwn/" rel="self" type="application/rss+xml" /><item>
+    <title>CTF IDSECCONF 2025 Finals Writeup</title>
+    <link>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/</link>
+    <pubDate>Wed, 12 Nov 2025 07:44:06 &#43;0700</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/</guid>
+    <description><![CDATA[My team got rank 7th at the final round.
+<h1 id="reverse-45">Reverse [4/5]</h1>
+<h2 id="1-peyek">1. peyek</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Download filenya di bawah</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Chall reverse sangat sederhana, yaitu <strong>constraint-based reversing</strong>. Cukup dekompilasi file <code>.pyc</code> yang diberikan dengan <a href="https://pylingual.io/" target="_blank" rel="noopener noreffer ">PyLingual</a> → analisis algoritma dekripsi kunci → dapat flag.</div>
+        </div>
+    </div>
+<p>Berikut adalah hasil dekompilasinya:</p>]]></description>
+</item>
+<item>
     <title>(PDF) KMIPN VII CTF Finals Writeup</title>
     <link>https://whyuhurtz.me/2025/10/pdf-kmipn-vii-ctf-finals-writeup/</link>
     <pubDate>Wed, 15 Oct 2025 00:00:00 &#43;0000</pubDate>
@@ -71,7 +100,7 @@
 <ul>
 <li>Decompile <code>chall</code> file dengan IDA.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-c">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -114,7 +143,7 @@
 <ul>
 <li>Lakukan cyclic untuk mendapatkan offset ke saved $EBP.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -134,7 +163,7 @@
 <ul>
 <li>Oke, langsung saja kita buat solver script-nya.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-python">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>

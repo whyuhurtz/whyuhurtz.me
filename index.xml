@@ -4,9 +4,67 @@
         <link>https://whyuhurtz.me/</link>
         <description>This is my cool site</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><managingEditor>wahyupriambodo.sec@gmail.com (whyuhurtz)</managingEditor>
-            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Sat, 01 Nov 2025 08:11:54 &#43;0700</lastBuildDate>
+            <webMaster>wahyupriambodo.sec@gmail.com (whyuhurtz)</webMaster><copyright>&amp;copy; 2023-2025</copyright><lastBuildDate>Mon, 22 Dec 2025 09:00:23 &#43;0700</lastBuildDate>
             <atom:link href="https://whyuhurtz.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>HTB University CTF 2025 Writeup</title>
+    <link>https://whyuhurtz.me/2025/12/htb-university-ctf-2025-writeup/</link>
+    <pubDate>Mon, 22 Dec 2025 09:00:23 &#43;0700</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/12/htb-university-ctf-2025-writeup/</guid>
+    <description><![CDATA[My campus (Jakarta State Polytechnic) was successfully got 149th rank from 1014 teams with total 11900 pts.
+<h1 id="web-13">Web [1/3]</h1>
+<h2 id="silentsnow-very-easy">SilentSnow [very easy]</h2>
+<h3 id="description">Description</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The Snow-Post Owl Society, is responsible for delivering all important news, including this week&rsquo;s festival updates and RSVP confirmations, precisely at midnight. However, a malicious code of the Tinker&rsquo;s growing influence—has corrupted the automation on the official website. As a result, no one is receiving the crucial midnight delivery, which means the village doesn&rsquo;t have the final instructions for the Festival, including the required attire, times, dates, and locations. This is a direct consequence of the Tinker’s logic of restrictive festive code, ensuring that the joyful details are locked away. Your mission is to hack the official Snow-Post Owl Society website and find a way to bypass the corrupted code to trigger a mass resent of the latest article, ensuring the Festival details reach every resident before the lights dim forever.</div>
+        </div>
+    </div>
+<h3 id="solve-walkthrough">Solve Walkthrough</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Bypass admin privilege to overwrite settings -&gt; register a new user as <strong>Administrator</strong> -&gt; Inject PHP payload to read the flag in the theme editor settings (choose the inactive theme, then activate the theme later) -&gt; Trigger the payload by visiting the modified theme.</div>
+        </div>
+    </div>
+<p><strong>Step 1: Reconnaissance</strong></p>]]></description>
+</item>
+<item>
+    <title>CTF IDSECCONF 2025 Finals Writeup</title>
+    <link>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/</link>
+    <pubDate>Wed, 12 Nov 2025 07:44:06 &#43;0700</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-finals-writeup/</guid>
+    <description><![CDATA[My team got rank 7th at the final round.
+<h1 id="reverse-45">Reverse [4/5]</h1>
+<h2 id="1-peyek">1. peyek</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Download filenya di bawah</div>
+        </div>
+    </div>
+<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>TL;DR<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Chall reverse sangat sederhana, yaitu <strong>constraint-based reversing</strong>. Cukup dekompilasi file <code>.pyc</code> yang diberikan dengan <a href="https://pylingual.io/" target="_blank" rel="noopener noreffer ">PyLingual</a> → analisis algoritma dekripsi kunci → dapat flag.</div>
+        </div>
+    </div>
+<p>Berikut adalah hasil dekompilasinya:</p>]]></description>
+</item>
+<item>
     <title>CTF IDSECCONF 2025 Registration Challenge Writeup</title>
     <link>https://whyuhurtz.me/2025/11/ctf-idsecconf-2025-registration-challenge-writeup/</link>
     <pubDate>Sat, 01 Nov 2025 08:11:54 &#43;0700</pubDate>
@@ -102,7 +160,7 @@
 <ul>
 <li>Decompile <code>chall</code> file dengan IDA.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-c">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -145,7 +203,7 @@
 <ul>
 <li>Lakukan cyclic untuk mendapatkan offset ke saved $EBP.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -165,7 +223,7 @@
 <ul>
 <li>Oke, langsung saja kita buat solver script-nya.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-python">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -203,48 +261,6 @@
         </div>
         <div class="details-content">
             <div class="admonition-content"><p>Ramah Banget PWN Ini Sampe Dikasih Hint</p>]]></description>
-</item>
-<item>
-    <title>WRECK-IT CTF 5.0 Quals Writeup</title>
-    <link>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</link>
-    <pubDate>Fri, 22 Aug 2025 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</guid>
-    <description><![CDATA[I managed to solved 2 challenges, which are web and crypto.
-<h1 id="misc">Misc</h1>
-<h2 id="free-flag">Free Flag</h2>
-<h3 id="deskripsi">Deskripsi</h3>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><strong>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</strong></div>
-        </div>
-    </div>
-<h3 id="langkah-penyelesaian">Langkah Penyelesaian</h3>
-<ul>
-<li>Flag gratis untuk permulaan dan sudah tertera di challenge description. Jadi, tinggal masukan saja flagnya.</li>
-</ul>
-<h3 id="flag">Flag</h3>
-<div class="details admonition question">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Click to show the flag<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><code>WRECKIT50{just_ch3cking_f0r_y0ur_sani7y}</code></div>
-        </div>
-    </div>
-<hr>
-<h1 id="web">Web</h1>
-<h2 id="oshiku">Oshiku</h2>
-<h3 id="deskripsi-1">Deskripsi</h3>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>Challenge Sederhana. iya kan?</p>]]></description>
 </item>
 <item>
     <title>Install Ubuntu GNOME from Scratch using debootstrap</title>
@@ -469,23 +485,6 @@
 <ul>
 <li>
 <p>If the output shows an error: <code>no such file or directory</code>, then the firmware boot mode of your hardware is <strong>BIOS</strong>. Otherwise, you&rsquo;ll have to create <strong>ESP</strong> (EFI System Partition) later.</p>]]></description>
-</item>
-<item>
-    <title>Slashroot CTF 8.0 Quals Writeup</title>
-    <link>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</link>
-    <pubDate>Mon, 30 Sep 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</guid>
-    <description><![CDATA[I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit.
-<h1 id="web">Web</h1>
-<h2 id="1-login-begin">1. Login Begin</h2>
-<h3 id="deskripsi">Deskripsi</h3>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>Hallo Peserta Slashroot CTF #8, Pada Hari Ini Kita Akan Mengikuti Penyisihan CTF, Sebelum Memulai Kegiatan, Saya Sebagai Probset Ingin Menguji Kemampuan Temen&quot; Dalam Bidang Web Hacking, Ayo Teman&quot; Cobalah Exploit Web Sederhana Buatan Saya Dan Temukan Hak Akses Admin Dalam Sebuah Web Tersebut !, Siapa Tau Diantara Teman&quot; Dapat Menemukan Flag Tersembunyi Di Dalam Web Tersebut.</p>]]></description>
 </item>
 </channel>
 </rss>

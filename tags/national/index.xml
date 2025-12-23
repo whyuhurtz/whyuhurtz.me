@@ -100,7 +100,7 @@
 <ul>
 <li>Decompile <code>chall</code> file dengan IDA.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-c">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -143,7 +143,7 @@
 <ul>
 <li>Lakukan cyclic untuk mendapatkan offset ke saved $EBP.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-bash">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -163,7 +163,7 @@
 <ul>
 <li>Oke, langsung saja kita buat solver script-nya.</li>
 </ul>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-python">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -203,11 +203,28 @@
             <div class="admonition-content"><p>Ramah Banget PWN Ini Sampe Dikasih Hint</p>]]></description>
 </item>
 <item>
-    <title>WRECK-IT CTF 5.0 Quals Writeup</title>
-    <link>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</link>
-    <pubDate>Fri, 22 Aug 2025 00:00:00 &#43;0000</pubDate>
+    <title>Slashroot CTF 8.0 Quals Writeup</title>
+    <link>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</link>
+    <pubDate>Mon, 30 Sep 2024 00:00:00 &#43;0000</pubDate>
     <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2025/08/wreck-it-ctf-5.0-quals-writeup/</guid>
+    <guid>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</guid>
+    <description><![CDATA[I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit.
+<h1 id="web">Web</h1>
+<h2 id="1-login-begin">1. Login Begin</h2>
+<h3 id="deskripsi">Deskripsi</h3>
+<div class="details admonition info">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Hallo Peserta Slashroot CTF #8, Pada Hari Ini Kita Akan Mengikuti Penyisihan CTF, Sebelum Memulai Kegiatan, Saya Sebagai Probset Ingin Menguji Kemampuan Temen&quot; Dalam Bidang Web Hacking, Ayo Teman&quot; Cobalah Exploit Web Sederhana Buatan Saya Dan Temukan Hak Akses Admin Dalam Sebuah Web Tersebut !, Siapa Tau Diantara Teman&quot; Dapat Menemukan Flag Tersembunyi Di Dalam Web Tersebut.</p>]]></description>
+</item>
+<item>
+    <title>WRECK-IT CTF 5.0 Quals Writeup</title>
+    <link>https://whyuhurtz.me/2024/08/wreck-it-ctf-5.0-quals-writeup/</link>
+    <pubDate>Thu, 22 Aug 2024 00:00:00 &#43;0000</pubDate>
+    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
+    <guid>https://whyuhurtz.me/2024/08/wreck-it-ctf-5.0-quals-writeup/</guid>
     <description><![CDATA[I managed to solved 2 challenges, which are web and crypto.
 <h1 id="misc">Misc</h1>
 <h2 id="free-flag">Free Flag</h2>
@@ -243,23 +260,6 @@
         </div>
         <div class="details-content">
             <div class="admonition-content"><p>Challenge Sederhana. iya kan?</p>]]></description>
-</item>
-<item>
-    <title>Slashroot CTF 8.0 Quals Writeup</title>
-    <link>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</link>
-    <pubDate>Mon, 30 Sep 2024 00:00:00 &#43;0000</pubDate>
-    <author>wahyupriambodo.sec@gmail.com (whyuhurtz)</author>
-    <guid>https://whyuhurtz.me/2024/09/slashroot-ctf-8.0-quals-writeup/</guid>
-    <description><![CDATA[I managed to solve 6 challenges, which are forensic, joy, rev, and web exploit.
-<h1 id="web">Web</h1>
-<h2 id="1-login-begin">1. Login Begin</h2>
-<h3 id="deskripsi">Deskripsi</h3>
-<div class="details admonition info">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Click to show the desc<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>Hallo Peserta Slashroot CTF #8, Pada Hari Ini Kita Akan Mengikuti Penyisihan CTF, Sebelum Memulai Kegiatan, Saya Sebagai Probset Ingin Menguji Kemampuan Temen&quot; Dalam Bidang Web Hacking, Ayo Teman&quot; Cobalah Exploit Web Sederhana Buatan Saya Dan Temukan Hak Akses Admin Dalam Sebuah Web Tersebut !, Siapa Tau Diantara Teman&quot; Dapat Menemukan Flag Tersembunyi Di Dalam Web Tersebut.</p>]]></description>
 </item>
 <item>
     <title>Hacktrace-Ranges CTF 2024 Quals Writeup [Full Boot2Root]</title>
